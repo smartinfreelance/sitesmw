@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-	<title>Home</title>
+	<?php
+		echo "<title>".ucfirst($modulo)."</title>";
+	?>
 	<meta charset="utf-8">
 	<meta name = "format-detection" content = "telephone=no" />
 	<link rel="icon" href="images/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="css/grid.css">
 	<link rel="stylesheet" href="css/style.css">
+	<!-- index -->
 	<link rel="stylesheet" href="css/camera.css">
 	<link rel="stylesheet" href="css/owl.carousel.css">
+	<!-- index -->
 
 	<script src="js/jquery.js"></script>
 	<script src="js/jquery-migrate-1.2.1.js"></script>
+	<!-- index -->
 	<script src='js/camera.js'></script>
 	<script src="js/owl.carousel.js"></script>
+	<!-- index -->
 	<script src="js/jquery.stellar.js"></script>
 	<script src="js/script.js"></script>
 	<!--[if (gt IE 9)|!(IE)]><!-->
+	<!-- index -->
 	<script src="js/jquery.mobile.customized.min.js"></script>
+	<!-- index -->
 	<script src="js/wow.js"></script>
 	<script>
 		$(document).ready(function () {
@@ -49,7 +57,7 @@
 					<h1><a href="index.html">SMartin</a><span>diseño y desarrollo web</span></h1>
 					<nav>
 						<ul class="sf-menu">
-							<li class="current"><a href="index.html">Home</a>
+							<li<?php if("modulo"=="home") echo "class='current'"; ?>><a href="index.html">Home</a>
 								<ul>
 									<li><a href="#">Lorem ipsum</a></li>
 									<li><a href="#">Lorem ipsum</a>
@@ -62,10 +70,10 @@
 									<li><a href="#">Lorem ipsum</a></li>
 								</ul>
 							</li>
-							<li><a href="index-1.html">Productos</a></li>
-							<li><a href="index-2.html">Servicios</a></li>
-							<li><a href="index-3.html">WebBlog</a></li>
-							<li><a href="index-4.html">Contacto</a></li>
+							<li<?php if("modulo"=="productos") echo "class='current'"; ?>><a href="index-1.html">Productos</a></li>
+							<li<?php if("modulo"=="servicios") echo "class='current'"; ?>><a href="index-2.html">Servicios</a></li>
+							<li<?php if("modulo"=="webblog") echo "class='current'"; ?>><a href="index-3.html">WebBlog</a></li>
+							<li<?php if("modulo"=="contacto") echo "class='current'"; ?>><a href="index-4.html">Contacto</a></li>
 						</ul>
 					</nav>
 				</div>

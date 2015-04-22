@@ -16,6 +16,7 @@
 	<div class="footer_bottom"><a href="http://www.templatemonster.com/" rel="nofollow"><img src="images/footer-logo.png" alt="logo"></a></div>
 </footer>
 <script>
+<!-- index -->
 	jQuery(function(){
 		jQuery('#camera_wrap').camera({
 			height: '34.58333333333333%',
@@ -44,6 +45,7 @@
 		});
 	});
 </script>
+<!-- index -->
 <script>
 	$(document).ready(function() { 
 			if ($('html').hasClass('desktop')) {
