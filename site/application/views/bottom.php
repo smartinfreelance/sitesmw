@@ -8,15 +8,15 @@
 				<a href="#" class="btn bd-ra"><span class="fa fa-facebook"></span></a>
 				<a href="#" class="btn bd-ra"><span class="fa fa-tumblr"></span></a>
 				<a href="#" class="btn bd-ra"><span class="fa fa-google-plus"></span></a>
-				<pre>© <span id="copyright-year"></span> |  Privacy Policy</pre>
-				More Advertising Agency Website Templates at <a rel="nofollow" href="http://www.templatemonster.com/category/advertising-agency-website-templates/" target="_blank">TemplateMonster.com</a>
 			</div>
 		</div>
 	</div>
 	<div class="footer_bottom"><a href="http://www.templatemonster.com/" rel="nofollow"><img src="images/footer-logo.png" alt="logo"></a></div>
 </footer>
+<?php
+	if(($modulo=="home")||($modulo=="productos")){
+?>
 <script>
-<!-- index -->
 	jQuery(function(){
 		jQuery('#camera_wrap').camera({
 			height: '34.58333333333333%',
@@ -31,6 +31,9 @@
 		});
 	});
 </script>
+<?php
+		if($modulo=="home"){
+?>
 <script>
 	$(document).ready(function() {
 		$(".owl-carousel").owlCarousel({
@@ -45,7 +48,23 @@
 		});
 	});
 </script>
-<!-- index -->
+<?php
+		}
+	}
+?>
+
+<?php
+	if($modulo=="servicios"){
+?>
+<script>
+	$(function(){
+		$('#touch_gallery a').touchTouch();
+	});
+</script>
+	<?php
+		}
+	?>
+
 <script>
 	$(document).ready(function() { 
 			if ($('html').hasClass('desktop')) {
@@ -58,5 +77,44 @@
 			}
 		});
 </script>
+<?php
+	if($modulo=="contacto"){
+?>
+<script type="text/javascript">
+	google_api_map_init();
+	function google_api_map_init(){
+		var map;
+		var coordData = new google.maps.LatLng(parseFloat(40.650408), parseFloat(-73.950030,12));
+		var markCoord1 = new google.maps.LatLng(parseFloat(40.650408), parseFloat(-73.950030));
+		var marker;
+		
+		function initialize() {
+			var mapOptions = {
+				zoom: 14,
+				center: coordData,
+				scrollwheel: false,
+			}
+
+			var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+			
+			marker = new google.maps.Marker({
+				map:map,
+				position: markCoord1,
+			});
+
+			google.maps.event.addDomListener(window, 'resize', function() {
+				map.setCenter(coordData);
+				var center = map.getCenter();
+			});
+		}
+
+		google.maps.event.addDomListener(window, "load", initialize); 
+
+	}
+
+</script>
+<?php
+	}
+?>
 </body>
 </html>
