@@ -1,5 +1,5 @@
 function include(url){
-  document.write('<script src="'+url+'"></script>');
+  document.write('<script src="http://localhost/sitesmw/site/'+url+'"></script>');
   return false ;
 }
 
