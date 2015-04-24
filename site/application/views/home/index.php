@@ -4,113 +4,135 @@
 			<div id="camera_wrap">
 				<div class="item" data-src=<?php echo base_url()."images/index_img_slider-1.jpg";?>>
 					<div class="camera_caption fadeIn">
-						<h3>We'll Give Your Business Fresh Ideas</h3>
-						<p>Contact Us by</p>
-						<a href="#" class="btn bd-ra"><span class="fa fa-envelope-o"></span></a>
-						<a href="#" class="btn bd-ra"><span class="fa fa-phone"></span></a>
-						<a href="#" class="btn bd-ra"><span class="fa fa-map-marker"></span></a>
+						<h3>Bienvenido.</h3>
+						<p>Diseño y desarrollo herramientas web. Conoceme.</p>
+						<a href="#conoceme" class="btn bd-ra"><span class="fa fa-smile-o"></span></a>
 					</div>
 				</div>
 				<div class="item" data-src=<?php echo base_url()."images/index_img_slider-2.jpg";?>>
 					<div class="camera_caption fadeIn">
-						<h3>We'll Make You Noticeable</h3>
-						<p>Contact Us by</p>
-						<a href="#" class="btn bd-ra"><span class="fa fa-envelope-o"></span></a>
-						<a href="#" class="btn bd-ra"><span class="fa fa-phone"></span></a>
-						<a href="#" class="btn bd-ra"><span class="fa fa-map-marker"></span></a>
+						<h3>La pieza que necesitas</h3>
+						<p>Genero herramientas para conseguir soluciones</p>
+						<a href="#productos" class="btn bd-ra"><span class="fa fa-puzzle-piece"></span></a>
+					</div>
+				</div>
+				<div class="item" data-src=<?php echo base_url()."images/index_img_slider-1.jpg";?>>
+					<div class="camera_caption fadeIn">
+						<h3>Diseños a tu Medida</h3>
+						<p>Atencion personalizada</p>
+						<a href="#amedida" class="btn bd-ra"><span class="fa fa-code"></span></a>
+					</div>
+				</div>
+				<div class="item" data-src=<?php echo base_url()."images/index_img_slider-2.jpg";?>>
+					<div class="camera_caption fadeIn">
+						<h3>No te quedes con dudas</h3>
+						<p>Enviame tu consulta.</p>
+						<?php echo anchor('start/verContacto', '<span class="fa fa-at"></span>', 'class="btn bd-ra"'); ?>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="full-width-container block-2">
-		<div class="container">
-			<div class="row">
-				<div class="grid_12">
-					<header>
-						<h2><span>Welcome to Our Agency</span></h2>
-					</header>
-					<h4><a href="#">Nullam Concester Tur Nerto</a></h4>
-					<p>Gamus at magna non nunc tristique rhoncuseri tym. Aliquam nibh ante, egestas id dictum aterert commodo re luctus libero. Praesent faucibus malesuada cibuste. Donec laoreet metus id laoreet malesuada. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur orci sed rabitur vel lorem sit amet nulla ullamcorper fermentum. <br><br>In vitae varius augue, eu consectetur ligula. Etiam dui eros, laoreet sit amet est vel, commodo venenatis eros. Donec laoreet metus id laoreet malesuada. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-					<a href="#" class="btn">more</a>
+	<div id="conoceme">	
+		<div class="full-width-container block-2">
+			<div class="container">
+				<div class="row">
+					<div class="grid_12">
+						<header>
+							<h2><span>Me presento</span></h2>
+						</header>
+					</div>
+					<div class="grid_4">
+						<div class="img_container"><img src="<?php echo base_url(); ?>images/index-1_img-1.jpg" alt="img"></div>
+					</div>
+					<div class="grid_7 preffix_1">
+						<p>Bienvenido, gracias por pasar por mi web. Mi nombre es Sergio Martín Medina, desarrollo sistemas de sistemas hace mas de 6 años. Siempre me desempeñé laboralmente en el ambito informatico y de sistemas. Desarrolle sistemas relacionados con  diferentes rubros: Servicios, Marketing, Publicidad y Finanzas, entre otros. Recorriendo diversos lenguajes de programacion y por proyectos de multiples tamaños, desde PyMES hasta multinacionales.</p>
+						<p>Algunas de las tecnologias que domino son: JAVA, Javascript, PHP, MySQL, CSS Y HTML5. </p>
+						<p>Al trabajar de forma independiente me interiorizo con las necesidades de mis clientes por lo que es prioridad su satisfaccion. </p>
+						<a href="#" class="btn">More</a>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="full-width-container block-3 parallax-block" data-stellar-background-ratio="0.5">
-		<div class="container">
-			<div class="row">
-				<div class="grid_12">
-					<header>
-						<h2><span>Services</span></h2>
-					</header>
-				</div>
-				<div class="grid_4">
-					<div class="element"><h3><a href="#">Branding</a></h3></div>
-				</div>
-				<div class="grid_4">
-					<div class="element"><h3><a href="#">Graphic Design</a></h3></div>
-				</div>
-				<div class="grid_4">
-					<div class="element"><h3><a href="#">Film + Video</a></h3></div>
-				</div>
-				<div class="grid_4">
-					<div class="element"><h3><a href="#">Social Media</a></h3></div>
-				</div>
-				<div class="grid_4">
-					<div class="element"><h3><a href="#">Website Marketing</a></h3></div>
-				</div>
-				<div class="grid_4">
-					<div class="element"><h3><a href="#">Media & Design</a></h3></div>
+	<div id="productos">
+		<div class="full-width-container block-3 parallax-block" data-stellar-background-ratio="0.5">
+			<div class="container">
+				<div class="row">
+					<div class="grid_12">
+						<header>
+							<h2><span>Productos</span></h2>
+						</header>
+					</div>
+					<div class="grid_4">
+						<div class="element"><h3><a href="#">Stock</a></h3></div>
+					</div>
+					<div class="grid_4">
+						<div class="element"><h3><a href="#">Facturacion</a></h3></div>
+					</div>
+					<div class="grid_4">
+						<div class="element"><h3><a href="#">Administracion</a></h3></div>
+					</div>
+					<div class="grid_4">
+						<div class="element"><h3><a href="#">Inmobiliario</a></h3></div>
+					</div>
+					<div class="grid_4">
+						<div class="element"><h3><a href="#">Diseño Web</a></h3></div>
+					</div>
+					<div class="grid_4">
+						<div class="element"><h3><a href="#">Desarrollo a Medida</a></h3></div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="full-width-container block-4">
-		<div class="container">
-			<div class="row">
-				<div class="grid_12">
-					<header>
-						<h2><span>Projects</span></h2>
-					</header>
+	<div id="amedida">
+		<div class="full-width-container block-4">
+			<div class="container">
+				<div class="row">
+					<div class="grid_12">
+						<header>
+							<h2><span>Algunos trabajos</span></h2>
+						</header>
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div id="owl-carousel" class="owl-carousel">
-					<div class="grid_4">
-						<div class="">
-							<div class="img_container"><img src=<?php echo base_url()."images/index_img-1.jpg";?> alt="img"></div>
-							<div class="owl-text">Lorem ipsum</div>
+				<div class="row">
+					<div id="owl-carousel" class="owl-carousel">
+						<div class="grid_4">
+							<div class="">
+								<div class="img_container"><img src=<?php echo base_url()."images/index_img-1.jpg";?> alt="img"></div>
+								<div class="owl-text">Lorem ipsum</div>
+							</div>
 						</div>
-					</div>
-					<div class="grid_4">
-						<div class="">
-							<div class="img_container"><img src=<?php echo base_url()."images/index_img-2.jpg";?> alt="img"></div>
-							<div class="owl-text">Derto minert</div>
+						<div class="grid_4">
+							<div class="">
+								<div class="img_container"><img src=<?php echo base_url()."images/index_img-2.jpg";?> alt="img"></div>
+								<div class="owl-text">Derto minert</div>
+							</div>
 						</div>
-					</div>
-					<div class="grid_4">
-						<div class="">
-							<div class="img_container"><img src=<?php echo base_url()."images/index_img-3.jpg";?> alt="img"></div>
-							<div class="owl-text">Sedrotr selimto</div>
+						<div class="grid_4">
+							<div class="">
+								<div class="img_container"><img src=<?php echo base_url()."images/index_img-3.jpg";?> alt="img"></div>
+								<div class="owl-text">Sedrotr selimto</div>
+							</div>
 						</div>
-					</div>
-					<div class="grid_4">
-						<div class="">
-							<div class="img_container"><img src=<?php echo base_url()."images/index_img-2.jpg";?> alt=""></div>
-							<div class="owl-text">Derto minert</div>
+						<div class="grid_4">
+							<div class="">
+								<div class="img_container"><img src=<?php echo base_url()."images/index_img-2.jpg";?> alt=""></div>
+								<div class="owl-text">Derto minert</div>
+							</div>
 						</div>
-					</div>
-					<div class="grid_4">
-						<div class="">
-							<div class="img_container"><img src=<?php echo base_url()."images/index_img-3.jpg";?> alt=""></div>
-							<div class="owl-text">Sedrotr selimto</div>
+						<div class="grid_4">
+							<div class="">
+								<div class="img_container"><img src=<?php echo base_url()."images/index_img-3.jpg";?> alt=""></div>
+								<div class="owl-text">Sedrotr selimto</div>
+							</div>
 						</div>
-					</div>
-					<div class="grid_4">
-						<div class="">
-							<div class="img_container"><img src=<?php echo base_url()."images/index_img-1.jpg";?> alt=""></div>
-							<div class="owl-text">Lorem ipsum</div>
+						<div class="grid_4">
+							<div class="">
+								<div class="img_container"><img src=<?php echo base_url()."images/index_img-1.jpg";?> alt=""></div>
+								<div class="owl-text">Lorem ipsum</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -122,7 +144,7 @@
 			<div class="row">
 				<div class="grid_12">
 					<header>
-						<h2><span>News</span></h2>
+						<h2><span>Novedades</span></h2>
 					</header>
 				</div>
 				<div class="grid_4">

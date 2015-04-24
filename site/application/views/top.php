@@ -18,7 +18,7 @@
 		}
 	?>
 	<?php
-		if($modulo=="servicios"){
+		if($modulo=="productos"){
 	?>
 	<link rel="stylesheet" href="<?php echo base_url();?>css/touchTouch.css">
 		<?php
@@ -35,7 +35,7 @@
 	<script src="<?php echo base_url();?>js/jquery.js"></script>
 	<script src="<?php echo base_url();?>js/jquery-migrate-1.2.1.js"></script>
 	<?php
-		if($modulo=="servicios"){
+		if($modulo=="productos"){
 	?>
 	<script src="<?php echo base_url();?>js/touchTouch.jquery.js"></script>
 		<?php
@@ -92,11 +92,11 @@
 		if($modulo == "home"){
 			$bodyClass = "index";
 		}else if($modulo == "productos"){
-			$bodyClass = "index-1";
-		}else if($modulo == "servicios"){
 			$bodyClass = "index-2";
-		}else if($modulo == "webblog"){
+		}else if($modulo == "servicios"){
 			$bodyClass = "index-3";
+		}else if($modulo == "webblog"){
+			$bodyClass = "index-1";
 		}else if($modulo == "contacto"){
 			$bodyClass = "index-4";
 		}
@@ -112,11 +112,11 @@
 					<span>diseño y desarrollo web</span></h1>
 					<nav>
 						<ul class="sf-menu">
-							<li<?php if("modulo"=="home") echo "class='current'"; ?>><?php echo anchor('start/index', 'Home', ''); ?></li>
-							<li<?php if("modulo"=="productos") echo "class='current'"; ?>><?php echo anchor('start/verProductos', 'Productos', ''); ?></li>
-							<li<?php if("modulo"=="servicios") echo "class='current'"; ?>><?php echo anchor('start/verServicios', 'Servicios', ''); ?></li>
-							<li<?php if("modulo"=="webblog") echo "class='current'"; ?>><?php echo anchor('start/verWebBlog', 'WebBlog', ''); ?></li>
-							<li<?php if("modulo"=="contacto") echo "class='current'"; ?>><?php echo anchor('start/verContacto', 'Contacto', ''); ?></li>
+							<li<?php if($modulo=="home"){?> class="current" <?php } ?>><?php echo anchor('start/index', 'Home', ''); ?></li>
+							<li<?php if($modulo=="productos"){ ?> class="current" <?php }?>><?php echo anchor('start/verProductos', 'Productos', ''); ?></li>
+							<li<?php if($modulo=="servicios"){ ?> class="current" <?php } ?>><?php echo anchor('start/verServicios', 'Servicios', ''); ?></li>
+							<li<?php if($modulo=="webblog"){ ?> class="current" <?php } ?>><?php echo anchor('start/verWebBlog', 'WebBlog', ''); ?></li>
+							<li<?php if($modulo=="contacto"){ ?> class="current" <?php } ?>><?php echo anchor('start/verContacto', 'Contacto', ''); ?></li>
 						</ul>
 					</nav>
 				</div>

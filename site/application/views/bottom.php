@@ -5,16 +5,17 @@
 		<div class="row">
 			<div class="grid_12 copyright">
 				<h2><span>Follow Us</span></h2>
+				<a href="#" class="btn bd-ra"><span class="fa fa-twitter"></span></a>
 				<a href="#" class="btn bd-ra"><span class="fa fa-facebook"></span></a>
-				<a href="#" class="btn bd-ra"><span class="fa fa-tumblr"></span></a>
-				<a href="#" class="btn bd-ra"><span class="fa fa-google-plus"></span></a>
+				<a href="#" class="btn bd-ra"><span class="fa fa-youtube"></span></a>
+				<a href="#" class="btn bd-ra"><span class="fa fa-linkedin"></span></a>
 			</div>
 		</div>
 	</div>
 	<div class="footer_bottom"><a href="http://www.templatemonster.com/" rel="nofollow"><img src="<?php echo base_url();?>images/footer-logo.png" alt="logo"></a></div>
 </footer>
 <?php
-	if(($modulo=="home")||($modulo=="productos")){
+	if(($modulo=="home")||($modulo=="webblog")){
 ?>
 <script>
 	jQuery(function(){
@@ -54,7 +55,7 @@
 ?>
 
 <?php
-	if($modulo=="servicios"){
+	if($modulo=="productos"){
 ?>
 <script>
 	$(function(){
@@ -116,5 +117,33 @@
 <?php
 	}
 ?>
+<script type="text/javascript">
+	$(function(){
+
+     $('a[href*=#]').click(function() {
+
+     if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
+         && location.hostname == this.hostname) {
+
+             var $target = $(this.hash);
+
+             $target = $target.length && $target || $('[name=' + this.hash.slice(1) +']');
+
+             if ($target.length) {
+
+                 var targetOffset = $target.offset().top;
+
+                 $('html,body').animate({scrollTop: targetOffset}, 1000);
+
+                 return false;
+
+            }
+
+       }
+
+   });
+
+});
+</script>
 </body>
 </html>

@@ -267,7 +267,7 @@ h2 span:before {
   bottom: 7px;
   background: #000;
   width: 100%;
-  content: "";
+  
   display: block;
   left: 0;
 }
@@ -281,7 +281,7 @@ h4 {
   font-size: 36px;
   line-height: 36px;
   font-family: 'Marvel', sans-serif;
-  text-align: center;
+  text-align: left;
   margin-top: 30px;
   margin-bottom: 30px;
 }
@@ -350,8 +350,8 @@ p {
   h4 {
     font: 30px/30px 'Marvel', sans-serif;
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
   h5 {
     font: 20px/20px 'Marvel', sans-serif;
@@ -420,7 +420,7 @@ p {
 }
 .index .block-2 {
   padding: 105px 0 130px;
-  text-align: center;
+  text-align: left;
 }
 .index .block-2 h2 {
   margin-bottom: 60px;
@@ -429,7 +429,7 @@ p {
   margin-bottom: 25px;
 }
 .index .block-2 p {
-  width: 66%;
+  width: 100%;
   margin: 0 auto;
 }
 .index .block-2 .btn {
