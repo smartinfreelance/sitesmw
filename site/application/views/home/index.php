@@ -2,28 +2,28 @@
 	<div class="full-width-container block-1">
 		<div class="camera_container">
 			<div id="camera_wrap">
-				<div class="item" data-src=<?php echo base_url()."images/index_img_slider-1.jpg";?>>
+				<div class="item" data-src=<?php echo base_url()."images/carousel-1.jpg";?>>
 					<div class="camera_caption fadeIn">
 						<h3>Bienvenido.</h3>
 						<p>Diseño y desarrollo herramientas web. Conoceme.</p>
 						<a href="#conoceme" class="btn bd-ra"><span class="fa fa-smile-o"></span></a>
 					</div>
 				</div>
-				<div class="item" data-src=<?php echo base_url()."images/index_img_slider-2.jpg";?>>
+				<div class="item" data-src=<?php echo base_url()."images/carousel-2.jpg";?>>
 					<div class="camera_caption fadeIn">
 						<h3>La pieza que necesitas</h3>
 						<p>Genero herramientas para conseguir soluciones</p>
 						<a href="#productos" class="btn bd-ra"><span class="fa fa-puzzle-piece"></span></a>
 					</div>
 				</div>
-				<div class="item" data-src=<?php echo base_url()."images/index_img_slider-1.jpg";?>>
+				<div class="item" data-src=<?php echo base_url()."images/carousel-3.jpg";?>>
 					<div class="camera_caption fadeIn">
 						<h3>Diseños a tu Medida</h3>
 						<p>Atencion personalizada</p>
 						<a href="#amedida" class="btn bd-ra"><span class="fa fa-code"></span></a>
 					</div>
 				</div>
-				<div class="item" data-src=<?php echo base_url()."images/index_img_slider-2.jpg";?>>
+				<div class="item" data-src=<?php echo base_url()."images/carousel-4.jpg";?>>
 					<div class="camera_caption fadeIn">
 						<h3>No te quedes con dudas</h3>
 						<p>Enviame tu consulta.</p>
