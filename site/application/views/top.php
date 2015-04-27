@@ -25,7 +25,7 @@
 		}
 	?>
 	<?php
-		if($modulo=="contacto"){
+		if(($modulo=="contacto")||($modulo=="login")){
 	?>
 	<link rel="stylesheet" href="<?php echo base_url();?>css/contact-form.css">
 	<?php
@@ -52,7 +52,7 @@
 	<script src="<?php echo base_url();?>js/jquery.stellar.js"></script>
 	<script src="<?php echo base_url();?>js/script.js"></script>
 	<?php
-		if($modulo=="contacto"){
+		if(($modulo=="contacto")||($modulo=="login")){
 	?>
 	<script src='//maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false'></script>
 	<?php
@@ -99,17 +99,23 @@
 			$bodyClass = "index-1";
 		}else if($modulo == "contacto"){
 			$bodyClass = "index-4";
+		}else{
+			$bodyClass = "index";
 		}
 	?>
 <body class=<?php echo $bodyClass; ?>>
 <!--==============================header=================================-->
 <header id="header">
+
 	<div id="stuck_container">
 		<div class="container">
 			<div class="row">
 				<div class="grid_12">
 					<h1><?php echo anchor('start/index', 'SMartin', ''); ?>
 					<span>diseño y desarrollo web</span></h1>
+					<?php 
+						if($modulo != 'login'){
+					?>
 					<nav>
 						<ul class="sf-menu">
 							<li<?php if($modulo=="home"){?> class="current" <?php } ?>><?php echo anchor('start/index', 'Home', ''); ?></li>
@@ -119,6 +125,9 @@
 							<li<?php if($modulo=="contacto"){ ?> class="current" <?php } ?>><?php echo anchor('start/verContacto', 'Contacto', ''); ?></li>
 						</ul>
 					</nav>
+					<?php	
+						}
+					?>	
 				</div>
 			</div>
 		</div>
