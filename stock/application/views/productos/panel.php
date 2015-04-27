@@ -3,11 +3,21 @@
 ?>
 <br />
 <?php 
+	echo anchor("productos/index", 'Productos'); 
+	echo " - ";
 	echo anchor("productos/addProducto", 'Agregar Producto'); 
 ?>
 <br />
 <?php 
-	echo anchor("productos/index", 'Productos'); 
+	echo anchor("roles/index", 'Roles'); 
+	echo " - ";
+	echo anchor("roles/addRol", 'Agregar Rol'); 
+?>
+<br />
+<?php 
+	echo anchor("categorias/index", 'Categorias'); 
+	echo " - ";
+	echo anchor("categorias/addCategoria", 'Agregar Categoria'); 
 ?>
 <br />
 <?php
