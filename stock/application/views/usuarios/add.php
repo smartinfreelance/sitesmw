@@ -12,6 +12,13 @@
 		<div class="control-group">
 			<div class="controls">
 				<div>
+					<input type="password" placeholder="Password" name="password" value="<?php echo set_value('password'); ?>">
+				</div>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<div>
 					<input type="text" placeholder="Nombre" name="nombre" value="<?php echo set_value('nombre'); ?>">
 				</div>
 			</div>

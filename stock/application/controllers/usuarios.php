@@ -49,7 +49,7 @@ class Usuarios extends CI_Controller
         if (($this->form_validation->run() == FALSE)){
             $this->addUsuario();            
         }else{
-            $this->usuariosCRUD->addUsuario($_POST['usuario'], $_POST['nombre'],$_POST['apellido'], $_POST['mail'],$_POST['fecha_nac'],$_POST['id_rol'],$_POST['dni']);
+            $this->usuariosCRUD->addUsuario($_POST['usuario'], $_POST['nombre'],$_POST['apellido'],$_POST['password'], $_POST['mail'],$_POST['fecha_nac'],$_POST['id_rol'],$_POST['dni']);
             $this->index();
 
         }
@@ -72,11 +72,13 @@ class Usuarios extends CI_Controller
 
     function confirmEditUsuario(){
         $idUsuario = $_POST['id'];
+        $this->form_validation->set_rules('usuario', 'Usuario', 'required');
         $this->form_validation->set_rules('nombre', 'Nombre', 'required');
-        $this->form_validation->set_rules('precio', 'Precio', 'required');
-        $this->form_validation->set_rules('stock_min', 'Stock Minimo', 'required|numeric');
-        $this->form_validation->set_rules('stock_max', 'Stock Maximo', 'required|numeric');
-        $this->form_validation->set_rules('stock', 'Stock', 'required|numeric');
+        $this->form_validation->set_rules('apellido', 'Apellido', 'required');
+        $this->form_validation->set_rules('mail', 'Mail', 'required');
+        $this->form_validation->set_rules('fecha_nac', 'Fecha de Nacimiento', 'required');
+        $this->form_validation->set_rules('id_rol', 'Rol', 'required');
+        $this->form_validation->set_rules('dni', 'DNI', 'required');
 
         if (($this->form_validation->run() == FALSE)){
             $usuario = $this->usuariosCRUD->getUsuario($idUsuario);
@@ -94,7 +96,7 @@ class Usuarios extends CI_Controller
 
 
         }else{
-            $this->usuariosCRUD->editUsuario($idUsuario,$_POST['nombre'], $_POST['precio'], $_POST['id_categoria'], $_POST['stock'], $_POST['stock_min'], $_POST['stock_max']);
+            $this->usuariosCRUD->editUsuario($_POST['id'], $_POST['usuario'], $_POST['nombre'],$_POST['apellido'], $_POST['mail'],$_POST['fecha_nac'],$_POST['id_rol'],$_POST['dni']);
 
             $this->index();
 

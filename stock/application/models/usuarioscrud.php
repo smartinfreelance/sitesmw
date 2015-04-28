@@ -34,7 +34,7 @@ class UsuariosCRUD extends CI_Model {
 		return $query->result();
     }
 //
-    function addUsuario($usuario, $nombre,$apellido, $mail,$fecha_nac,$id_rol,$dni){
+    function addUsuario($usuario, $nombre,$apellido,$password, $mail,$fecha_nac,$id_rol,$dni){
     	$query= $this->db->query("insert into 
     								usuarios (
     									usuario,
@@ -43,7 +43,8 @@ class UsuariosCRUD extends CI_Model {
     									apellido,
     									dni,
     									fecha_nac,
-    									id_rol
+    									id_rol,
+    									mail
     									) 
     								values (
     									'".$usuario."',
@@ -51,8 +52,9 @@ class UsuariosCRUD extends CI_Model {
     									'".$nombre."',
     									'".$apellido."',
     									".$dni.",
-    									".$fecha_nac.",
-    									".$id_rol."
+    									'".$fecha_nac."',
+    									".$id_rol.",
+    									'".$mail."'
     									)");
 		return 0;
 
@@ -80,7 +82,7 @@ class UsuariosCRUD extends CI_Model {
 		return $query->result();
 
     }
-	function editUsuario($idUsuario,$nombre, $precio, $id_categoria, $stock, $stock_min, $stock_max){
+	function editUsuario($id, $usuario, $nombre, $apellido, $mail, $fecha_nac, $id_rol, $dni){
 		$query= $this->db->query("update 
 										usuarios 
 									set 
@@ -92,7 +94,7 @@ class UsuariosCRUD extends CI_Model {
 	        							mail = '".$mail."',  
 	        							fecha_nac = '".$fecha_nac."' 
 									where 
-										id = ".$idUsuario);
+										id = ".$id);
 		return 0;
 	}
 

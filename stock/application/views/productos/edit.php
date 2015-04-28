@@ -43,7 +43,7 @@
 																			echo "selected = 'selected'";
 																		}
 																	}else{
-																		if((set_value('precio')) == $c->id){
+																		if((set_value('id_categoria')) == $c->id){
 																			echo "selected = 'selected'";
 																		}
 																	}

@@ -72,8 +72,8 @@ class Productos extends CI_Controller
         $idProducto = $_POST['id'];
         $this->form_validation->set_rules('nombre', 'Nombre', 'required');
         $this->form_validation->set_rules('precio', 'Precio', 'required');
-        $this->form_validation->set_rules('stock_min', 'Stock Minimo', 'required|numeric');
-        $this->form_validation->set_rules('stock_max', 'Stock Maximo', 'required|numeric');
+        $this->form_validation->set_rules('stock_min', 'Stock Minimo', 'required|numeric|greater_than[0]');
+        $this->form_validation->set_rules('stock_max', 'Stock Maximo', 'required|numeric|greater_than['.$_POST["stock_min"].']');
         $this->form_validation->set_rules('stock', 'Stock', 'required|numeric');
 
         if (($this->form_validation->run() == FALSE)){

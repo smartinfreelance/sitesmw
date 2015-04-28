@@ -38,9 +38,9 @@
 		echo " - ";
 		echo $u->mail;
 		echo " - ";
-		echo anchor("productos/editUsuario/".$u->id, 'Editar Usuario'); 
+		echo anchor("usuarios/editUsuario/".$u->id, 'Editar Usuario'); 
 		echo " - ";
-		echo anchor("productos/eliminarUsuario/".$u->id, 'Eliminar Usuario'); 
+		echo anchor("usuarios/eliminarUsuario/".$u->id, 'Eliminar Usuario'); 
 		echo "<br />";
 	}
 ?>
