@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "php/login";
+$route['default_controller'] = "minilinks";
 $route['404_override'] = '';
 
 
