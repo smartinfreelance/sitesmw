@@ -23,6 +23,24 @@ class CategoriasCRUD extends CI_Model {
 		return $query->result();
     }
 
+    function getDiezCategorias($nroPagina=0)
+    {
+        /*
+        $this->db->where("usuario = '".$usuario."'");
+        $this->db->where("password = md5('".$password."')");
+        return $this->db->get('usuarios')->result();  */
+        $query = $this->db->query("select 
+                                        categorias.id as id, 
+                                        categorias.nombre as nombre
+                                    from 
+                                        categorias 
+                                    where 
+                                        categorias.estado = 0
+                                    limit
+                                        ".$nroPagina.",10");
+        return $query->result();
+    }
+
     function addCategoria($nombre){
         $query= $this->db->query("insert into 
                                     categorias (
@@ -65,6 +83,25 @@ class CategoriasCRUD extends CI_Model {
                                         id = ".$idCategoria);
         return 0;
     }
+
+    /*PAGINATION FUNCTIONS*/
+    function getCantCategorias(){
+
+        $query= $this->db->query("select 
+                                    count(*) as numrows
+                                from 
+                                        categorias 
+                                    where 
+                                        categorias.estado = 0");
+        if ($query->num_rows() == 0)
+            return '0';
+
+        $row = $query->row();
+        return $row->numrows;
+    }
+
+
+    /**/
 	
 }
 ?>

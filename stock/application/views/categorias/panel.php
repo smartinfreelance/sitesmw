@@ -1,35 +1,63 @@
-<?php
-	echo anchor("login/login/intenta_desloggear", 'Desloguearse');
-?>
-<br />
-<?php 
-	echo anchor("productos/index", 'Productos'); 
-	echo " - ";
-	echo anchor("productos/addProducto", 'Agregar Producto'); 
-?>
-<br />
-<?php 
-	echo anchor("roles/index", 'Roles'); 
-	echo " - ";
-	echo anchor("roles/addRol", 'Agregar Rol'); 
-?>
-<br />
-<?php 
-	echo anchor("categorias/index", 'Categorias'); 
-	echo " - ";
-	echo anchor("categorias/addCategoria", 'Agregar Categoria'); 
-?>
-<br />
-<?php
-	foreach($categorias as $c){
-		echo $c->id;
-		echo " - ";
-		echo $c->nombre;
-		echo " - ";
-		echo " - ";
-		echo anchor("categorias/editCategoria/".$c->id, 'Editar Categoria'); 
-		echo " - ";
-		echo anchor("categorias/eliminarCategoria/".$c->id, 'Eliminar Categoria'); 
-		echo "<br />";
-	}
-?>
+<div id = "main-content">
+	<div class = "container">
+		<ul class="breadcrumb">
+  			<li class="active">Categorias</li>
+		</ul>
+		<?php echo anchor(
+					'categorias/addCategoria',
+					"Agregar Categoria", 
+					array("class"=>'btn btn-success')); 
+		?><br />
+		<br />
+		<div class='container' align='center'>
+			<ul class = 'breadcrumb'>
+				<li>
+					<?php echo $links; ?>
+				</li>
+			</ul>
+		</div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>
+						#ID
+					</th>
+					<th>
+						Nombre
+					</th>
+					<th>
+						Acciones
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+		<?php
+			foreach($categorias as $c){
+		?>
+				<tr>
+					<td>
+		<?php					
+				echo $c->id;
+		?>
+				</td>
+				<td>
+		<?php
+				echo $c->nombre;
+		?>
+				</td>
+				<td>
+		<?php
+				echo anchor("categorias/editCategoria/".$c->id, '<i class="icon-edit"></i>'); 
+				echo "&nbsp; &nbsp; &nbsp;";
+				echo anchor("categorias/eliminarCategoria/".$c->id, '<i class="icon-trash"></i>');
+		?>
+				</td>
+				</tr>
+		<?php
+			}
+		?>
+
+			</tbody>
+		</table>
+	</div>
+</div>
