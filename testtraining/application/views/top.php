@@ -49,10 +49,37 @@
 					</div>
 				</div>
 				<ul class="nav pull-right">
-					<li>
-						<?php
-							echo anchor('login/login/intenta_desloggear', '<i class="icon-share-alt icon-white"></i> Logout');
-						?>
+					<li class="dropdown closed">
+						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+							<?php 
+								echo $this->session->userdata('nombre');
+							?> 
+							<i class="white-icons admin_user"></i>
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<?php
+									echo anchor('usuario/verMiCuenta', '<i class="icon-briefcase"></i> Mi Cuenta');
+								?>
+							</li>
+							<li>
+								<?php
+									echo anchor('usuario/verMiPerfil', '<i class="icon-file"></i> Ver Perfil');
+								?>
+							</li>
+							<li>
+								<?php
+									echo anchor('usuario/editarMiPerfil', '<i class="icon-pencil"></i> Editar Perfil');
+								?>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<?php
+									echo anchor('login/login/intenta_desloggear', '<i class="icon-off"></i><strong> Logout</strong>');
+								?>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</div>
