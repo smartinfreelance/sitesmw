@@ -5,13 +5,13 @@ class Usuario extends CI_Controller {
 	function __construct()
     {
         parent::__construct();
-        $this->load->model('preguntascrud');
+        $this->load->model('usuarioCRUD');
     }
 
 	public function index()
 	{
 
-		if($this->session->userdata('idusuario')){
+		if($this->session->userdata('idusuario_tt')){
 			$this->load->view('main', 
 								array(
 									"modulo" => 'menu',
@@ -25,11 +25,13 @@ class Usuario extends CI_Controller {
 	public function verMiCuenta()
 	{
 
-		if($this->session->userdata('idusuario')){
+		if($this->session->userdata('idusuario_tt')){
+			$cursosCreados = $this->usuarioCRUD->getMyCourses($this->session->userdata('idusuario_tt'));
 			$this->load->view('main', 
 								array(
 									"modulo" => 'usuario',
-									"pagina" => 'cuenta'
+									"pagina" => 'cuenta',
+									"cursos" => $cursosCreados
 									));
 		}else{
 			$this->load->view('login');
@@ -39,7 +41,7 @@ class Usuario extends CI_Controller {
 	public function verMiPerfil()
 	{
 
-		if($this->session->userdata('idusuario')){
+		if($this->session->userdata('idusuario_tt')){
 			$this->load->view('main', 
 								array(
 									"modulo" => 'usuario',
@@ -53,7 +55,21 @@ class Usuario extends CI_Controller {
 	public function editarMiPerfil()
 	{
 
-		if($this->session->userdata('idusuario')){
+		if($this->session->userdata('idusuario_tt')){
+			$this->load->view('main', 
+								array(
+									"modulo" => 'usuario',
+									"pagina" => 'editar_perfil'
+									));
+		}else{
+			$this->load->view('login');
+		}
+
+	}
+	public function confirmaEditarMiPerfil()
+	{
+
+		if($this->session->userdata('idusuario_tt')){
 			$this->load->view('main', 
 								array(
 									"modulo" => 'usuario',
