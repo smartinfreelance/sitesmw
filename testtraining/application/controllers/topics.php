@@ -23,19 +23,47 @@ class Topics extends CI_Controller {
 
 	}
 
-	public function modoLectura()
+	public function setNewCourse()
 	{
 		if($this->session->userdata('idusuario_tt')){
-			$preguntas = $this->preguntascrud->getAllPreguntas();
 			$this->load->view('main', 
 								array(
-									"modulo" => 'preguntas',
-									"pagina" => 'lectura',
-									"preguntas" => $preguntas
+									"modulo" => 'topics',
+									"pagina" => 'add'
 									));
 		}else{
 			$this->load->view('login');
 		}
+	}
+
+	public function confirmAddTopic(){
+		if($this->session->userdata('idusuario_tt')){
+
+			$id_topic = $this->topicscrudd->add_topic($_POST['nombre'],$_POST['descripcion']);
+
+			for($i = 1; $i<=10; $i++){
+				$sub_p = "preg".$i;
+				$id_pregunta = $this->topicscrudd->add_pregunta($id_topic, $_POST[$sub_p]);
+				for($j = 1; $j<=4; $j++){
+					$sub_r_radio = "resp".$i;
+					$sub_r_text = "respuesta".$i."-".$j;
+					if($_POST[$sub_r] == $j){
+						$this->topicscrudd->add_respuesta($id_pregunta,$_POST[$sub_r_text],1);
+					}else{
+						$this->topicscrudd->add_respuesta($id_pregunta,$_POST[$sub_r_text],0);
+					}
+				}
+			}
+
+			$this->load->view('main', 
+								array(
+									"modulo" => 'usuario',
+									"pagina" => 'cuenta'
+									));
+		}else{
+			$this->load->view('login');
+		}
+
 	}
 
 	public function modoSimulador(){
