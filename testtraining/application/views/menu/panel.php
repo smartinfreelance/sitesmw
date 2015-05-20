@@ -73,9 +73,21 @@
 									<div class="btn-group closed">
 			                            <button data-toggle="dropdown" class="btn dropdown-toggle">Accion <span class="caret"></span></button>
 			                            <ul class="dropdown-menu">
-			                              <li><?php echo anchor('preguntas/modoLectura/'.$c->id, "<span class = 'color-icons book_open_co'></span>Modo Lectura"); ?></li>
-			                              <li><?php echo anchor('preguntas/unaPregunta/'.$c->id, "<span class = 'color-icons clock_co'></span>Modo Preguntados"); ?></li>
-			                              <li><?php echo anchor('preguntas/modoSimulador/'.$c->id, "<span class = 'color-icons list_bullets_co'></span>Modo Simulador"); ?></li>
+										<?php
+											foreach($li_content as $lc){
+												if($lc['id_topic'] == $c->id){
+													if($lc['ver_ml']){
+										?>			                            	
+							                            <li><?php echo anchor('preguntas/modoLectura/'.$c->id, "<span class = 'color-icons book_open_co'></span>Modo Lectura"); ?></li>
+							            <?php
+							            			}
+							            ?>
+				                                <li><?php echo anchor('preguntas/unaPregunta/'.$c->id, "<span class = 'color-icons clock_co'></span>Modo Preguntados (".$lc['vidas_mp'].")"); ?></li>
+				                                <li><?php echo anchor('preguntas/modoSimulador/'.$c->id, "<span class = 'color-icons list_bullets_co'></span>Modo Simulador (".$lc['vidas_ms'].")"); ?></li>
+										<?php
+												}
+											}
+										?>			                    			                            
 			                              <li class="divider"></li>
 			                              <li><a href="#"><span class = "color-icons medal_gold_1_co"></span>Ranking</a></li>
 			                            </ul>

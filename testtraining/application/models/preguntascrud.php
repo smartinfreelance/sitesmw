@@ -223,5 +223,18 @@ class PreguntasCRUD extends CI_Model {
 
 		return $query->num_rows();
 	}
+
+	function get_attributos($id_topic){
+		$query = $this->db->query("select
+										*
+									from
+										preguntas
+									where 
+										preguntas.estado = 0
+									and
+										preguntas.id_topic = ".$id_topic."
+									");
+		return $query->result();
+	}
 }
 ?>

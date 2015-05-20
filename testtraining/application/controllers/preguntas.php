@@ -12,14 +12,41 @@ class Preguntas extends CI_Controller {
 
 	public function index()
 	{
-
+		date_default_timezone_set('America/Argentina/Buenos_Aires');
 		if($this->session->userdata('idusuario_tt')){
 			$all_topics = $this->topicscrud->getAllTopics();
+
+			$li_content = array();
+
+			foreach($all_topics as $at){
+				$vidas_mp = 0;				
+				$vidas_ms = 0;
+				echo $at->id."-".$this->session->userdata('idusuario_tt')."-"." 1-".date("Y-m-d")."<br />";
+				echo date('Y-m-d');
+				echo "<br/>";
+				$cant_jug_mp = $this->topicscrud->getCantTries($at->id, $this->session->userdata('idusuario_tt'), 1 ,date("Y-m-d"));
+				$cant_jug_ms = $this->topicscrud->getCantTries($at->id, $this->session->userdata('idusuario_tt'), 2 ,date("Y-m-d"));
+
+				$vidas_mp = 3 - $cant_jug_mp;
+				$vidas_ms = 3 - $cant_jug_ms;
+				$ml = $vidas_ms + $vidas_mp;
+
+				if($ml>0){
+					$ver_ml = false;
+				}else{
+					$ver_ml = true;
+				}
+
+
+				$li_content[] = array("id_topic" => $at->id, "vidas_mp" => $vidas_mp, "vidas_ms" => $vidas_ms, "ver_ml" => $ver_ml);
+			}
+			
 			$this->load->view('main', 
 								array(
 									"modulo" => 'menu',
 									"pagina" => 'panel',
-									"topics" => $all_topics
+									"topics" => $all_topics,
+									"li_content" => $li_content
 									));
 		}else{
 			$this->load->view('login');
@@ -44,27 +71,36 @@ class Preguntas extends CI_Controller {
 
 	public function modoSimulador($id=0){
 		if($this->session->userdata('idusuario_tt')){
-			$preguntas = $this->preguntascrud->getPreguntasByTopic($id);
-			$filtro = "";
-			foreach($preguntas as $p){
-				if($filtro == ""){
-					$filtro = " and respuestas.id_pregunta in (".$p->id;
-				}else{
-					$filtro = $filtro.", ".$p->id;
+			
+			$cant_tries = $this->topicscrud->getCantTries($id,$this->session->userdata('idusuario_tt'),2,date("Y-m-d"));
+
+			if($cant_tries < 3){
+				$id_try = $this->topicscrud->addTry($id,$this->session->userdata('idusuario_tt'),2);
+				$preguntas = $this->preguntascrud->getPreguntasByTopic($id);
+				$filtro = "";
+				foreach($preguntas as $p){
+					if($filtro == ""){
+						$filtro = " and respuestas.id_pregunta in (".$p->id;
+					}else{
+						$filtro = $filtro.", ".$p->id;
+					}
 				}
+
+				$filtro = $filtro.") ";
+				$respuestas = $this->preguntascrud->getAllRespuestas($filtro);
+
+				$this->load->view('main', 
+									array(
+										"modulo" => 'preguntas',
+										"pagina" => 'simulador',
+										"preguntas" => $preguntas,
+										"respuestas" => $respuestas,
+										"id_topic" => $id,
+										"id_try" => $id_try
+										));
+			}else{
+				//NO PERMITIR VER EL EXAMEN
 			}
-
-			$filtro = $filtro.") ";
-			$respuestas = $this->preguntascrud->getAllRespuestas($filtro);
-
-			$this->load->view('main', 
-								array(
-									"modulo" => 'preguntas',
-									"pagina" => 'simulador',
-									"preguntas" => $preguntas,
-									"respuestas" => $respuestas,
-									"id_topic" => $id
-									));
 		}else{
 			$this->load->view('login');
 		}
@@ -97,7 +133,12 @@ class Preguntas extends CI_Controller {
 					$pregResIncorr[] = $this->preguntascrud->getPregResIncorr($pyr[0],$pyr[1]);
 				}
 			}
-			$this->imprimirResultado($total,$correctas,$id_topic,"modoSimulador",$pregResCorr, $pregResIncorr);
+
+			$cant_preguntas_id_topic = $this->preguntascrud->getCantPreguntasByTopic($id_topic);
+			$pts_parcial = round(($correctas * 100)/$cant_preguntas_id_topic ,2);
+			$this->topicscrud->updatePtsParcial($pts_parcial,$_POST['id_try']);
+
+			$this->imprimirResultado($total,$correctas,$id_topic,"modoSimulador",$pts_parcial,$pregResCorr, $pregResIncorr);
 		}else{
 			$this->load->view('login');
 		}
@@ -106,74 +147,95 @@ class Preguntas extends CI_Controller {
 	public function unaPregunta($id=0)
 	{
 		if($this->session->userdata('idusuario_tt')){
-			
+
 			if(isset($_POST["id_topic"])){
 				$id_topic = $_POST["id_topic"];
 			}else{
 				$id_topic = $id;
 			}
 
-			if(isset($_POST["id_pregunta"])){
-				$id_pregunta = $_POST['id_pregunta'];
-			}else{
-				$id_pregunta = "";
-			}
+			$cant_tries = $this->topicscrud->getCantTries($id_topic,$this->session->userdata('idusuario_tt'),1,date("Y-m-d"));
+			if(($cant_tries < 3) || ((isset($_POST["id_topic"])) && ($cant_tries == 3))){
 
-			if(isset($_POST["filtro"])){
-				$filtro = $_POST['filtro'];
-			}else{
-				$filtro = "";
-			}
-
-			if(isset($_POST["correctas"])){
-				$correctas = $_POST["correctas"];
-			}else{
-				$correctas = "0";
-			}
-
-			if(isset($_POST["total"])){
-				$total = $_POST["total"] + 1;
-			}else{
-				$total = "1";
-			}
-
-			$filtro_edited = "";
-			if($filtro!=""){
-				$filtro_edited = str_replace("-",",",$filtro);
-				$filtro_edited = "and preguntas.id not in (".$filtro_edited.") ";
-
-			}
-
-			if(isset($_POST['id_respuesta'])){
-				$resultado = $this->preguntascrud->comprobarRespuesta($id_pregunta,$_POST['id_respuesta']);
-				$correctas = $correctas + $resultado;
-			}
-
-			$filtro_edited = $filtro_edited." and preguntas.id_topic = ".$id_topic;
-			
-			$pregunta = $this->preguntascrud->getPregunta($filtro_edited);
-
-			if(!empty($pregunta)){
-				$respuestas = $this->preguntascrud->getRespuestasById($pregunta[0]->id);
-
-				if($filtro == ""){
-					$filtro = $pregunta[0]->id;
+				if(isset($_POST["id_try"])){
+					$id_try = $_POST["id_try"];
 				}else{
-					$filtro = $filtro."-".$pregunta[0]->id;
-				}	
-				$this->load->view('main', 
-									array(
-										"modulo" => 'preguntas',
-										"pagina" => 'individual',
-										"pregunta" => $pregunta[0],
-										"respuestas" => $respuestas,
-										"filtro" => $filtro,
-										"total" => $total,
-										"correctas" => $correctas,
-										"id_topic" => $id_topic
-										));
+					$id_try = $this->topicscrud->addTry($id_topic,$this->session->userdata('idusuario_tt'),1);
+				}
+
+				if(isset($_POST["id_pregunta"])){
+					$id_pregunta = $_POST['id_pregunta'];
+				}else{
+					$id_pregunta = "";
+				}
+
+				if(isset($_POST["filtro"])){
+					$filtro = $_POST['filtro'];
+				}else{
+					$filtro = "";
+				}
+
+				if(isset($_POST["correctas"])){
+					$correctas = $_POST["correctas"];
+				}else{
+					$correctas = "0";
+				}
+
+				if(isset($_POST["total"])){
+					$total = $_POST["total"] + 1;
+				}else{
+					$total = "1";
+				}
+
+				$filtro_edited = "";
+				if($filtro!=""){
+					$filtro_edited = str_replace("-",",",$filtro);
+					$filtro_edited = "and preguntas.id not in (".$filtro_edited.") ";
+
+				}
+
+				if(isset($_POST['id_respuesta'])){
+					$resultado = $this->preguntascrud->comprobarRespuesta($id_pregunta,$_POST['id_respuesta']);
+					$correctas = $correctas + $resultado;
+
+					$cant_preguntas_id_topic = $this->preguntascrud->getCantPreguntasByTopic($id_topic);
+					$pts_parcial = round(($correctas * 100)/$cant_preguntas_id_topic ,2);
+					$this->topicscrud->updatePtsParcial($pts_parcial,$id_try);
+				}
+
+				$filtro_edited = $filtro_edited." and preguntas.id_topic = ".$id_topic;
+				
+				$pregunta = $this->preguntascrud->getPregunta($filtro_edited);
+
+				$attributos = $this->topicscrud->get_attributos($id_topic);
+
+				if(!empty($pregunta)){
+					$respuestas = $this->preguntascrud->getRespuestasById($pregunta[0]->id);
+
+					if($filtro == ""){
+						$filtro = $pregunta[0]->id;
+					}else{
+						$filtro = $filtro."-".$pregunta[0]->id;
+					}	
+					$this->load->view('main', 
+										array(
+											"modulo" => 'preguntas',
+											"pagina" => 'individual',
+											"pregunta" => $pregunta[0],
+											"respuestas" => $respuestas,
+											"filtro" => $filtro,
+											"total" => $total,
+											"correctas" => $correctas,
+											"id_topic" => $id_topic,
+											"id_try" => $id_try,
+											"titulo" => $attributos[0]->topic,
+											"descripcion" => $attributos[0]->descripcion
+											));
+				}else{
+					$this->imprimirResultado($total-1,$correctas,$id_topic,"unaPregunta",$pts_parcial);
+				}
 			}else{
-				$this->imprimirResultado($total-1,$correctas,$id_topic,"unaPregunta");
+				//MOSTRAR CARTEL QUE NO ESTA DISPONIBLE ESTE MODO AL HABERLO HECHO TODAS LAS VECES HABILITADA POR DIA
 			}
 		}else{
 			$this->load->view('login');
@@ -198,6 +260,11 @@ class Preguntas extends CI_Controller {
 			}else{
 				$id_topic = $id;
 			}
+
+			if(isset($_POST["id_try"])){
+				$id_try = $_POST["id_try"];
+			}
+
 			if(isset($_POST["correctas_f"])){
 				$correctas = $_POST["correctas_f"];
 			}else{
@@ -210,14 +277,19 @@ class Preguntas extends CI_Controller {
 				$total = "1";
 			}
 
-			$this->imprimirResultado($total,$correctas,$id_topic,"unaPregunta");
+			$cant_preguntas_id_topic = $this->preguntascrud->getCantPreguntasByTopic($id_topic);
+			$pts_parcial = round(($correctas * 100)/$cant_preguntas_id_topic ,2);
+			$this->topicscrud->updatePtsParcial($pts_parcial,$id_try);
+
+
+			$this->imprimirResultado($total,$correctas,$id_topic,"unaPregunta",$pts_parcial);
 		}else{
 			$this->load->view('login');
 		}
 
 	}
 
-	function imprimirResultado($total,$correctas,$id_topic,$modo,$pregResCorr = array(), $pregResIncorr = array()){
+	function imprimirResultado($total,$correctas,$id_topic,$modo,$pts_parcial,$pregResCorr = array(), $pregResIncorr = array()){
 		if($this->session->userdata('idusuario_tt')){
 			if($total != 0){
 				$porcentaje = round(($correctas * 100)/$total ,2);
@@ -226,6 +298,7 @@ class Preguntas extends CI_Controller {
 			}
 			$this->logincrud->setLog($this->session->userdata('idusuario_tt'),'Finaliza MPreguntados'.$porcentaje);
 
+			$attributos = $this->topicscrud->get_attributos($id_topic);
 			$this->load->view('main', 
 								array(
 									"modulo" => 'preguntas',
@@ -236,7 +309,10 @@ class Preguntas extends CI_Controller {
 									"modo" => $modo,
 									"pregCorr" => $pregResCorr,
 									"pregIncorr" => $pregResIncorr,
-									"id_topic" => $id_topic
+									"id_topic" => $id_topic,
+									"titulo" => $attributos[0]->topic,
+									"descripcion" => $attributos[0]->descripcion,
+									"puntos" => $pts_parcial
 									));
 		}else{
 			$this->load->view('login');

@@ -1,3 +1,8 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#addTopic").validate();
+	});	
+</script>
 <div id = "main-content">
 	<div class = "container">	
 		<div class="nonboxy-widget">
@@ -6,12 +11,12 @@
 			</div>
 			<div class="widget-content">
 				<div class="widget-box">
-					<?php echo form_open('topics/confirmAddPregunta', array("id" => "addTopic", "class" => "form-horizontal well")); ?>
+					<?php echo form_open('topics/confirmAddPreguntaToTopic', array("id" => "addTopic", "class" => "form-horizontal well")); ?>
 						<fieldset>
 							<div class="control-group">
 								<label class="control-label" for="input01">Titulo</label>
 								<div class="controls">
-									<?php echo $titulo; ?>
+									<?php echo $topic; ?>
 								</div>
 							</div>
 
@@ -22,11 +27,11 @@
 								</div>
 							</div>
 							<hr />
-							<h5>Pregunta <?php echo $p; ?></h5>
+							<h5>Pregunta </h5>
 							<div class="control-group">
 								<label class="control-label" for="input01"></label>
 								<div class="controls">
-									<input class="input-xlarge text-tip" placeholder = "Pregunta" maxlength = "600" id="preg<?php echo $p; ?>" name = "preg<?php echo $p; ?>" type="text" required>
+									<input class="input-xlarge text-tip" placeholder = "Pregunta" maxlength = "600" id="pregunta" name = "pregunta" type="text" required>
 								</div>
 							</div>
 
@@ -46,7 +51,7 @@
 								?>
 								</label>
 								<div class="controls">
-									<input class="input-xlarge text-tip" placeholder="Respuesta <?php echo $r; ?>" maxlength = "300" id="respuesta<?php echo $p; ?>-<?php echo $r; ?>" name = "respuesta<?php echo $p; ?>-<?php echo $r; ?>" type="text" required>
+									<input class="input-xlarge text-tip" placeholder="Respuesta <?php echo $r; ?>" maxlength = "300" id="respuesta-<?php echo $r; ?>" name = "respuesta-<?php echo $r; ?>" type="text" required>
 								</div>
 							</div>
 							<?php
@@ -54,6 +59,16 @@
 									}
 
 							?>
+							<div class="control-group">
+								<label class="control-label">Mas Preguntas?</label>
+								<div class="controls">
+									<label class="checkbox">
+									<input name = "mas_preguntas" type="checkbox" value="si" checked = "checked">Si</label>
+								</div>
+							</div>
+							<input type = "hidden" id = "id_topic" name = "id_topic" value = "<?php echo $id_topic; ?>" />
+							<input type = "hidden" id = "topic" name = "topic" value = "<?php echo $topic; ?>" />
+							<input type = "hidden" id = "descripcion" name = "descripcion" value = "<?php echo $descripcion; ?>" />
 						</fieldset>
 						<div class="form-actions">
 							<?php 
@@ -64,9 +79,7 @@
 				        			'class'=>'btn btn-inverse'
 				        		)); 
 				        		echo "&nbsp;";
-							?>
-							<button id = "addTopicAndMoreQ" name = "addTopicAndMoreQ" class = "btn btn-inverse"> Comprobar</button>
-							<?php
+				            	echo anchor("topics/verMiTest/".$id_topic, 'Finalizar Test', array("class"=>'btn btn-inverse')); 				        		
 				        		//echo anchor("", 'Crear y agregar mas preguntas', array("id"=>"addTopicAndMoreQ","class"=>'btn btn-inverse')); 
 				        	?>
 						</div>

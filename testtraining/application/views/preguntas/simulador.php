@@ -31,6 +31,7 @@
 			}
 		?>
 			<input type = "hidden" id = "id_topic" name = "id_topic" value = "<?php echo $id_topic; ?>" />
+			<input type = "hidden" id = "id_try" name = "id_try" value = "<?php echo $id_try; ?>" />
 		<?php
 			echo form_submit(array(
 				'value'=>'Finalizar',

@@ -1,11 +1,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#addTopic").validate({
-		  rules: {
-		    resp1: { required: true },resp2: { required: true },resp3: { required: true },resp4: { required: true },resp5: { required: true },
-		    resp6: { required: true },resp7: { required: true },resp8: { required: true },resp9: { required: true },resp10: { required: true }
-		  }
-		});
+		$("#addTopic").validate();
 	});	
 </script>
 <div id = "main-content">
@@ -72,6 +67,13 @@
 								}
 
 							?>
+							<div class="control-group">
+								<label class="control-label">Mas Preguntas?</label>
+								<div class="controls">
+									<label class="checkbox">
+									<input name = "mas_preguntas" type="checkbox" value="si" checked = "checked">Si</label>
+								</div>
+							</div>
 
 						</fieldset>
 						<div class="form-actions">
@@ -83,9 +85,6 @@
 				        			'class'=>'btn btn-inverse'
 				        		)); 
 				        		echo "&nbsp;";
-							?>
-							<button id = "addTopicAndMoreQ" name = "addTopicAndMoreQ" class = "btn btn-inverse"> Comprobar</button>
-							<?php
 				        		//echo anchor("", 'Crear y agregar mas preguntas', array("id"=>"addTopicAndMoreQ","class"=>'btn btn-inverse')); 
 				        	?>
 						</div>

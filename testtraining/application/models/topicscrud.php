@@ -72,5 +72,71 @@ class TopicsCRUD extends CI_Model {
 		return $query->result();
 
 	}
+
+	function get_attributos($id_topic){
+		$query = $this->db->query("select
+										topics.topic as topic,
+										topics.descripcion as descripcion
+									from
+										topics
+									where
+										topics.id = ".$id_topic."
+									and 
+										topics.estado = 0");
+		return $query->result();
+
+	}
+
+
+	function addTry($id_topic,$id_usuario,$id_modo){
+		$query= $this->db->query("insert into 
+									puntuacion(
+										id_topic,
+										id_usuario,
+										id_modo
+									)
+									values (
+										".$id_topic.",
+										".$id_usuario.",
+										".$id_modo."
+										)
+									");
+		return $this->db->insert_id();
+	}
+
+	function updatePtsParcial($pts_parcial,$id_try){
+		$query = $this->db->query("
+									update
+										puntuacion
+									set
+										puntuacion.puntos = ".$pts_parcial."
+									where
+										puntuacion.id = ".$id_try."
+
+									");
+		return 0;
+	}
+
+	function getCantTries($id_topic,$id_usuario,$id_modo,$fecha){
+
+		$query = $this->db->query("select
+										*
+									from
+										puntuacion
+									where 
+										puntuacion.id_topic =  ".$id_topic."
+									and
+										puntuacion.id_usuario =  ".$id_usuario."
+									and
+										puntuacion.id_modo = ".$id_modo."
+									and
+										puntuacion.estado = 0
+									and	
+										DATE(puntuacion.fecha_alta) = '".$fecha."'
+									");
+		return $query->num_rows();
+
+
+	}
 }
 ?>

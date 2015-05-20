@@ -22,8 +22,6 @@
 			$("#respondeMal").css( "display", "none" );	
 			$("#noResponde").css( "display", "none" );				
 		}else{
-			$("div[id^='respCorrect']").css( "color", "green" );
-			$("div[id^='respWrong']").css( "color", "red" );
 			$("#respondeBien").css( "display", "none" );	
 			$("#respondeMal").css( "display", "block" );	
 			$("#noResponde").css( "display", "none" );	
@@ -35,13 +33,19 @@
 	}
 </script>
 <div id = "main-content">
-	<div class = "container">	
-		<div style = "display:block" id = "noResponde"><br /></div>
+	<div class = "container">
+		<div class="row">
+			<div class="page-header">
+				<h1><?php echo $titulo; ?></h1>
+			</div>
+		</div>
+
+		<div style = "display:block" id = "noResponde"><br /><br /><br /></div>
 		<div style = "display:none" id = "respondeBien" class = "alert alert-success fade in">CORRECTO</div>
 		<div style = "display:none" id = "respondeMal"  class = "alert alert-error fade in">INCORRECTO</div>
 
 				<p>
-					<strong><?php echo $pregunta->id.") ".$pregunta->pregunta; ?></strong>
+					<strong><?php echo $total.") ".$pregunta->pregunta; ?></strong>
 				</p>
 		<?php
 			foreach($respuestas as $r){
@@ -64,6 +68,7 @@
 			<input type = "hidden" id = "id_pregunta" name = "id_pregunta" value = "<?php echo $pregunta->id; ?>" />
 			<input type = "hidden" id = "id_respuesta" name = "id_respuesta" value = "" />
 			<input type = "hidden" id = "id_topic" name = "id_topic" value = "<?php echo $id_topic; ?>" />
+			<input type = "hidden" id = "id_try" name = "id_try" value = "<?php echo $id_try; ?>" />
 		<?php 
 			echo form_submit(array(
 				'value'=>'Siguiente',
@@ -83,6 +88,7 @@
 			<input type = "hidden" id = "id_pregunta_f" name = "id_pregunta_f" value = "<?php echo $pregunta->id; ?>" />
 			<input type = "hidden" id = "id_respuesta_f" name = "id_respuesta_f" value = "" />
 			<input type = "hidden" id = "id_topic" name = "id_topic" value = "<?php echo $id_topic; ?>" />
+			<input type = "hidden" id = "id_try" name = "id_try" value = "<?php echo $id_try; ?>" />
 
 		<?php 
 			echo form_submit(array(

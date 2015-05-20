@@ -7,6 +7,7 @@ class Topics extends CI_Controller {
         parent::__construct();
         $this->load->model('topicscrud');
         $this->load->model('usuariocrud');
+        $this->load->model('preguntascrud');
     }
 
 	public function index()
@@ -54,152 +55,74 @@ class Topics extends CI_Controller {
 					}
 				}
 			}
-			$cursosCreados = $this->usuariocrud->getMyCourses($this->session->userdata('idusuario_tt'));
-			$this->load->view('main', 
-								array(
-									"modulo" => 'usuario',
-									"pagina" => 'cuenta',
-									"cursos" => $cursosCreados
-									));
+
+			if($_POST['mas_preguntas']=="si"){
+				$this->addPreguntaToTopic($id_topic,$_POST['titulo'],$_POST['descripcion']);
+			}else{
+				$this->verMiTest($id_topic);
+			}
 		}else{
 			$this->load->view('login');
 		}
 
 	}
 
-	public function modoSimulador(){
+	public function addPreguntaToTopic($id_topic = 0, $topic = "", $descripcion = ""){
 		if($this->session->userdata('idusuario_tt')){
 			$this->load->view('main', 
 								array(
-									"modulo" => 'menu',
-									"pagina" => 'panel'
+									"modulo" => 'topics',
+									"pagina" => 'add_pregunta',
+									"id_topic" => $id_topic,
+									"topic" => $topic,
+									"descripcion" => $descripcion
 									));
+
 		}else{
 			$this->load->view('login');
 		}
-	}
 
-	public function unaPregunta()
-	{
+
+	}	
+
+	public function confirmAddPreguntaToTopic(){
 		if($this->session->userdata('idusuario_tt')){
-			if(isset($_POST["id_pregunta"])){
-				$id_pregunta = $_POST['id_pregunta'];
-			}else{
-				$id_pregunta = "";
-			}
 
-			if(isset($_POST["filtro"])){
-				$filtro = $_POST['filtro'];
-			}else{
-				$filtro = "";
-			}
-
-			if(isset($_POST["correctas"])){
-				$correctas = $_POST["correctas"];
-			}else{
-				$correctas = "0";
-			}
-
-			if(isset($_POST["total"])){
-				$total = $_POST["total"] + 1;
-			}else{
-				$total = "1";
-			}
-
-			$filtro_edited = "";
-			if($filtro!=""){
-				$filtro_edited = str_replace("-",",",$filtro);
-				$filtro_edited = "and preguntas.id not in (".$filtro_edited.") ";
-
-				$id_respuesta = $_POST['id_respuesta'];
-				$resultado = $this->preguntascrud->comprobarRespuesta($id_pregunta,$id_respuesta);
-				$correctas = $correctas + $resultado;
+			$id_topic = $_POST['id_topic'];
+			
+			$id_pregunta = $this->topicscrud->add_pregunta($id_topic, $_POST['pregunta']);
+			for($j = 1; $j <= 4; $j++){
+				$sub_r_text = "respuesta-".$j;
+				if($j == "1"){
+					$this->topicscrud->add_respuesta($id_pregunta,$_POST[$sub_r_text],1);
+				}else{
+					$this->topicscrud->add_respuesta($id_pregunta,$_POST[$sub_r_text],0);
+				}
 			}
 			
-			$pregunta = $this->preguntascrud->getPregunta($filtro_edited);
-
-			if($pregunta[0]){
-				$respuestas = $this->preguntascrud->getRespuestasById($pregunta[0]->id);
-
-				if($id_pregunta!=""){
-					if($filtro!=""){
-						$filtro = $id_pregunta."-".$filtro;
-					}else{
-						$filtro = $id_pregunta;
-					}
-					
-				}		
-				$this->load->view('main', 
-									array(
-										"modulo" => 'preguntas',
-										"pagina" => 'individual',
-										"pregunta" => $pregunta[0],
-										"respuestas" => $respuestas,
-										"filtro" => $filtro,
-										"total" => $total,
-										"correctas" => $correctas
-										));
+			if($_POST['mas_preguntas']=="si"){
+				$this->addPreguntaToTopic($id_topic,$_POST['topic'],$_POST['descripcion']);
 			}else{
-				$this->imprimirResultado($total,$correctas);
+				$this->verMiTest($id_topic);
 			}
-		}else{
-			$this->load->view('login');
-		}
-	}
-
-	function finalizarPreguntados(){
-		/*if(isset($_POST["id_pregunta_f"])){
-			$id_pregunta = $_POST['id_pregunta_f'];
-		}else{
-			$id_pregunta = "";
-		}
-
-		if(isset($_POST["filtro_f"])){
-			$filtro = $_POST['filtro_f'];
-		}else{
-			$filtro = "";
-		}*/
-		if($this->session->userdata('idusuario_tt')){
-			if(isset($_POST["correctas_f"])){
-				$correctas = $_POST["correctas_f"];
-			}else{
-				$correctas = "0";
-			}
-
-			if(isset($_POST["total_f"])){
-				$total = $_POST["total_f"]-1;
-			}else{
-				$total = "1";
-			}
-
-			$this->imprimirResultado($total,$correctas);
 		}else{
 			$this->load->view('login');
 		}
 
 	}
 
-	function imprimirResultado($total,$correctas){
+	public function verMiTest($id_topic){
 		if($this->session->userdata('idusuario_tt')){
-			if($total != 0){
-				$porcentaje = round(($correctas * 100)/$total ,2);
-			}else{
-				$porcentaje = round(0 ,2);
-			}
-			
-
+			$preguntas = $this->preguntascrud->getAllPreguntasByTopic($id_topic);
 			$this->load->view('main', 
 								array(
-									"modulo" => 'preguntas',
-									"pagina" => 'resultado',
-									"total" => $total,
-									"correctas" => $correctas,
-									"porcentaje" => $porcentaje
+									"modulo" => 'topics',
+									"pagina" => 'verMiTest',
+									"preguntas" => $preguntas
 									));
 		}else{
 			$this->load->view('login');
 		}
-
 	}
 }
 
