@@ -35,7 +35,7 @@
 					<div class="widget-control pull-right">
 						<a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-cog"></i><b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="#"><i class="icon-plus"></i> Agregar Nuevo</a></li>
+							<li><?php echo anchor('topics/setNewCourse/',"<i class='icon-plus'></i> Agregar Nuevo</a>"); ?></li>
 						</ul>
 					</div>
 				</div>

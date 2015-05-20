@@ -44,7 +44,7 @@
 					<div class="logo">
 						<a href="index.html"></a>
 						<?php
-							echo anchor('preguntas/index', '<h4>SMartin - AEM Certification</h4>');
+							echo anchor('preguntas/index', '<h4>SMartin - Test Training</h4>');
 						?>
 					</div>
 				</div>
@@ -52,7 +52,7 @@
 					<li class="dropdown closed">
 						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 							<?php 
-								echo $this->session->userdata('nombre');
+								echo $this->session->userdata('nombre')." ".$this->session->userdata('apellido');
 							?> 
 							<i class="white-icons admin_user"></i>
 							<b class="caret"></b>
@@ -61,11 +61,6 @@
 							<li>
 								<?php
 									echo anchor('usuario/verMiCuenta', '<i class="icon-briefcase"></i> Mi Cuenta');
-								?>
-							</li>
-							<li>
-								<?php
-									echo anchor('usuario/verMiPerfil', '<i class="icon-file"></i> Ver Perfil');
 								?>
 							</li>
 							<li>

@@ -1,40 +1,27 @@
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#addTopic").validate({
-		  rules: {
-		    resp1: { required: true },resp2: { required: true },resp3: { required: true },resp4: { required: true },resp5: { required: true },
-		    resp6: { required: true },resp7: { required: true },resp8: { required: true },resp9: { required: true },resp10: { required: true }
-		  }
-		});
-	});	
-</script>
 <div id = "main-content">
 	<div class = "container">	
 		<div class="nonboxy-widget">
 			<div class="widget-head">
-				<h5>Nuevo Topic</h5>
+				<h5>Agregar una pregunta</h5>
 			</div>
 			<div class="widget-content">
 				<div class="widget-box">
-					<?php echo form_open('topics/confirmAddTopic', array("id" => "addTopic", "class" => "form-horizontal well")); ?>
+					<?php echo form_open('topics/confirmAddPregunta', array("id" => "addTopic", "class" => "form-horizontal well")); ?>
 						<fieldset>
 							<div class="control-group">
 								<label class="control-label" for="input01">Titulo</label>
 								<div class="controls">
-									<input class="input-xlarge text-tip" placeholder="" id="titulo" maxlength = "200" name="titulo" type="text" required>
+									<?php echo $titulo; ?>
 								</div>
 							</div>
 
 							<div class="control-group">
 								<label class="control-label" for="input01">Descripcion</label>
 								<div class="controls">
-									<textarea class="input-xlarge" rows="3" id = "descripcion" maxlength = "1000" name = "descripcion" required></textarea>
+									<?php echo $descripcion; ?>
 								</div>
 							</div>
 							<hr />
-							<?php
-								for($p = 1; $p <= 10; $p++){
-							?>
 							<h5>Pregunta <?php echo $p; ?></h5>
 							<div class="control-group">
 								<label class="control-label" for="input01"></label>
@@ -67,12 +54,6 @@
 									}
 
 							?>
-							<hr />
-							<?php
-								}
-
-							?>
-
 						</fieldset>
 						<div class="form-actions">
 							<?php 

@@ -6,16 +6,20 @@ class Preguntas extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('preguntascrud');
+        $this->load->model('topicscrud');
+        $this->load->model('logincrud');
     }
 
 	public function index()
 	{
 
 		if($this->session->userdata('idusuario_tt')){
+			$all_topics = $this->topicscrud->getAllTopics();
 			$this->load->view('main', 
 								array(
 									"modulo" => 'menu',
-									"pagina" => 'panel'
+									"pagina" => 'panel',
+									"topics" => $all_topics
 									));
 		}else{
 			$this->load->view('login');
@@ -23,10 +27,10 @@ class Preguntas extends CI_Controller {
 
 	}
 
-	public function modoLectura()
+	public function modoLectura($id=0)
 	{
 		if($this->session->userdata('idusuario_tt')){
-			$preguntas = $this->preguntascrud->getAllPreguntas();
+			$preguntas = $this->preguntascrud->getAllPreguntasByTopic($id);
 			$this->load->view('main', 
 								array(
 									"modulo" => 'preguntas',
@@ -38,21 +42,77 @@ class Preguntas extends CI_Controller {
 		}
 	}
 
-	public function modoSimulador(){
+	public function modoSimulador($id=0){
 		if($this->session->userdata('idusuario_tt')){
+			$preguntas = $this->preguntascrud->getPreguntasByTopic($id);
+			$filtro = "";
+			foreach($preguntas as $p){
+				if($filtro == ""){
+					$filtro = " and respuestas.id_pregunta in (".$p->id;
+				}else{
+					$filtro = $filtro.", ".$p->id;
+				}
+			}
+
+			$filtro = $filtro.") ";
+			$respuestas = $this->preguntascrud->getAllRespuestas($filtro);
+
 			$this->load->view('main', 
 								array(
-									"modulo" => 'menu',
-									"pagina" => 'panel'
+									"modulo" => 'preguntas',
+									"pagina" => 'simulador',
+									"preguntas" => $preguntas,
+									"respuestas" => $respuestas,
+									"id_topic" => $id
 									));
 		}else{
 			$this->load->view('login');
 		}
 	}
+	function finalizarSimulador($id=0){
+		if($this->session->userdata('idusuario_tt')){
+			$this->logincrud->setLog($this->session->userdata('idusuario_tt'),'Finaliza MSimulador');
+			$correctas = 0;
+			$c = 0;
+			$total = 0;
+			$pregResCorr = array();
+			$pregResIncorr = array();
+			if(isset($_POST["id_topic"])){
+				$id_topic = $_POST["id_topic"];
+			}else{
+				$id_topic = $id;
+			}
 
-	public function unaPregunta()
+			$cant_preguntas = $this->preguntascrud->getCantPreguntasByTopic($id_topic);
+
+			for($i = 1 ; $i <= $cant_preguntas ; $i++){
+				$total++;
+				$pregres = $_POST["pregunta".$i];
+				$pyr = explode("-", $pregres);
+				$c = $this->preguntascrud->comprobarRespuesta($pyr[0],$pyr[1]);
+				$correctas = $correctas + $c;
+				if($c == 1){
+					$pregResCorr[] = $this->preguntascrud->getPregResCorr($pyr[0],$pyr[1]);
+				}else{
+					$pregResIncorr[] = $this->preguntascrud->getPregResIncorr($pyr[0],$pyr[1]);
+				}
+			}
+			$this->imprimirResultado($total,$correctas,$id_topic,"modoSimulador",$pregResCorr, $pregResIncorr);
+		}else{
+			$this->load->view('login');
+		}
+	}	
+
+	public function unaPregunta($id=0)
 	{
 		if($this->session->userdata('idusuario_tt')){
+			
+			if(isset($_POST["id_topic"])){
+				$id_topic = $_POST["id_topic"];
+			}else{
+				$id_topic = $id;
+			}
+
 			if(isset($_POST["id_pregunta"])){
 				$id_pregunta = $_POST['id_pregunta'];
 			}else{
@@ -82,24 +142,25 @@ class Preguntas extends CI_Controller {
 				$filtro_edited = str_replace("-",",",$filtro);
 				$filtro_edited = "and preguntas.id not in (".$filtro_edited.") ";
 
-				$id_respuesta = $_POST['id_respuesta'];
-				$resultado = $this->preguntascrud->comprobarRespuesta($id_pregunta,$id_respuesta);
+			}
+
+			if(isset($_POST['id_respuesta'])){
+				$resultado = $this->preguntascrud->comprobarRespuesta($id_pregunta,$_POST['id_respuesta']);
 				$correctas = $correctas + $resultado;
 			}
+
+			$filtro_edited = $filtro_edited." and preguntas.id_topic = ".$id_topic;
 			
 			$pregunta = $this->preguntascrud->getPregunta($filtro_edited);
 
-			if($pregunta[0]){
+			if(!empty($pregunta)){
 				$respuestas = $this->preguntascrud->getRespuestasById($pregunta[0]->id);
 
-				if($id_pregunta!=""){
-					if($filtro!=""){
-						$filtro = $id_pregunta."-".$filtro;
-					}else{
-						$filtro = $id_pregunta;
-					}
-					
-				}		
+				if($filtro == ""){
+					$filtro = $pregunta[0]->id;
+				}else{
+					$filtro = $filtro."-".$pregunta[0]->id;
+				}	
 				$this->load->view('main', 
 									array(
 										"modulo" => 'preguntas',
@@ -108,17 +169,18 @@ class Preguntas extends CI_Controller {
 										"respuestas" => $respuestas,
 										"filtro" => $filtro,
 										"total" => $total,
-										"correctas" => $correctas
+										"correctas" => $correctas,
+										"id_topic" => $id_topic
 										));
 			}else{
-				$this->imprimirResultado($total,$correctas);
+				$this->imprimirResultado($total-1,$correctas,$id_topic,"unaPregunta");
 			}
 		}else{
 			$this->load->view('login');
 		}
 	}
 
-	function finalizarPreguntados(){
+	function finalizarPreguntados($id=0){
 		/*if(isset($_POST["id_pregunta_f"])){
 			$id_pregunta = $_POST['id_pregunta_f'];
 		}else{
@@ -131,6 +193,11 @@ class Preguntas extends CI_Controller {
 			$filtro = "";
 		}*/
 		if($this->session->userdata('idusuario_tt')){
+			if(isset($_POST["id_topic"])){
+				$id_topic = $_POST["id_topic"];
+			}else{
+				$id_topic = $id;
+			}
 			if(isset($_POST["correctas_f"])){
 				$correctas = $_POST["correctas_f"];
 			}else{
@@ -143,21 +210,21 @@ class Preguntas extends CI_Controller {
 				$total = "1";
 			}
 
-			$this->imprimirResultado($total,$correctas);
+			$this->imprimirResultado($total,$correctas,$id_topic,"unaPregunta");
 		}else{
 			$this->load->view('login');
 		}
 
 	}
 
-	function imprimirResultado($total,$correctas){
+	function imprimirResultado($total,$correctas,$id_topic,$modo,$pregResCorr = array(), $pregResIncorr = array()){
 		if($this->session->userdata('idusuario_tt')){
 			if($total != 0){
 				$porcentaje = round(($correctas * 100)/$total ,2);
 			}else{
 				$porcentaje = round(0 ,2);
 			}
-			
+			$this->logincrud->setLog($this->session->userdata('idusuario_tt'),'Finaliza MPreguntados'.$porcentaje);
 
 			$this->load->view('main', 
 								array(
@@ -165,7 +232,11 @@ class Preguntas extends CI_Controller {
 									"pagina" => 'resultado',
 									"total" => $total,
 									"correctas" => $correctas,
-									"porcentaje" => $porcentaje
+									"porcentaje" => $porcentaje,
+									"modo" => $modo,
+									"pregCorr" => $pregResCorr,
+									"pregIncorr" => $pregResIncorr,
+									"id_topic" => $id_topic
 									));
 		}else{
 			$this->load->view('login');

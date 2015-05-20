@@ -5,7 +5,8 @@ class Topics extends CI_Controller {
 	function __construct()
     {
         parent::__construct();
-        $this->load->model('preguntascrud');
+        $this->load->model('topicscrud');
+        $this->load->model('usuariocrud');
     }
 
 	public function index()
@@ -39,26 +40,26 @@ class Topics extends CI_Controller {
 	public function confirmAddTopic(){
 		if($this->session->userdata('idusuario_tt')){
 
-			$id_topic = $this->topicscrudd->add_topic($_POST['nombre'],$_POST['descripcion']);
+			$id_topic = $this->topicscrud->add_topic($_POST['titulo'],$_POST['descripcion']);
 
 			for($i = 1; $i<=10; $i++){
 				$sub_p = "preg".$i;
-				$id_pregunta = $this->topicscrudd->add_pregunta($id_topic, $_POST[$sub_p]);
+				$id_pregunta = $this->topicscrud->add_pregunta($id_topic, $_POST[$sub_p]);
 				for($j = 1; $j<=4; $j++){
-					$sub_r_radio = "resp".$i;
 					$sub_r_text = "respuesta".$i."-".$j;
-					if($_POST[$sub_r] == $j){
-						$this->topicscrudd->add_respuesta($id_pregunta,$_POST[$sub_r_text],1);
+					if($j == "1"){
+						$this->topicscrud->add_respuesta($id_pregunta,$_POST[$sub_r_text],1);
 					}else{
-						$this->topicscrudd->add_respuesta($id_pregunta,$_POST[$sub_r_text],0);
+						$this->topicscrud->add_respuesta($id_pregunta,$_POST[$sub_r_text],0);
 					}
 				}
 			}
-
+			$cursosCreados = $this->usuariocrud->getMyCourses($this->session->userdata('idusuario_tt'));
 			$this->load->view('main', 
 								array(
 									"modulo" => 'usuario',
-									"pagina" => 'cuenta'
+									"pagina" => 'cuenta',
+									"cursos" => $cursosCreados
 									));
 		}else{
 			$this->load->view('login');

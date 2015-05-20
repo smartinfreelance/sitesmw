@@ -6,6 +6,7 @@ class Login extends CI_Controller
     {
         parent::__construct();
         $this->load->model('loginCRUD');
+        $this->load->model('topicscrud');
     }
 
     function index()
@@ -39,11 +40,13 @@ class Login extends CI_Controller
                     );
             $this->session->set_userdata($datos);
             
+            $all_topics = $this->topicscrud->getAllTopics();
             $this->load->view(
                 'main', 
                 array(
                     "modulo" => 'menu',
-                    "pagina" => 'panel'
+                    "pagina" => 'panel',
+                    "topics" => $all_topics
                 )
             );
         }else{

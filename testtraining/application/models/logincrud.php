@@ -39,5 +39,19 @@ class LoginCRUD extends CI_Model {
 									");
 		return 0;
 	}
+
+	function setLog($id,$accion){
+		$query= $this->db->query("insert into 
+									log(
+										id_user,
+										action
+									)
+									values (
+										".$id.",
+										'".$accion."'
+										)
+									");
+		return 0;
+	}
 }
 ?>
