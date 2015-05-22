@@ -54,16 +54,6 @@ $(document).on('click', 'form_edit button[type=submit]', function(e) {
 								</div>
 							</div>
 						</fieldset>
-						<div class="form-actions">
-							<?php 
-				            	echo anchor("categorias/index", 'Cancelar', array("class"=>'btn')); 
-				            	echo "&nbsp;";
-				        		echo form_submit(array(
-				        			'value'=>'Editar Perfil',
-				        			'class'=>'btn btn-inverse'
-				        		)); 
-				        	?>
-						</div>
 					</form>
 				</div>
 			</div>
@@ -93,17 +83,6 @@ $(document).on('click', 'form_edit button[type=submit]', function(e) {
 									<input class="input-xlarge text-tip" id="input01" type="password">
 								</div>
 							</div>
-							<div class="form-actions">
-								<?php 
-					            	echo anchor("categorias/index", 'Cancelar', array("class"=>'btn')); 
-					            	echo "&nbsp;";
-					        		echo form_submit(array(
-					        			'value'=>'Cambiar Password',
-					        			'class'=>'btn btn-inverse'
-					        		)); 
-					        	?>
-							</div>
-
 						</fieldset>
 					</form>
 				</div>

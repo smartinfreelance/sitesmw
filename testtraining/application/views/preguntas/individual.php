@@ -1,5 +1,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
+
 		$("div[id^='resp']").css( "cursor", "pointer" );
 		$("#showAnswers").click(function() {
 			$("div[id^='respCorrect']").css( "color", "green" );
@@ -13,23 +14,27 @@
 	});
 
 	function setRespuesta(value,correcta){
-		$("#id_respuesta").val(value);
-		$("#id_respuesta_f").val(value);
-		if(correcta==1){
-			$("div[id^='respCorrect']").css( "color", "green" );
-			$("div[id^='respWrong']").css( "color", "red" );			
-			$("#respondeBien").css( "display", "block" );	
-			$("#respondeMal").css( "display", "none" );	
-			$("#noResponde").css( "display", "none" );				
-		}else{
-			$("#respondeBien").css( "display", "none" );	
-			$("#respondeMal").css( "display", "block" );	
-			$("#noResponde").css( "display", "none" );	
-		}
+		if($('#id_respuesta').val() == ''){
+			$("#id_respuesta").val(value);
+			$("#id_respuesta_f").val(value);
+			if(correcta==1){
+				$("div[id^='respCorrect']").css( "color", "green" );
+				$("div[id^='respWrong']").css( "color", "red" );			
+				$("#respondeBien").css( "display", "block" );
+				$("#respondeMal").css( "display", "none" );	
+				$("#noResponde").css( "display", "none" );				
+			}else{
+				$("#respondeBien").css( "display", "none" );	
+				$("#respondeMal").css( "display", "block" );	
+				$("#noResponde").css( "display", "none" );	
+			}
 
-		setTimeout(function () {
-	        formSiguiente.submit();
-	    }, 1000); 
+			setTimeout(function () {
+		        formSiguiente.submit();
+		    }, 1000); 
+		}else{
+			window.history.forward();
+		}
 	}
 </script>
 <div id = "main-content">
@@ -77,6 +82,8 @@
 				'style' => 'display:none'
 			)); 
 		?>
+
+
 		<br />
 		<?php 
 			echo form_close();

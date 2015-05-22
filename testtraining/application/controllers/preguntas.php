@@ -21,9 +21,6 @@ class Preguntas extends CI_Controller {
 			foreach($all_topics as $at){
 				$vidas_mp = 0;				
 				$vidas_ms = 0;
-				echo $at->id."-".$this->session->userdata('idusuario_tt')."-"." 1-".date("Y-m-d")."<br />";
-				echo date('Y-m-d');
-				echo "<br/>";
 				$cant_jug_mp = $this->topicscrud->getCantTries($at->id, $this->session->userdata('idusuario_tt'), 1 ,date("Y-m-d"));
 				$cant_jug_ms = $this->topicscrud->getCantTries($at->id, $this->session->userdata('idusuario_tt'), 2 ,date("Y-m-d"));
 
@@ -99,7 +96,29 @@ class Preguntas extends CI_Controller {
 										"id_try" => $id_try
 										));
 			}else{
-				//NO PERMITIR VER EL EXAMEN
+				$my_scores_hoy = $this->topicscrud->getMisScoresHoy($id,2,$this->session->userdata('idusuario_tt'));
+				$vidas_mp = 0;				
+				$vidas_ms = 0;
+				$cant_jug_mp = $this->topicscrud->getCantTries($id, $this->session->userdata('idusuario_tt'), 1 ,date("Y-m-d"));
+				$cant_jug_ms = $this->topicscrud->getCantTries($id, $this->session->userdata('idusuario_tt'), 2 ,date("Y-m-d"));
+
+				$vidas_mp = 3 - $cant_jug_mp;
+				$vidas_ms = 3 - $cant_jug_ms;
+				$ml = $vidas_ms + $vidas_mp;
+
+				$attributos = $this->topicscrud->get_attributos($id);
+
+				$this->load->view('main', 
+										array(
+											"modulo" => 'preguntas',
+											"pagina" => 'back_tomorrow',
+											"scores" => $my_scores_hoy,
+											"vidas_mp" => $vidas_mp,
+											"vidas_ms" => $vidas_ms,
+											"topic" => $attributos[0]->topic,
+											"descripcion" => $attributos[0]->descripcion,
+											"id_modo" => 1
+											));
 			}
 		}else{
 			$this->load->view('login');
@@ -235,7 +254,30 @@ class Preguntas extends CI_Controller {
 					$this->imprimirResultado($total-1,$correctas,$id_topic,"unaPregunta",$pts_parcial);
 				}
 			}else{
-				//MOSTRAR CARTEL QUE NO ESTA DISPONIBLE ESTE MODO AL HABERLO HECHO TODAS LAS VECES HABILITADA POR DIA
+
+				$my_scores_hoy = $this->topicscrud->getMisScoresHoy($id_topic,1,$this->session->userdata('idusuario_tt'));
+				$vidas_mp = 0;				
+				$vidas_ms = 0;
+				$cant_jug_mp = $this->topicscrud->getCantTries($id_topic, $this->session->userdata('idusuario_tt'), 1 ,date("Y-m-d"));
+				$cant_jug_ms = $this->topicscrud->getCantTries($id_topic, $this->session->userdata('idusuario_tt'), 2 ,date("Y-m-d"));
+
+				$vidas_mp = 3 - $cant_jug_mp;
+				$vidas_ms = 3 - $cant_jug_ms;
+				$ml = $vidas_ms + $vidas_mp;
+
+				$attributos = $this->topicscrud->get_attributos($id_topic);
+
+				$this->load->view('main', 
+										array(
+											"modulo" => 'preguntas',
+											"pagina" => 'back_tomorrow',
+											"scores" => $my_scores_hoy,
+											"vidas_mp" => $vidas_mp,
+											"vidas_ms" => $vidas_ms,
+											"topic" => $attributos[0]->topic,
+											"descripcion" => $attributos[0]->descripcion,
+											"id_modo" => 1
+											));
 			}
 		}else{
 			$this->load->view('login');
@@ -298,7 +340,23 @@ class Preguntas extends CI_Controller {
 			}
 			$this->logincrud->setLog($this->session->userdata('idusuario_tt'),'Finaliza MPreguntados'.$porcentaje);
 
+			$vidas_mp = 0;				
+			$vidas_ms = 0;
+
+			if($modo == "unaPregunta"){
+				$cant_jug = $this->topicscrud->getCantTries($id_topic, $this->session->userdata('idusuario_tt'), 1 ,date("Y-m-d"));
+			}else if($modo == "modoSimulador"){
+				$cant_jug = $this->topicscrud->getCantTries($id_topic, $this->session->userdata('idusuario_tt'), 2 ,date("Y-m-d"));
+			}
+			$vidas = 3 - $cant_jug;
+
 			$attributos = $this->topicscrud->get_attributos($id_topic);
+			$calificacion = $this->topicscrud->getCalificacionXTopic($id_topic,$this->session->userdata('idusuario_tt'));
+			if(count($calificacion) > 0){
+				$cal = $calificacion[0]->calificacion;
+			}else{
+				$cal = 0;
+			}
 			$this->load->view('main', 
 								array(
 									"modulo" => 'preguntas',
@@ -307,12 +365,14 @@ class Preguntas extends CI_Controller {
 									"correctas" => $correctas,
 									"porcentaje" => $porcentaje,
 									"modo" => $modo,
+									"vidas" => $vidas,
 									"pregCorr" => $pregResCorr,
 									"pregIncorr" => $pregResIncorr,
 									"id_topic" => $id_topic,
 									"titulo" => $attributos[0]->topic,
 									"descripcion" => $attributos[0]->descripcion,
-									"puntos" => $pts_parcial
+									"puntos" => $pts_parcial,
+									"calificacion" => $cal
 									));
 		}else{
 			$this->load->view('login');

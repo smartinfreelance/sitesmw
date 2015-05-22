@@ -72,14 +72,12 @@
 						</fieldset>
 						<div class="form-actions">
 							<?php 
-				            	echo anchor("preguntas/index", 'Cancelar', array("class"=>'btn')); 
+				            	echo anchor("topics/verMiTest/".$id_topic, 'Cancelar', array("class"=>'btn')); 
 				            	echo "&nbsp;";
 				        		echo form_submit(array(
-				        			'value'=>'Crear',
+				        			'value'=>'Agregar Pregunta',
 				        			'class'=>'btn btn-inverse'
 				        		)); 
-				        		echo "&nbsp;";
-				            	echo anchor("topics/verMiTest/".$id_topic, 'Finalizar Test', array("class"=>'btn btn-inverse')); 				        		
 				        		//echo anchor("", 'Crear y agregar mas preguntas', array("id"=>"addTopicAndMoreQ","class"=>'btn btn-inverse')); 
 				        	?>
 						</div>

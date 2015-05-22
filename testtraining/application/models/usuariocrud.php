@@ -33,5 +33,17 @@ class UsuarioCRUD extends CI_Model {
 									");
 		return 0;
 	}
+	function getMisPuntos($id_usuario){
+		$query = $this->db->query("select
+										sum(puntuacion.puntos) as sum_puntos
+									from
+										puntuacion
+									where 
+										puntuacion.id_usuario = '".$id_usuario."'
+									and
+										puntuacion.estado = 0");
+		return $query->result();
+
+	}
 }
 ?>

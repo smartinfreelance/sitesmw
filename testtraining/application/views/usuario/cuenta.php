@@ -22,7 +22,7 @@
 			</div>
 			<dl>
 				<dt>Puntos Acumulados</dt>
-				<dd><?php echo $nombre; ?></dd>
+				<dd><?php echo $puntos; ?></dd>
 			</dl>
 
 

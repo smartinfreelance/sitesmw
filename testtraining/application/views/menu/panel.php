@@ -81,15 +81,25 @@
 							                            <li><?php echo anchor('preguntas/modoLectura/'.$c->id, "<span class = 'color-icons book_open_co'></span>Modo Lectura"); ?></li>
 							            <?php
 							            			}
-							            ?>
-				                                <li><?php echo anchor('preguntas/unaPregunta/'.$c->id, "<span class = 'color-icons clock_co'></span>Modo Preguntados (".$lc['vidas_mp'].")"); ?></li>
-				                                <li><?php echo anchor('preguntas/modoSimulador/'.$c->id, "<span class = 'color-icons list_bullets_co'></span>Modo Simulador (".$lc['vidas_ms'].")"); ?></li>
-										<?php
+								            		if($this->session->userdata('idusuario_tt') == $c->id_usuario){
+									            ?>
+						                                <li><?php echo anchor('topics/addPreguntaToTopic/'.$c->id, "<span class='color-icons page_white_edit_co'></span> Agregar Pregunta"); ?></li>
+						                                <li><?php echo anchor('preguntas/modoLectura/'.$c->id, "<span class = 'color-icons book_open_co'></span>Modo Lectura"); ?></li>
+												<?php
+
+								            		}else{
+
+
+									            ?>
+						                                <li><?php echo anchor('preguntas/unaPregunta/'.$c->id, "<span class = 'color-icons clock_co'></span>Modo Preguntados (".$lc['vidas_mp'].")"); ?></li>
+						                                <li><?php echo anchor('preguntas/modoSimulador/'.$c->id, "<span class = 'color-icons list_bullets_co'></span>Modo Simulador (".$lc['vidas_ms'].")"); ?></li>
+												<?php
+													}
 												}
 											}
 										?>			                    			                            
 			                              <li class="divider"></li>
-			                              <li><a href="#"><span class = "color-icons medal_gold_1_co"></span>Ranking</a></li>
+			                              <li><?php echo anchor('topics/verRanking/'.$c->id, "<span class = 'color-icons medal_gold_1_co'></span>Ranking"); ?></li>
 			                            </ul>
 		                          	</div>
 								</td>

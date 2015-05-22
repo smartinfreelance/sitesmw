@@ -27,11 +27,13 @@ class Usuario extends CI_Controller {
 
 		if($this->session->userdata('idusuario_tt')){
 			$cursosCreados = $this->usuarioCRUD->getMyCourses($this->session->userdata('idusuario_tt'));
+			$puntos = $this->usuarioCRUD->getMisPuntos($this->session->userdata('idusuario_tt'));
 			$this->load->view('main', 
 								array(
 									"modulo" => 'usuario',
 									"pagina" => 'cuenta',
-									"cursos" => $cursosCreados
+									"cursos" => $cursosCreados,
+									"puntos" => $puntos[0]->sum_puntos
 									));
 		}else{
 			$this->load->view('login');
