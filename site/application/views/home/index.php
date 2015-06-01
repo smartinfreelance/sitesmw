@@ -49,7 +49,7 @@
 						<p>Bienvenido, gracias por pasar por mi web. Mi nombre es Sergio Martín Medina, desarrollo sistemas de sistemas hace mas de 6 años. Siempre me desempeñé laboralmente en el ambito informatico y de sistemas. Desarrolle sistemas relacionados con  diferentes rubros: Servicios, Marketing, Publicidad y Finanzas, entre otros. Recorriendo diversos lenguajes de programacion y por proyectos de multiples tamaños, desde PyMES hasta multinacionales.</p>
 						<p>Algunas de las tecnologias que domino son: JAVA, Javascript, PHP, MySQL, CSS Y HTML5. </p>
 						<p>Al trabajar de forma independiente me interiorizo con las necesidades de mis clientes por lo que es prioridad su satisfaccion. </p>
-						<a href="#" class="btn">More</a>
+						<?php echo anchor("start/verContacto", "contactame", array("class"=>"btn")); ?>
 					</div>
 				</div>
 			</div>
@@ -101,37 +101,37 @@
 						<div class="grid_4">
 							<div class="">
 								<div class="img_container"><img src=<?php echo base_url()."images/index_img-1.jpg";?> alt="img"></div>
-								<div class="owl-text">Lorem ipsum</div>
+								<div class="owl-text">Alerta Stock</div>
 							</div>
 						</div>
 						<div class="grid_4">
 							<div class="">
 								<div class="img_container"><img src=<?php echo base_url()."images/index_img-2.jpg";?> alt="img"></div>
-								<div class="owl-text">Derto minert</div>
+								<div class="owl-text">Facturacion</div>
 							</div>
 						</div>
 						<div class="grid_4">
 							<div class="">
 								<div class="img_container"><img src=<?php echo base_url()."images/index_img-3.jpg";?> alt="img"></div>
-								<div class="owl-text">Sedrotr selimto</div>
+								<div class="owl-text">Administración</div>
 							</div>
 						</div>
 						<div class="grid_4">
 							<div class="">
-								<div class="img_container"><img src=<?php echo base_url()."images/index_img-2.jpg";?> alt=""></div>
-								<div class="owl-text">Derto minert</div>
+								<div class="img_container"><img src=<?php echo base_url()."images/index_img-4.jpg";?> alt=""></div>
+								<div class="owl-text">Diseño Web</div>
 							</div>
 						</div>
 						<div class="grid_4">
 							<div class="">
-								<div class="img_container"><img src=<?php echo base_url()."images/index_img-3.jpg";?> alt=""></div>
-								<div class="owl-text">Sedrotr selimto</div>
+								<div class="img_container"><img src=<?php echo base_url()."images/index_img-5.jpg";?> alt=""></div>
+								<div class="owl-text">Reportes Graficos</div>
 							</div>
 						</div>
 						<div class="grid_4">
 							<div class="">
-								<div class="img_container"><img src=<?php echo base_url()."images/index_img-1.jpg";?> alt=""></div>
-								<div class="owl-text">Lorem ipsum</div>
+								<div class="img_container"><img src=<?php echo base_url()."images/index_img-6.jpg";?> alt=""></div>
+								<div class="owl-text">A medida</div>
 							</div>
 						</div>
 					</div>
