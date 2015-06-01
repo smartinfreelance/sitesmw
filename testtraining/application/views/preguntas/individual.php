@@ -71,7 +71,7 @@
 			<input type = "hidden" id = "correctas" name = "correctas" value = "<?php echo $correctas; ?>" />
 			<input type = "hidden" id = "filtro" name = "filtro" value = "<?php echo $filtro; ?>" />
 			<input type = "hidden" id = "id_pregunta" name = "id_pregunta" value = "<?php echo $pregunta->id; ?>" />
-			<input type = "hidden" id = "id_respuesta" name = "id_respuesta" value = "" />
+			<input type = "text" id = "id_respuesta" name = "id_respuesta" value = "" />
 			<input type = "hidden" id = "id_topic" name = "id_topic" value = "<?php echo $id_topic; ?>" />
 			<input type = "hidden" id = "id_try" name = "id_try" value = "<?php echo $id_try; ?>" />
 		<?php 
