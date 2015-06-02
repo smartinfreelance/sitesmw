@@ -1,11 +1,11 @@
 <div id = "main-content">
 	<div class = "container">
 		<ul class="breadcrumb">
-  			<li class="active">Roles</li>
+  			<li class="active">thistoriales</li>
 		</ul>
 		<?php echo anchor(
-							'roles/formAddRol',
-							"Agregar Rol", 
+							'thistoriales/formAddTHistorial',
+							"Agregar THistorial", 
 							array("class"=>'btn btn-success')); 
 		?><br />
 		<br />
@@ -17,8 +17,8 @@
 			</ul>
 		</div>-->
 		<?php
-			if(count($roles) > 0){
-		?>
+			if(count($thistoriales) > 0){
+		?>		
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -26,7 +26,16 @@
 							#ID
 						</th>
 						<th>
-							Nombre
+							Log
+						</th>
+						<th>
+							Tarea
+						</th>
+						<th>
+							Usuario
+						</th>
+						<th>
+							Estado
 						</th>
 						<th>
 							Acciones
@@ -35,24 +44,39 @@
 				</thead>
 				<tbody>
 				<?php
-					foreach($roles as $r){
+					foreach($thistoriales as $th){
 				?>
 					<tr>
 						<td>
 				<?php				
-						echo $r->id;
+						echo $th->id;
 				?>
 						</td>
 						<td>
 				<?php
-						echo $r->nombre;
+						echo $th->log;
 				?>
 						</td>
 						<td>
 				<?php
-						echo anchor("roles/formEditRol/".$r->id, '<i class="icon-edit"></i>'); 
+						echo $th->task;
+				?>
+						</td>
+						<td>
+				<?php
+						echo $th->usuario_nombre." ".$th->usuario_apellido;
+				?>
+						</td>
+						<td>
+				<?php
+						echo $th->estado;
+				?>
+						</td>
+						<td>
+				<?php
+						echo anchor("thistoriales/formEditTHistorial/".$th->id, '<i class="icon-edit"></i>'); 
 						echo "&nbsp; &nbsp; &nbsp;";
-						echo anchor("roles/formDeleteRol/".$r->id, '<i class="icon-trash"></i>', array("alt"=>"Eliminar Rol")); 
+						echo anchor("thistoriales/formDeleteTHistorial/".$th->id, '<i class="icon-trash"></i>', array("alt"=>"Eliminar THistorial")); 
 				?>
 						</td>
 					</tr>
@@ -65,6 +89,6 @@
 			}else{
 				echo "No hay registros.";
 			}
-		?>	
+		?>						
 	</div>
 </div>

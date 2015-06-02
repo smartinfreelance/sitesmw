@@ -14,6 +14,7 @@ class UsuariosCRUD extends CI_Model {
         $this->db->where("password = md5('".$password."')");
         return $this->db->get('usuarios')->result();  */
         $query = $this->db->query("select
+        								usuarios.id as id,
 										usuarios.usuario as usuario,
 										usuarios.nombre as nombre,
 										usuarios.apellido as apellido,
@@ -46,13 +47,24 @@ class UsuariosCRUD extends CI_Model {
     }
 
     function getUsuario($id_usuario){
-    	$query = $this->db->query("select 
-	        							usuarios.id as id, 
-	        							usuarios.nombre as nombre
-        							from 
-        								usuarios
-									where 
+    	$query = $this->db->query("select
+    									usuarios.id as id,
+										usuarios.usuario as usuario,
+										usuarios.nombre as nombre,
+										usuarios.apellido as apellido,
+										usuarios.mail as mail,
+										usuarios.id_rol as id_rol,
+										roles.nombre as rol
+									from
+										usuarios
+									inner join
+										roles
+									on
+										roles.id = usuarios.id_rol
+									where
 										usuarios.estado = 0
+									and
+										roles.estado = 0
 									and
 										usuarios.id = ".$id_usuario);
 		return $query->result();

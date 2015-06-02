@@ -22,9 +22,12 @@ class TasksCRUD extends CI_Model {
 										tasks.id_proyecto as id_proyecto,
 										proyectos.nombre as nombre_proyecto,
 										tasks.id_tipo as id_tipo,
-										tipos_tasks.nombre as tipo_task,
+										ttasks.nombre as tipo_task,
 										tasks.id_estado as id_estado,
-										estados.nombre as estado_nombre
+										estados.nombre as estado_nombre,
+										tasks.id_asignado as id_asignado,
+										usuarios.nombre as nombre_asignado,
+										usuarios.apellido as apellido_asignado
 									from
 										tasks
 									inner join
@@ -32,21 +35,27 @@ class TasksCRUD extends CI_Model {
 									on
 										proyectos.id = tasks.id_proyecto
 									inner join
-										tipos_tasks
+										ttasks
 									on
-										tipos_tasks.id = tasks.id_tipo
+										ttasks.id = tasks.id_tipo
 									inner join
 										estados
 									on
 										estados.id = tasks.id_estado
+									inner join
+										usuarios
+									on
+										usuarios.id = tasks.id_asignado
 									where
 										tasks.estado = 0
 									and
 										proyectos.estado = 0
 									and
-										tipos_tasks.estado = 0
+										ttasks.estado = 0
 									and
 										estados.estado = 0
+									and
+										usuarios.estado = 0
 									order by
 										tasks.id");
 		return $query->result();
@@ -72,7 +81,7 @@ class TasksCRUD extends CI_Model {
 										tasks.id_proyecto as id_proyecto,
 										proyectos.nombre as nombre_proyecto,
 										tasks.id_tipo as id_tipo,
-										tipos_tasks.nombre as tipo_task,
+										ttasks.nombre as tipo_task,
 										tasks.id_estado as id_estado,
 										estados.nombre as estado_nombre,
 									from
@@ -82,9 +91,9 @@ class TasksCRUD extends CI_Model {
 									on
 										proyectos.id = tasks.id_proyecto
 									inner join
-										tipos_tasks
+										ttasks
 									on
-										tipos_tasks.id = tasks.id_tipo
+										ttasks.id = tasks.id_tipo
 									inner join
 										estados
 									on
@@ -94,7 +103,7 @@ class TasksCRUD extends CI_Model {
 									and
 										proyectos.estado = 0
 									and
-										tipos_tasks.estado = 0
+										ttasks.estado = 0
 									and
 										estados.estado = 0
 									and
@@ -138,7 +147,7 @@ class TasksCRUD extends CI_Model {
 										tasks.id_proyecto as id_proyecto,
 										proyectos.nombre as nombre_proyecto,
 										tasks.id_tipo as id_tipo,
-										tipos_tasks.nombre as tipo_task,
+										ttasks.nombre as tipo_task,
 										tasks.id_estado as id_estado,
 										estados.nombre as estado_nombre,
 									from
@@ -148,9 +157,9 @@ class TasksCRUD extends CI_Model {
 									on
 										proyectos.id = tasks.id_proyecto
 									inner join
-										tipos_tasks
+										ttasks
 									on
-										tipos_tasks.id = tasks.id_tipo
+										ttasks.id = tasks.id_tipo
 									inner join
 										estados
 									on
@@ -160,7 +169,7 @@ class TasksCRUD extends CI_Model {
 									and
 										proyectos.estado = 0
 									and
-										tipos_tasks.estado = 0
+										ttasks.estado = 0
 									and
 										estados.estado = 0
 									and									
@@ -170,7 +179,7 @@ class TasksCRUD extends CI_Model {
 									or
 										proyectos.nombre LIKE '%".$search."%'
 									or
-										tipos_tasks.nombre LIKE '%".$search."%'
+										ttasks.nombre LIKE '%".$search."%'
 									or
 										estados.nombre LIKE '%".$search."%')");
 		return $query->result();

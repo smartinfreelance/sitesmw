@@ -6,7 +6,6 @@ class TTasks extends CI_Controller
     {
         parent::__construct();
         $this->load->model('ttasksCRUD');
-        $this->load->model('tttasksCRUD');
     }
 
     function index()
@@ -26,7 +25,7 @@ class TTasks extends CI_Controller
             $this->load->view("main", array(
                                         "modulo"=> "ttasks", 
                                         "pagina"=> "ver_ttask",
-                                        "ttasks" => $ttasks
+                                        "ttasks" => $ttasks[0]
                                         )
                             );
         }else{
@@ -79,11 +78,10 @@ class TTasks extends CI_Controller
 
 
     function formAddTTask(){
-        $tttasks = $this->tttasksCRUD->getTTTasks();
+
         $this->load->view("main", array(
                                         "modulo"=> "ttasks", 
-                                        "pagina"=> "form_add",
-                                        "tttasks" => $tttasks
+                                        "pagina"=> "form_add"
                                         )
                             );
 
@@ -95,7 +93,7 @@ class TTasks extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "ttasks", 
                                             "pagina"=> "form_delete",
-                                            "ttask" => $ttask
+                                            "ttask" => $ttask[0]
                                             )
                                 );
         }else{
@@ -111,7 +109,7 @@ class TTasks extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "ttasks", 
                                             "pagina"=> "form_edit",
-                                            "ttask" => $ttask
+                                            "ttask" => $ttask[0]
                                             )
                                 );
         }else{
@@ -121,11 +119,21 @@ class TTasks extends CI_Controller
     }
 
     function addTTask(){
-        $nombre = $_POST['nombre'];
 
-        $this->ttasksCRUD->addTTask($nombre);
+        $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
+        $this->form_validation->set_rules('nombre', 'Nombre', 'callback_existe_en_bbdd');
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formAddTTask();
+        }
+        else
+        {
+             $nombre = $_POST['nombre'];
 
-        $this->index();
+            $this->ttasksCRUD->addTTask($nombre);
+
+            $this->index();
+        }
     }
 
     function deleteTTask(){
@@ -138,13 +146,34 @@ class TTasks extends CI_Controller
     }
 
     function editTTask(){
-        $id_ttask = $_POST['id_ttask'];
-        $nombre = $_POST['nombre'];
+        $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
+        if($_POST['nombre']!=$_POST['nombre_check']){
+            $this->form_validation->set_rules('nombre', 'Nombre', 'callback_existe_en_bbdd');
+        }        
 
-        $this->ttasksCRUD->editTTask($id_ttask,$nombre);
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formEditTTask($_POST['id_ttask']);
+        }else{
+            $id_ttask = $_POST['id_ttask'];
+            $nombre = $_POST['nombre'];
 
-        $this->index();
+            $this->ttasksCRUD->editTTask($id_ttask,$nombre);
+
+            $this->index();
+        }
         
+    }
+
+    //FUNCIONES DE VALIDACION//
+    function existe_en_bbdd($str){
+        $ttask = $this->ttasksCRUD->existeNombre($str);
+        if(count($ttask) > 0){
+            $this->form_validation->set_message('existe_en_bbdd', 'Ya existe un registro con %s :"'.$str.'". Modifique este campo.');
+            return FALSE;
+        }else{
+            return TRUE;
+        }
     }
 
 }

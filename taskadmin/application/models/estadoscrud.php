@@ -80,7 +80,22 @@ class EstadosCRUD extends CI_Model {
 										estados.nombre LIKE '%".$search."%'");
 		return $query->result();
 	}
+	
+	//FUNCTIONES DE VALIDACION//
 
+	function existeNombre($str){
+		$query = $this->db->query("select 
+										estados.id,
+										estados.nombre
+									from
+										estados
+									where
+										estados.estado = 0
+									and
+										estados.nombre = '".$str."'");
+		return $query->result();
+
+	}
 	
 }
 ?>

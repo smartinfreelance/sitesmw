@@ -14,20 +14,20 @@ class TTasksCRUD extends CI_Model {
         $this->db->where("password = md5('".$password."')");
         return $this->db->get('usuarios')->result();  */
         $query = $this->db->query("select 
-	        							tipos_tasks.id as id, 
-	        							tipos_tasks.nombre as nombre
+	        							ttasks.id as id, 
+	        							ttasks.nombre as nombre
         							from 
-        								tipos_tasks 
+        								ttasks 
 									where 
-										tipos_tasks.estado = 0
+										ttasks.estado = 0
 									order by
-										tipos_tasks.id");
+										ttasks.id");
 		return $query->result();
     }
 //
     function addTTask($nombre){
     	$query= $this->db->query("insert into 
-    								tipos_tasks (
+    								ttasks (
     									nombre) 
     								values (
     									'".$nombre."')");
@@ -37,20 +37,20 @@ class TTasksCRUD extends CI_Model {
 
     function getTTask($id_ttask){
     	$query = $this->db->query("select 
-	        							tipos_tasks.id as id, 
-	        							tipos_tasks.nombre as nombre
+	        							ttasks.id as id, 
+	        							ttasks.nombre as nombre
         							from 
-        								tipos_tasks
+        								ttasks
 									where 
-										tipos_tasks.estado = 0
+										ttasks.estado = 0
 									and
-										tipos_tasks.id = ".$id_ttask);
+										ttasks.id = ".$id_ttask);
 		return $query->result();
 
     }
 	function editTTask($id_ttask,$nombre){
 		$query= $this->db->query("update 
-										tipos_tasks
+										ttasks
 									set 
 										nombre = '".$nombre."'
 									where 
@@ -60,7 +60,7 @@ class TTasksCRUD extends CI_Model {
 
 	function deleteTTask($id_ttask){
 		$query= $this->db->query("update 
-										tipos_tasks
+										ttasks
 									set 
 										estado = 1
 									where 
@@ -70,15 +70,31 @@ class TTasksCRUD extends CI_Model {
 
 	function searchTTask($search){
 		$query = $this->db->query("select 
-	        							tipos_tasks.id as id, 
-	        							tipos_tasks.nombre as nombre
+	        							ttasks.id as id, 
+	        							ttasks.nombre as nombre
         							from 
-        								tipos_tasks
+        								ttasks
 									where 
-										tipos_tasks.estado = 0
+										ttasks.estado = 0
 									and									
-										tipos_tasks.nombre LIKE '%".$search."%'");
+										ttasks.nombre LIKE '%".$search."%'");
 		return $query->result();
+	}
+
+	//FUNCTIONES DE VALIDACION//
+
+	function existeNombre($str){
+		$query = $this->db->query("select 
+										ttasks.id,
+										ttasks.nombre
+									from
+										ttasks
+									where
+										ttasks.estado = 0
+									and
+										ttasks.nombre = '".$str."'");
+		return $query->result();
+
 	}
 
 	

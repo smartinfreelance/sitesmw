@@ -6,7 +6,6 @@ class THistoriales extends CI_Controller
     {
         parent::__construct();
         $this->load->model('thistorialesCRUD');
-        $this->load->model('tthistorialesCRUD');
     }
 
     function index()
@@ -79,11 +78,10 @@ class THistoriales extends CI_Controller
 
 
     function formAddTHistorial(){
-        $tthistoriales = $this->tthistorialesCRUD->getTTHistoriales();
+
         $this->load->view("main", array(
                                         "modulo"=> "thistoriales", 
-                                        "pagina"=> "form_add",
-                                        "tthistoriales" => $tthistoriales
+                                        "pagina"=> "form_add"
                                         )
                             );
 

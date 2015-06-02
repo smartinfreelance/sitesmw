@@ -6,7 +6,6 @@ class TComentarios extends CI_Controller
     {
         parent::__construct();
         $this->load->model('tcomentariosCRUD');
-        $this->load->model('ttcomentariosCRUD');
     }
 
     function index()
@@ -79,11 +78,10 @@ class TComentarios extends CI_Controller
 
 
     function formAddTComentario(){
-        $ttcomentarios = $this->ttcomentariosCRUD->getTTComentarios();
+
         $this->load->view("main", array(
                                         "modulo"=> "tcomentarios", 
-                                        "pagina"=> "form_add",
-                                        "ttcomentarios" => $ttcomentarios
+                                        "pagina"=> "form_add"
                                         )
                             );
 

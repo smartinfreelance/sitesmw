@@ -6,7 +6,7 @@ class Estados extends CI_Controller
     {
         parent::__construct();
         $this->load->model('estadosCRUD');
-        $this->load->model('testadosCRUD');
+
     }
 
     function index()
@@ -79,11 +79,10 @@ class Estados extends CI_Controller
 
 
     function formAddEstado(){
-        $testados = $this->testadosCRUD->getTEstados();
+
         $this->load->view("main", array(
                                         "modulo"=> "estados", 
-                                        "pagina"=> "form_add",
-                                        "testados" => $testados
+                                        "pagina"=> "form_add"
                                         )
                             );
 
@@ -95,7 +94,7 @@ class Estados extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "estados", 
                                             "pagina"=> "form_delete",
-                                            "estado" => $estado
+                                            "estado" => $estado[0]
                                             )
                                 );
         }else{
@@ -111,7 +110,7 @@ class Estados extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "estados", 
                                             "pagina"=> "form_edit",
-                                            "estado" => $estado
+                                            "estado" => $estado[0]
                                             )
                                 );
         }else{
@@ -121,11 +120,19 @@ class Estados extends CI_Controller
     }
 
     function addEstado(){
-        $nombre = $_POST['nombre'];
 
-        $this->estadosCRUD->addEstado($nombre);
-
-        $this->index();
+        $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
+        $this->form_validation->set_rules('nombre', 'Nombre', 'callback_existe_en_bbdd');
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formAddEstado();
+        }
+        else
+        {
+            $nombre = $_POST['nombre'];
+            $this->estadosCRUD->addEstado($nombre);
+            $this->index();
+        }
     }
 
     function deleteEstado(){
@@ -138,13 +145,33 @@ class Estados extends CI_Controller
     }
 
     function editEstado(){
-        $id_estado = $_POST['id_estado'];
-        $nombre = $_POST['nombre'];
 
-        $this->estadosCRUD->editEstado($id_estado,$nombre);
+        $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
+        if($_POST['nombre']!=$_POST['nombre_check']){
+            $this->form_validation->set_rules('nombre', 'Nombre', 'callback_existe_en_bbdd');
+        }        
 
-        $this->index();
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formEditEstado($_POST['id_estado']);
+        }else{
+            $id_estado = $_POST['id_estado'];
+            $nombre = $_POST['nombre'];
+            $this->estadosCRUD->editEstado($id_estado,$nombre);
+            $this->index();
+        }
         
+    }
+
+    //FUNCIONES DE VALIDACION//
+    function existe_en_bbdd($str){
+        $estado = $this->estadosCRUD->existeNombre($str);
+        if(count($estado) > 0){
+            $this->form_validation->set_message('existe_en_bbdd', 'Ya existe un registro con %s :"'.$str.'". Modifique este campo.');
+            return FALSE;
+        }else{
+            return TRUE;
+        }
     }
 
 }

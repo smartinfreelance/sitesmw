@@ -1,11 +1,11 @@
 <div id = "main-content">
 	<div class = "container">
 		<ul class="breadcrumb">
-  			<li class="active">Roles</li>
+  			<li class="active">TComentarios</li>
 		</ul>
 		<?php echo anchor(
-							'roles/formAddRol',
-							"Agregar Rol", 
+							'tcomentarios/formAddTComentario',
+							"Agregar TComentario", 
 							array("class"=>'btn btn-success')); 
 		?><br />
 		<br />
@@ -17,7 +17,7 @@
 			</ul>
 		</div>-->
 		<?php
-			if(count($roles) > 0){
+			if(count($tcomentarios) > 0){
 		?>
 			<table class="table table-striped">
 				<thead>
@@ -26,7 +26,13 @@
 							#ID
 						</th>
 						<th>
-							Nombre
+							Comentario
+						</th>
+						<th>
+							Usuario
+						</th>					
+						<th>
+							Tarea
 						</th>
 						<th>
 							Acciones
@@ -35,24 +41,34 @@
 				</thead>
 				<tbody>
 				<?php
-					foreach($roles as $r){
+					foreach($tcomentarios as $tc){
 				?>
 					<tr>
 						<td>
 				<?php				
-						echo $r->id;
+						echo $tc->id;
 				?>
 						</td>
 						<td>
 				<?php
-						echo $r->nombre;
+						echo $tc->comentario;
 				?>
 						</td>
 						<td>
 				<?php
-						echo anchor("roles/formEditRol/".$r->id, '<i class="icon-edit"></i>'); 
+						echo $tc->nombre_usuario." ".$tc->apellido_usuario;
+				?>
+						</td>					
+						<td>
+				<?php
+						echo $tc->nombre_task;
+				?>
+						</td>
+						<td>
+				<?php
+						echo anchor("tcomentarios/formEditTComentario/".$tc->id, '<i class="icon-edit"></i>'); 
 						echo "&nbsp; &nbsp; &nbsp;";
-						echo anchor("roles/formDeleteRol/".$r->id, '<i class="icon-trash"></i>', array("alt"=>"Eliminar Rol")); 
+						echo anchor("tcomentarios/formDeleteTComentario/".$tc->id, '<i class="icon-trash"></i>', array("alt"=>"Eliminar TComentario")); 
 				?>
 						</td>
 					</tr>
@@ -65,6 +81,6 @@
 			}else{
 				echo "No hay registros.";
 			}
-		?>	
+		?>			
 	</div>
 </div>

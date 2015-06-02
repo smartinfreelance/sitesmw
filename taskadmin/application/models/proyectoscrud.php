@@ -35,7 +35,7 @@ class ProyectosCRUD extends CI_Model {
 
     }
 
-    function getProyecto($idProyecto){
+    function getProyecto($id_proyecto){
     	$query = $this->db->query("select 
 	        							proyectos.id as id, 
 	        							proyectos.nombre as nombre
@@ -44,7 +44,7 @@ class ProyectosCRUD extends CI_Model {
 									where 
 										proyectos.estado = 0
 									and
-										proyectos.id = ".$id_rol);
+										proyectos.id = ".$id_proyecto);
 		return $query->result();
 
     }
@@ -81,6 +81,21 @@ class ProyectosCRUD extends CI_Model {
 		return $query->result();
 	}
 
+	//FUNCTIONES DE VALIDACION//
+
+	function existeNombre($str){
+		$query = $this->db->query("select 
+										proyectos.id,
+										proyectos.nombre
+									from
+										proyectos
+									where
+										proyectos.estado = 0
+									and
+										proyectos.nombre = '".$str."'");
+		return $query->result();
+
+	}
 	
 }
 ?>

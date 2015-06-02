@@ -1,16 +1,18 @@
 <div id = "main-content">
 	<div class = "container">
 		<ul class="breadcrumb">
-  			<li><?php echo anchor('roles' , 'Roles');?><span class="divider">&raquo;</span></li>
-  			<li class="active">Agregar Rol</li>
+  			<li><?php echo anchor('proyectos' , 'Proyectos');?><span class="divider">&raquo;</span></li>
+  			<li class="active">Eliminar Proyecto</li>
 		</ul>
 		<?php echo validation_errors(); ?>
-		<?php echo form_open('roles/addRol'); ?>
+		<?php echo form_open('proyectos/deleteProyecto'); ?>
 		<div class="widget-content">
 			<div class="nonboxy-widget">
 				<div class="widget-head">
-					<h5> Agregar Rol</h5>
+					<h5> ¿Desea eliminar esta Proyecto?</h5>
 				</div>
+				<br/>
+				<input type="hidden" name="id_proyecto" value="<?php echo $proyecto->id; ?>">
 				<div class="widget-content">
 					<div class="widget-box">
 						<form class="form-horizontal well">
@@ -18,17 +20,17 @@
 								<div class="control-group">
 									<label class="control-label" for="input01">Nombre</label>
 									<div class="controls">
-										<input type="text" class="input-xlarge" id="nombre" name ="nombre">
+										<?php echo $proyecto->nombre; ?>
 									</div>
 								</div>
 								<div class="form-actions">
 									<?php 
 						        		echo form_submit(array(
-						        			'value'=>'Agregar',
+						        			'value'=>'Eliminar',
 						        			'class'=>'btn btn-info'
 						        		)); 
 						        		echo "&nbsp;";
-						        		echo anchor("roles/index", 'Cancelar', array("class"=>'btn btn-warning'));
+						        		echo anchor("proyectos/index", 'Cancelar', array("class"=>'btn btn-warning'));
 						        	?>
 								</div>
 							</fieldset>

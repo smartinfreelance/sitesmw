@@ -18,9 +18,30 @@
 								<div class="control-group">
 									<label class="control-label" for="input01">Nombre</label>
 									<div class="controls">
-										<input type="text" class="input-xlarge" id="nombre" name ="nombre">
+										<input type="text" class="input-xlarge" id="nombre" name ="nombre" value = "<?php echo set_value('nombre'); ?>">
 									</div>
 								</div>
+
+								<div class="control-group">
+										<label class="control-label">Rol Superior</label>
+										<div class="controls">
+											<select id = "id_superior" name = "id_superior" >
+												<option value = ""<?php if(set_value('id_superior')==""){ echo "selected = 'selected'"; }?>>Seleccione</option>
+											<?php
+												$x = 0;
+												foreach($roles as $r){
+													$x++;
+													if($r->id > 1){
+											?>
+												<option value = "<?php echo $r->id?>" <?php if(set_value('id_superior')==$x){ echo "selected = 'selected'"; } ?> ><?php echo $r->nombre; ?></option>												
+											<?php
+													}
+												}
+											?>
+											</select>
+										</div>
+									</div>
+
 								<div class="form-actions">
 									<?php 
 						        		echo form_submit(array(

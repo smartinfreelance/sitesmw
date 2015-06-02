@@ -1,11 +1,11 @@
 <div id = "main-content">
 	<div class = "container">
 		<ul class="breadcrumb">
-  			<li class="active">Roles</li>
+  			<li class="active">TTasks</li>
 		</ul>
 		<?php echo anchor(
-							'roles/formAddRol',
-							"Agregar Rol", 
+							'ttasks/formAddTTask',
+							"Agregar TTask", 
 							array("class"=>'btn btn-success')); 
 		?><br />
 		<br />
@@ -17,7 +17,7 @@
 			</ul>
 		</div>-->
 		<?php
-			if(count($roles) > 0){
+			if(count($ttasks) > 0){
 		?>
 			<table class="table table-striped">
 				<thead>
@@ -35,24 +35,24 @@
 				</thead>
 				<tbody>
 				<?php
-					foreach($roles as $r){
+					foreach($ttasks as $tt){
 				?>
 					<tr>
 						<td>
 				<?php				
-						echo $r->id;
+						echo $tt->id;
 				?>
 						</td>
 						<td>
 				<?php
-						echo $r->nombre;
+						echo $tt->nombre;
 				?>
 						</td>
 						<td>
 				<?php
-						echo anchor("roles/formEditRol/".$r->id, '<i class="icon-edit"></i>'); 
+						echo anchor("ttasks/formEditTTask/".$tt->id, '<i class="icon-edit"></i>'); 
 						echo "&nbsp; &nbsp; &nbsp;";
-						echo anchor("roles/formDeleteRol/".$r->id, '<i class="icon-trash"></i>', array("alt"=>"Eliminar Rol")); 
+						echo anchor("ttasks/formDeleteTTask/".$tt->id, '<i class="icon-trash"></i>', array("alt"=>"Eliminar TTask")); 
 				?>
 						</td>
 					</tr>
@@ -65,6 +65,6 @@
 			}else{
 				echo "No hay registros.";
 			}
-		?>	
+		?>			
 	</div>
 </div>

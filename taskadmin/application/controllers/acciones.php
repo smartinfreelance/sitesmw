@@ -78,7 +78,7 @@ class Acciones extends CI_Controller
 
 
     function formAddAccion(){
-        $tacciones = $this->taccionesCRUD->getTAcciones();
+
         $this->load->view("main", array(
                                         "modulo"=> "acciones", 
                                         "pagina"=> "form_add"
@@ -93,7 +93,7 @@ class Acciones extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "acciones", 
                                             "pagina"=> "form_delete",
-                                            "accion" => $accion
+                                            "accion" => $accion[0]
                                             )
                                 );
         }else{
@@ -109,7 +109,7 @@ class Acciones extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "acciones", 
                                             "pagina"=> "form_edit",
-                                            "accion" => $accion
+                                            "accion" => $accion[0]
                                             )
                                 );
         }else{
@@ -119,11 +119,19 @@ class Acciones extends CI_Controller
     }
 
     function addAccion(){
-        $nombre = $_POST['nombre'];
-
-        $this->accionesCRUD->addAccion($nombre);
-
-        $this->index();
+        
+        $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
+        $this->form_validation->set_rules('nombre', 'Nombre', 'callback_existe_en_bbdd');
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formAddAccion();
+        }
+        else
+        {
+            $nombre = $_POST['nombre'];
+            $this->accionesCRUD->addAccion($nombre);
+            $this->index();
+        }
     }
 
     function deleteAccion(){
@@ -136,13 +144,34 @@ class Acciones extends CI_Controller
     }
 
     function editAccion(){
-        $id_accion = $_POST['id_accion'];
-        $nombre = $_POST['nombre'];
-
-        $this->accionesCRUD->editAccion($id_accion,$nombre);
-
-        $this->index();
         
+        $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
+        if($_POST['nombre']!=$_POST['nombre_check']){
+            $this->form_validation->set_rules('nombre', 'Nombre', 'callback_existe_en_bbdd');
+        }        
+
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formEditAccion($_POST['id_accion']);
+        }
+        else
+        {
+            $id_accion = $_POST['id_accion'];
+            $nombre = $_POST['nombre'];
+            $this->accionesCRUD->editAccion($id_accion,$nombre);
+            $this->index();
+        }        
+    }
+
+    //FUNCIONES DE VALIDACION//
+    function existe_en_bbdd($str){
+        $accion = $this->accionesCRUD->existeNombre($str);
+        if(count($accion) > 0){
+            $this->form_validation->set_message('existe_en_bbdd', 'Ya existe un registro con %s :"'.$str.'". Modifique este campo.');
+            return FALSE;
+        }else{
+            return TRUE;
+        }
     }
 
 }

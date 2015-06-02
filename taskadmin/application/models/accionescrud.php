@@ -81,6 +81,20 @@ class AccionesCRUD extends CI_Model {
 		return $query->result();
 	}
 
-	
+	//FUNCTIONES DE VALIDACION//
+
+	function existeNombre($str){
+		$query = $this->db->query("select 
+										acciones.id,
+										acciones.nombre
+									from
+										acciones
+									where
+										acciones.estado = 0
+									and
+										acciones.nombre = '".$str."'");
+		return $query->result();
+
+	}
 }
 ?>

@@ -63,7 +63,7 @@
 					<div class="dashboard-wid-wrap">
 						<div class="dashboard-wid-content"> 
 							<?php 
-								echo anchor('contactos', '<i class="color-icons brick_co"></i> Contactos', array('style="strong"','class="btn btn-large"')); 
+								echo anchor('tasks', '<i class="color-icons brick_co"></i> Tasks', array('style="strong"','class="btn btn-large"')); 
 							?>
 						</div>
 					</div>
@@ -72,7 +72,7 @@
 					<div class="dashboard-wid-wrap">
 						<div class="dashboard-wid-content"> 
 							<?php 
-								echo anchor('inmuebles', '<i class="color-icons books_co"></i> Inmuebles', array('style="strong"','class="btn btn-large"')); 
+								echo anchor('acciones', '<i class="color-icons books_co"></i> Acciones', array('style="strong"','class="btn btn-large"')); 
 							?>
 						</div>
 					</div>
@@ -81,7 +81,7 @@
 					<div class="dashboard-wid-wrap">
 						<div class="dashboard-wid-content"> 
 							<?php 
-								echo anchor('operaciones', '<i class="color-icons chart_bar_co"></i> Operaciones', array('style="strong"','class="btn btn-large"')); 
+								echo anchor('tcomentarios', '<i class="color-icons chart_bar_co"></i> Comentarios', array('style="strong"','class="btn btn-large"')); 
 							?>
 						</div>
 					</div>
@@ -90,7 +90,7 @@
 					<div class="dashboard-wid-wrap">
 						<div class="dashboard-wid-content"> 
 							<?php 
-								echo anchor('roles', '<i class="color-icons arrow_refresh_co"></i> Roles', array('style="strong"','class="btn btn-large"')); 
+								echo anchor('estados', '<i class="color-icons arrow_refresh_co"></i> Estados', array('style="strong"','class="btn btn-large"')); 
 							?>
 						</div>
 					</div>
@@ -101,7 +101,7 @@
 					<div class="dashboard-wid-wrap">
 						<div class="dashboard-wid-content"> 
 							<?php 
-								echo anchor('tcontactos', '<i class="color-icons brick_co"></i> Tipos de Contactos', array('style="strong"','class="btn btn-large"')); 
+								echo anchor('thistoriales', '<i class="color-icons brick_co"></i> Historial de Tasks', array('style="strong"','class="btn btn-large"')); 
 							?>
 						</div>
 					</div>
@@ -110,7 +110,16 @@
 					<div class="dashboard-wid-wrap">
 						<div class="dashboard-wid-content"> 
 							<?php 
-								echo anchor('tinmuebles', '<i class="color-icons brick_co"></i> Tipos de Inmuebles', array('style="strong"','class="btn btn-large"')); 
+								echo anchor('proyectos', '<i class="color-icons brick_co"></i> Proyectos', array('style="strong"','class="btn btn-large"')); 
+							?>
+						</div>
+					</div>
+				</div>
+				<div class="span2">
+					<div class="dashboard-wid-wrap">
+						<div class="dashboard-wid-content"> 
+							<?php 
+								echo anchor('roles', '<i class="color-icons brick_co"></i> Roles', array('style="strong"','class="btn btn-large"')); 
 							?>
 						</div>
 					</div>
@@ -120,6 +129,15 @@
 						<div class="dashboard-wid-content"> 
 							<?php 
 								echo anchor('usuarios', '<i class="color-icons brick_co"></i> Usuarios', array('style="strong"','class="btn btn-large"')); 
+							?>
+						</div>
+					</div>
+				</div>
+				<div class="span2">
+					<div class="dashboard-wid-wrap">
+						<div class="dashboard-wid-content"> 
+							<?php 
+								echo anchor('ttasks', '<i class="color-icons brick_co"></i> Tipo de Tasks', array('style="strong"','class="btn btn-large"')); 
 							?>
 						</div>
 					</div>

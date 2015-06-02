@@ -78,11 +78,11 @@ class Roles extends CI_Controller
 
 
     function formAddRol(){
-        $troles = $this->trolesCRUD->getTRoles();
+        $roles = $this->rolesCRUD->getRoles();
         $this->load->view("main", array(
                                         "modulo"=> "roles", 
                                         "pagina"=> "form_add",
-                                        "troles" => $troles
+                                        "roles"=> $roles
                                         )
                             );
 
@@ -120,12 +120,24 @@ class Roles extends CI_Controller
     }
 
     function addRol(){
-        $nombre = $_POST['nombre'];
-        $telefono = $_POST['id_superior'];
 
-        $this->rolesCRUD->addRol($nombre,$id_superior);
+        $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
+        $this->form_validation->set_rules('nombre', 'Nombre', 'callback_existe_en_bbdd');
+        $this->form_validation->set_rules('id_superior', 'rol superior', 'required');
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formAddRol();
+        }
+        else
+        {
+            $nombre = $_POST['nombre'];
+            $id_superior = $_POST['id_superior'];
 
-        $this->index();
+            $this->rolesCRUD->addRol($nombre,$id_superior);
+
+            $this->index();
+        }
+
     }
 
     function deleteRol(){
@@ -138,14 +150,40 @@ class Roles extends CI_Controller
     }
 
     function editRol(){
-        $id_rol = $_POST['id_rol'];
-        $nombre = $_POST['nombre'];
-        $nombre = $_POST['id_superior'];
-
-        $this->rolesCRUD->editRol($id_rol,$nombre,$id_superior);
-
-        $this->index();
         
+
+        $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
+        $this->form_validation->set_rules('id_superior', 'rol superior', 'required');
+        if($_POST['nombre']!=$_POST['nombre_check']){
+            $this->form_validation->set_rules('nombre', 'Nombre', 'callback_existe_en_bbdd');
+        }        
+
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formEditRol($_POST['id_rol']);
+        }
+        else
+        {
+            $id_rol = $_POST['id_rol'];
+            $nombre = $_POST['nombre'];
+            $nombre = $_POST['id_superior'];
+
+            $this->rolesCRUD->editRol($id_rol,$nombre,$id_superior);
+
+            $this->index();
+        }      
+        
+    }
+
+    //FUNCIONES DE VALIDACION//
+    function existe_en_bbdd($str){
+        $rol = $this->rolesCRUD->existeNombre($str);
+        if(count($rol) > 0){
+            $this->form_validation->set_message('existe_en_bbdd', 'Ya existe un registro con %s :"'.$str.'". Modifique este campo.');
+            return FALSE;
+        }else{
+            return TRUE;
+        }
     }
 
 }

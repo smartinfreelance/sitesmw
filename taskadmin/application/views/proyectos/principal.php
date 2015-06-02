@@ -1,11 +1,11 @@
 <div id = "main-content">
 	<div class = "container">
 		<ul class="breadcrumb">
-  			<li class="active">Roles</li>
+  			<li class="active">Proyectos</li>
 		</ul>
 		<?php echo anchor(
-							'roles/formAddRol',
-							"Agregar Rol", 
+							'proyectos/formAddProyecto',
+							"Agregar Proyecto", 
 							array("class"=>'btn btn-success')); 
 		?><br />
 		<br />
@@ -17,7 +17,7 @@
 			</ul>
 		</div>-->
 		<?php
-			if(count($roles) > 0){
+			if(count($proyectos) > 0){
 		?>
 			<table class="table table-striped">
 				<thead>
@@ -35,24 +35,24 @@
 				</thead>
 				<tbody>
 				<?php
-					foreach($roles as $r){
+					foreach($proyectos as $p){
 				?>
 					<tr>
 						<td>
 				<?php				
-						echo $r->id;
+						echo $p->id;
 				?>
 						</td>
 						<td>
 				<?php
-						echo $r->nombre;
+						echo $p->nombre;
 				?>
 						</td>
 						<td>
 				<?php
-						echo anchor("roles/formEditRol/".$r->id, '<i class="icon-edit"></i>'); 
+						echo anchor("proyectos/formEditProyecto/".$p->id, '<i class="icon-edit"></i>'); 
 						echo "&nbsp; &nbsp; &nbsp;";
-						echo anchor("roles/formDeleteRol/".$r->id, '<i class="icon-trash"></i>', array("alt"=>"Eliminar Rol")); 
+						echo anchor("proyectos/formDeleteProyecto/".$p->id, '<i class="icon-trash"></i>', array("alt"=>"Eliminar Proyecto")); 
 				?>
 						</td>
 					</tr>
@@ -65,6 +65,6 @@
 			}else{
 				echo "No hay registros.";
 			}
-		?>	
+		?>		
 	</div>
 </div>

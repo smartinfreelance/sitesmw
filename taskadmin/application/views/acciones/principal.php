@@ -1,11 +1,11 @@
 <div id = "main-content">
 	<div class = "container">
 		<ul class="breadcrumb">
-  			<li class="active">Roles</li>
+  			<li class="active">Acciones</li>
 		</ul>
 		<?php echo anchor(
-							'roles/formAddRol',
-							"Agregar Rol", 
+							'acciones/formAddAccion',
+							"Agregar Accion", 
 							array("class"=>'btn btn-success')); 
 		?><br />
 		<br />
@@ -17,8 +17,8 @@
 			</ul>
 		</div>-->
 		<?php
-			if(count($roles) > 0){
-		?>
+			if(count($acciones) > 0){
+		?>		
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -35,7 +35,7 @@
 				</thead>
 				<tbody>
 				<?php
-					foreach($roles as $r){
+					foreach($acciones as $r){
 				?>
 					<tr>
 						<td>
@@ -50,9 +50,9 @@
 						</td>
 						<td>
 				<?php
-						echo anchor("roles/formEditRol/".$r->id, '<i class="icon-edit"></i>'); 
+						echo anchor("acciones/formEditAccion/".$r->id, '<i class="icon-edit"></i>'); 
 						echo "&nbsp; &nbsp; &nbsp;";
-						echo anchor("roles/formDeleteRol/".$r->id, '<i class="icon-trash"></i>', array("alt"=>"Eliminar Rol")); 
+						echo anchor("acciones/formDeleteAccion/".$r->id, '<i class="icon-trash"></i>', array("alt"=>"Eliminar Accion")); 
 				?>
 						</td>
 					</tr>
@@ -65,6 +65,6 @@
 			}else{
 				echo "No hay registros.";
 			}
-		?>	
+		?>			
 	</div>
 </div>

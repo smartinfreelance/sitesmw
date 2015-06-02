@@ -6,7 +6,6 @@ class Proyectos extends CI_Controller
     {
         parent::__construct();
         $this->load->model('proyectosCRUD');
-        $this->load->model('tproyectosCRUD');
     }
 
     function index()
@@ -26,7 +25,7 @@ class Proyectos extends CI_Controller
             $this->load->view("main", array(
                                         "modulo"=> "proyectos", 
                                         "pagina"=> "ver_proyecto",
-                                        "proyectos" => $proyectos
+                                        "proyectos" => $proyectos[0]
                                         )
                             );
         }else{
@@ -79,11 +78,10 @@ class Proyectos extends CI_Controller
 
 
     function formAddProyecto(){
-        $tproyectos = $this->tproyectosCRUD->getTProyectos();
+
         $this->load->view("main", array(
                                         "modulo"=> "proyectos", 
-                                        "pagina"=> "form_add",
-                                        "tproyectos" => $tproyectos
+                                        "pagina"=> "form_add"
                                         )
                             );
 
@@ -95,7 +93,7 @@ class Proyectos extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "proyectos", 
                                             "pagina"=> "form_delete",
-                                            "proyecto" => $proyecto
+                                            "proyecto" => $proyecto[0]
                                             )
                                 );
         }else{
@@ -111,7 +109,7 @@ class Proyectos extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "proyectos", 
                                             "pagina"=> "form_edit",
-                                            "proyecto" => $proyecto
+                                            "proyecto" => $proyecto[0]
                                             )
                                 );
         }else{
@@ -121,14 +119,19 @@ class Proyectos extends CI_Controller
     }
 
     function addProyecto(){
-        $nombre = $_POST['nombre'];
-        $telefono = $_POST['telefono'];
-        $id_tipo = $_POST['id_tipo'];
-        $mail = $_POST['mail'];
 
-        $this->proyectosCRUD->addProyecto($nombre,$telefono,$id_tipo,$mail);
-
-        $this->index();
+        $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
+        $this->form_validation->set_rules('nombre', 'Nombre', 'callback_existe_en_bbdd');
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formAddProyecto();
+        }
+        else
+        {
+            $nombre = $_POST['nombre'];
+            $this->proyectosCRUD->addProyecto($nombre);
+            $this->index();
+        }
     }
 
     function deleteProyecto(){
@@ -141,16 +144,32 @@ class Proyectos extends CI_Controller
     }
 
     function editProyecto(){
-        $nombre = $_POST['id_proyecto'];
-        $nombre = $_POST['nombre'];
-        $telefono = $_POST['telefono'];
-        $id_tipo = $_POST['id_tipo'];
-        $mail = $_POST['mail'];
+        $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
+        if($_POST['nombre']!=$_POST['nombre_check']){
+            $this->form_validation->set_rules('nombre', 'Nombre', 'callback_existe_en_bbdd');
+        }        
 
-        $this->proyectosCRUD->editProyecto($id_proyecto,$nombre,$telefono,$id_tipo,$mail);
-
-        $this->index();
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formEditProyecto($_POST['id_proyecto']);
+        }else{
+            $id_proyecto = $_POST['id_proyecto'];
+            $nombre = $_POST['nombre'];
+            $this->proyectosCRUD->editProyecto($id_proyecto,$nombre);
+            $this->index();
+        }
         
+    }
+
+    //FUNCIONES DE VALIDACION//
+    function existe_en_bbdd($str){
+        $proyecto = $this->proyectosCRUD->existeNombre($str);
+        if(count($proyecto) > 0){
+            $this->form_validation->set_message('existe_en_bbdd', 'Ya existe un registro con %s :"'.$str.'". Modifique este campo.');
+            return FALSE;
+        }else{
+            return TRUE;
+        }
     }
 
 }

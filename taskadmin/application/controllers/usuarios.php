@@ -6,7 +6,6 @@ class Usuarios extends CI_Controller
     {
         parent::__construct();
         $this->load->model('usuariosCRUD');
-        $this->load->model('tusuariosCRUD');
     }
 
     function index()
@@ -79,11 +78,10 @@ class Usuarios extends CI_Controller
 
 
     function formAddUsuario(){
-        $tusuarios = $this->tusuariosCRUD->getTUsuarios();
+
         $this->load->view("main", array(
                                         "modulo"=> "usuarios", 
-                                        "pagina"=> "form_add",
-                                        "tusuarios" => $tusuarios
+                                        "pagina"=> "form_add"
                                         )
                             );
 

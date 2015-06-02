@@ -14,21 +14,37 @@ class TComentariosCRUD extends CI_Model {
         $this->db->where("password = md5('".$password."')");
         return $this->db->get('usuarios')->result();  */
         $query = $this->db->query("select 
-	        							comentarios_tasks.id as id, 
-	        							comentarios_tasks.id_task as id_task,
-	        							comentarios_tasks.comentario as comentario
+	        							tcomentarios.id as id, 
+	        							tcomentarios.id_task as id_task,
+	        							tasks.nombre as nombre_task,
+	        							tcomentarios.id_usuario as id_usuario,
+	        							usuarios.nombre as nombre_usuario,
+	        							usuarios.apellido as apellido_usuario,
+	        							tcomentarios.comentario as comentario
         							from 
-        								comentarios_tasks 
+        								tcomentarios 
+        							inner join
+        								tasks
+        							on
+        								tasks.id = tcomentarios.id_task
+        							inner join
+        								usuarios
+        							on
+        								usuarios.id = tcomentarios.id_usuario
 									where 
-										comentarios_tasks.estado = 0
+										tcomentarios.estado = 0
+									and
+										tasks.estado = 0
+									and
+										usuarios.estado = 0
 									order by
-										comentarios_tasks.id");
+										tcomentarios.id");
 		return $query->result();
     }
 //
-    function addTComentario($id_task,$,$nombre){
+    function addTComentario($id_task,$id_usuario,$nombre){
     	$query= $this->db->query("insert into 
-									comentarios_tasks
+									tcomentarios
     									(id_task,id_usuario,comentario)
 									values (
     									(".$id_task.",".$id_usuario.",'".$nombre."');");
@@ -38,21 +54,37 @@ class TComentariosCRUD extends CI_Model {
 
     function getTComentario($id_tcomentario){
     	$query = $this->db->query("select 
-	        							comentarios_tasks.id as id, 
-	        							comentarios_tasks.id_task as id_task,
-	        							comentarios_tasks.comentario as comentario
+	        							tcomentarios.id as id, 
+	        							tcomentarios.id_task as id_task,
+	        							tasks.nombre as nombre_task,
+	        							tcomentarios.id_usuario as id_usuario,
+	        							usuarios.nombre as nombre_usuario,
+	        							usuarios.apellido as apellido_usuario,
+	        							tcomentarios.comentario as comentario
         							from 
-        								comentarios_tasks
+        								tcomentarios 
+        							inner join
+        								tasks
+        							on
+        								tasks.id = tcomentarios.id_task
+        							inner join
+        								usuarios
+        							on
+        								usuarios.id = tcomentarios.id_usuario
 									where 
-										comentarios_tasks.estado = 0
+										tcomentarios.estado = 0
 									and
-										comentarios_tasks.id = ".$id_tcomentario);
+										tasks.estado = 0
+									and
+										usuarios.estado = 0
+									and
+										tcomentarios.id = ".$id_tcomentario);
 		return $query->result();
 
     }
 	function editTComentario($id_tcomentario,$id_task,$comentario){
 		$query= $this->db->query("update 
-										comentarios_tasks
+										tcomentarios
 									set 
 										comentario = '".$comentario."',
 										id_task = ".$id_task."
@@ -63,7 +95,7 @@ class TComentariosCRUD extends CI_Model {
 
 	function deleteTComentario($id_tcomentario){
 		$query= $this->db->query("update 
-										comentarios_tasks
+										tcomentarios
 									set 
 										estado = 1
 									where 
@@ -73,15 +105,31 @@ class TComentariosCRUD extends CI_Model {
 
 	function searchTComentario($search){
 		$query = $this->db->query("select 
-	        							comentarios_tasks.id as id, 
-	        							comentarios_tasks.id_task as id_task, 
-	        							comentarios_tasks.nombre as nombre
+	        							tcomentarios.id as id, 
+	        							tcomentarios.id_task as id_task,
+	        							tasks.nombre as nombre_task,
+	        							tcomentarios.id_usuario as id_usuario,
+	        							usuarios.nombre as nombre_usuario,
+	        							usuarios.apellido as apellido_usuario,
+	        							tcomentarios.comentario as comentario
         							from 
-        								comentarios_tasks
+        								tcomentarios 
+        							inner join
+        								tasks
+        							on
+        								tasks.id = tcomentarios.id_task
+        							inner join
+        								usuarios
+        							on
+        								usuarios.id = tcomentarios.id_usuario
 									where 
-										comentarios_tasks.estado = 0
+										tcomentarios.estado = 0
+									and
+										tasks.estado = 0
+									and
+										usuarios.estado = 0
 									and									
-										comentarios_tasks.nombre LIKE '%".$search."%'");
+										tcomentarios.nombre LIKE '%".$search."%'");
 		return $query->result();
 	}
 
