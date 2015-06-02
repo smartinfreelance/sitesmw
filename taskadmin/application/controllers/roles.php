@@ -121,8 +121,7 @@ class Roles extends CI_Controller
 
     function addRol(){
 
-        $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
-        $this->form_validation->set_rules('nombre', 'Nombre', 'callback_existe_en_bbdd');
+        $this->form_validation->set_rules('nombre', 'nombre', 'required|min_length[2]|max_length[50]|callback_existe_en_bbdd');
         $this->form_validation->set_rules('id_superior', 'rol superior', 'required');
         if ($this->form_validation->run() == FALSE)
         {

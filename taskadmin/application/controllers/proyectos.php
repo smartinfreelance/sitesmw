@@ -120,8 +120,7 @@ class Proyectos extends CI_Controller
 
     function addProyecto(){
 
-        $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
-        $this->form_validation->set_rules('nombre', 'Nombre', 'callback_existe_en_bbdd');
+        $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]|callback_existe_en_bbdd');
         if ($this->form_validation->run() == FALSE)
         {
             $this->formAddProyecto();
@@ -144,10 +143,12 @@ class Proyectos extends CI_Controller
     }
 
     function editProyecto(){
-        $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
+
         if($_POST['nombre']!=$_POST['nombre_check']){
-            $this->form_validation->set_rules('nombre', 'Nombre', 'callback_existe_en_bbdd');
-        }        
+            $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]|callback_existe_en_bbdd');
+        }else{
+            $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
+        }
 
         if ($this->form_validation->run() == FALSE)
         {

@@ -120,8 +120,8 @@ class Acciones extends CI_Controller
 
     function addAccion(){
         
-        $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
-        $this->form_validation->set_rules('nombre', 'Nombre', 'callback_existe_en_bbdd');
+        $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]|callback_existe_en_bbdd');
+
         if ($this->form_validation->run() == FALSE)
         {
             $this->formAddAccion();
@@ -147,7 +147,9 @@ class Acciones extends CI_Controller
         
         $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
         if($_POST['nombre']!=$_POST['nombre_check']){
-            $this->form_validation->set_rules('nombre', 'Nombre', 'callback_existe_en_bbdd');
+            $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]|callback_existe_en_bbdd');
+        }else{
+            $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
         }        
 
         if ($this->form_validation->run() == FALSE)
