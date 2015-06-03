@@ -4,7 +4,17 @@
   			<li><?php echo anchor('proyectos' , 'Proyectos');?><span class="divider">&raquo;</span></li>
   			<li class="active">Editar Proyecto</li>
 		</ul>
-		<?php echo validation_errors(); ?>
+		<?php
+			if(validation_errors()!=""){
+		?>
+			<div class="widget-box">
+				<div class="alert alert-error fade in">
+					<strong><?php echo validation_errors(); ?></strong>
+				</div>
+			</div>
+		<?php
+			}
+		?>
 		<?php echo form_open('proyectos/editProyecto'); ?>
 		<input type="hidden" name="id_proyecto" value="<?php echo $proyecto->id; ?>">
 		<br/>

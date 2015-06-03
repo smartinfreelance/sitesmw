@@ -26,7 +26,7 @@ class Contactos extends CI_Controller
             $this->load->view("main", array(
                                         "modulo"=> "contactos", 
                                         "pagina"=> "ver_contacto",
-                                        "contactos" => $contactos
+                                        "contacto" => $contacto[0]
                                         )
                             );
         }else{
@@ -90,12 +90,12 @@ class Contactos extends CI_Controller
     }
 
     function formDeleteContacto($id_contacto = 0){
-        $contacto = $this->contactosCRUD->getContacto($id_contacto);    
+        $contacto = $this->contactosCRUD->getContacto($id_contacto);   
         if(count($contacto) > 0){    
             $this->load->view("main", array(
                                             "modulo"=> "contactos", 
                                             "pagina"=> "form_delete",
-                                            "contacto" => $contacto
+                                            "contacto" => $contacto[0]
                                             )
                                 );
         }else{
@@ -106,12 +106,13 @@ class Contactos extends CI_Controller
 
     function formEditContacto($id_contacto = 0){
         $contacto = $this->contactosCRUD->getContacto($id_contacto);        
-        
+        $tcontactos = $this->tcontactosCRUD->getTContactos(); 
         if(count($contacto) > 0){
             $this->load->view("main", array(
                                             "modulo"=> "contactos", 
                                             "pagina"=> "form_edit",
-                                            "contacto" => $contacto
+                                            "contacto" => $contacto[0],
+                                            "tcontactos" => $tcontactos
                                             )
                                 );
         }else{
@@ -121,14 +122,29 @@ class Contactos extends CI_Controller
     }
 
     function addContacto(){
-        $nombre = $_POST['nombre'];
-        $telefono = $_POST['telefono'];
-        $id_tipo = $_POST['id_tipo'];
-        $mail = $_POST['mail'];
 
-        $this->contactosCRUD->addContacto($nombre,$telefono,$id_tipo,$mail);
+        $this->form_validation->set_rules('nombre', 'nombre', 'required|min_length[2]|max_length[50]|callback_existe_en_bbdd');
+        $this->form_validation->set_rules('telefono', 'telefono', 'required|min_length[7]|max_length[14]|is_numeric');
+        $this->form_validation->set_rules('id_tipo', 'tipo contacto', 'required');
+        $this->form_validation->set_rules('mail', 'e-mail', 'required|valid_email');
 
-        $this->index();
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formAddContacto();
+        }
+        else
+        {
+            $nombre = $_POST['nombre'];
+            $telefono = $_POST['telefono'];
+            $id_tipo = $_POST['id_tipo'];
+            $mail = $_POST['mail'];
+
+            $this->contactosCRUD->addContacto($nombre,$telefono,$id_tipo,$mail);
+
+            $this->index();
+        }
+
+        
     }
 
     function deleteContacto(){
@@ -141,16 +157,38 @@ class Contactos extends CI_Controller
     }
 
     function editContacto(){
-        $nombre = $_POST['id_contacto'];
-        $nombre = $_POST['nombre'];
-        $telefono = $_POST['telefono'];
-        $id_tipo = $_POST['id_tipo'];
-        $mail = $_POST['mail'];
+        $this->form_validation->set_rules('nombre', 'nombre', 'required|min_length[2]|max_length[50]');
+        $this->form_validation->set_rules('telefono', 'telefono', 'required|min_length[7]|max_length[14]|is_numeric');
+        $this->form_validation->set_rules('id_tipo', 'tipo', 'required');
+        $this->form_validation->set_rules('mail', 'E-mail', 'required|valid_email');
 
-        $this->contactosCRUD->editContacto($id_contacto,$nombre,$telefono,$id_tipo,$mail);
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formEditContacto($_POST['id_contacto']);
+        }
+        else
+        {
+            $id_contacto = $_POST['id_contacto'];
+            $nombre = $_POST['nombre'];
+            $telefono = $_POST['telefono'];
+            $id_tipo = $_POST['id_tipo'];
+            $mail = $_POST['mail'];
 
-        $this->index();
-        
+            $this->contactosCRUD->editContacto($id_contacto,$nombre,$telefono,$id_tipo,$mail);
+
+            $this->index();
+        }
+    }
+
+    //FUNCIONES DE VALIDACION//
+    function existe_en_bbdd($str){
+        $contacto = $this->contactosCRUD->existeNombre($str);
+        if(count($contacto) > 0){
+            $this->form_validation->set_message('existe_en_bbdd', 'Ya existe un registro con %s :"'.$str.'". Modifique este campo.');
+            return FALSE;
+        }else{
+            return TRUE;
+        }
     }
 
 }

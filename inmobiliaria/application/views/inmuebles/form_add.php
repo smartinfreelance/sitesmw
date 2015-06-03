@@ -1,10 +1,21 @@
+<!--http://uno-de-piera.com/selects-en-cascada-con-codeigniter-y-jquery-4-niveles/-->
 <div id = "main-content">
 	<div class = "container">
 		<ul class="breadcrumb">
   			<li><?php echo anchor('inmuebles' , 'Inmuebles');?><span class="divider">&raquo;</span></li>
   			<li class="active">Agregar Inmueble</li>
 		</ul>
-		<?php echo validation_errors(); ?>
+		<?php
+			if(validation_errors()!=""){
+		?>
+			<div class="widget-box">
+				<div class="alert alert-error fade in">
+					<strong><?php echo validation_errors(); ?></strong>
+				</div>
+			</div>
+		<?php
+			}
+		?>
 		<?php echo form_open('inmuebles/addInmueble'); ?>
 		<div class="widget-content">
 			<div class="nonboxy-widget">

@@ -79,7 +79,7 @@ class ContactosCRUD extends CI_Model {
 										id_tipo = ".$id_tipo.",
 										mail = '".$mail."'
 									where 
-										id = ".$idContacto);
+										id = ".$id_contacto);
 		return 0;
 	}
 
@@ -119,6 +119,21 @@ class ContactosCRUD extends CI_Model {
 
 	}
 
+	//FUNCTIONES DE VALIDACION//
+
+	function existeNombre($str){
+		$query = $this->db->query("select 
+										contactos.id,
+										contactos.nombre
+									from
+										contactos
+									where
+										contactos.estado = 0
+									and
+										contactos.nombre = '".$str."'");
+		return $query->result();
+
+	}
 	
 }
 ?>

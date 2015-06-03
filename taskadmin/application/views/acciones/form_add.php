@@ -4,7 +4,17 @@
   			<li><?php echo anchor('acciones' , 'Acciones');?><span class="divider">&raquo;</span></li>
   			<li class="active">Agregar Accion</li>
 		</ul>
-		<?php echo validation_errors(); ?>
+		<?php
+			if(validation_errors()!=""){
+		?>
+			<div class="widget-box">
+				<div class="alert alert-error fade in">
+					<strong><?php echo validation_errors(); ?></strong>
+				</div>
+			</div>
+		<?php
+			}
+		?>
 		<?php echo form_open('acciones/addAccion'); ?>
 		<div class="widget-content">
 			<div class="nonboxy-widget">
