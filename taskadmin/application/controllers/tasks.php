@@ -7,6 +7,9 @@ class Tasks extends CI_Controller
         parent::__construct();
         $this->load->model('tasksCRUD');
         $this->load->model('ttasksCRUD');
+        $this->load->model('proyectosCRUD');
+        $this->load->model('estadosCRUD');
+        $this->load->model('usuariosCRUD');
     }
 
     function index()
@@ -79,11 +82,17 @@ class Tasks extends CI_Controller
 
 
     function formAddTask(){
+        $proyectos = $this->proyectosCRUD->getProyectos();
+        $estados = $this->estadosCRUD->getEstados();
         $ttasks = $this->ttasksCRUD->getTTasks();
+        $usuarios = $this->usuariosCRUD->getUsuarios();
         $this->load->view("main", array(
                                         "modulo"=> "tasks", 
                                         "pagina"=> "form_add",
-                                        "ttasks" => $ttasks
+                                        "proyectos" => $proyectos,
+                                        "estados" => $estados,
+                                        "ttasks" => $ttasks,
+                                        "usuarios" => $usuarios
                                         )
                             );
 
@@ -122,17 +131,34 @@ class Tasks extends CI_Controller
 
     function addTask(){
         
-        $nombre = $_POST['nombre'];
-        $descripcion = $_POST['descripcion'];
-        $demora = $_POST['demora'];
-        $demora_actual = $_POST['demora_actual'];
-        $id_proyecto = $_POST['id_proyecto'];
-        $id_tipo = $_POST['id_tipo'];
-        $id_estado = $_POST['id_estado'];
+        $this->form_validation->set_rules('nombre', 'nombre', 'trim|max_length[50]|min_length[2]|required');
+        $this->form_validation->set_rules('descripcion', 'descripcion', 'trim|max_length[2000]|min_length[5]|required');
+        $this->form_validation->set_rules('demora','demora','trim|max_length[10]|min_length[2]|required');
+        $this->form_validation->set_rules('demora_actual','demora actual','trim|max_length[10]|min_length[2]');
+        $this->form_validation->set_rules('id_proyecto','proyecto','required');
+        $this->form_validation->set_rules('id_ttask','tipo','required');
+        $this->form_validation->set_rules('id_estado','estado','required');
+        $this->form_validation->set_rules('id_usuario','usuario asignado','required');
 
-        $this->tasksCRUD->addTask($nombre,$descripcion,$demora,$demora_actual,$id_proyecto,$id_tipo,$id_estado);
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formAddTask();
+        }else{
+            $nombre = $_POST['nombre'];
+            $descripcion = $_POST['descripcion'];
+            $demora = $_POST['demora'];
+            if($_POST['demora_actual'] == ""){
+                $demora_actual = "0h";
+            }else{
+                $demora_actual = $_POST['demora_actual'];
+            }
+            $id_proyecto = $_POST['id_proyecto'];
+            $id_tipo = $_POST['id_ttask'];
+            $id_estado = $_POST['id_estado'];
 
-        $this->index();
+            $this->tasksCRUD->addTask($nombre,$descripcion,$demora,$demora_actual,$id_proyecto,$id_tipo,$id_estado);
+            $this->index();
+        }        
     }
 
     function deleteTask(){
@@ -151,7 +177,7 @@ class Tasks extends CI_Controller
         $demora = $_POST['demora'];
         $demora_actual = $_POST['demora_actual'];
         $id_proyecto = $_POST['id_proyecto'];
-        $id_tipo = $_POST['id_tipo'];
+        $id_tipo = $_POST['id_ttask'];
         $id_estado = $_POST['id_estado'];
 
         $this->tasksCRUD->editTask($id_task,$nombre,$descripcion,$demora,$demora_actual,$id_proyecto,$id_tipo,$id_estado);

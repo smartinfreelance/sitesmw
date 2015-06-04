@@ -6,6 +6,10 @@ class THistoriales extends CI_Controller
     {
         parent::__construct();
         $this->load->model('thistorialesCRUD');
+        $this->load->model('accionesCRUD');
+        $this->load->model('estadosCRUD');
+        $this->load->model('usuariosCRUD');
+        $this->load->model('tasksCRUD');
     }
 
     function index()
@@ -79,9 +83,17 @@ class THistoriales extends CI_Controller
 
     function formAddTHistorial(){
 
+        $acciones = $this->accionesCRUD->getAcciones();
+        $usuarios = $this->usuariosCRUD->getUsuarios();
+        $estados = $this->estadosCRUD->getEstados();
+        $tasks = $this->tasksCRUD->getTasks();
         $this->load->view("main", array(
                                         "modulo"=> "thistoriales", 
-                                        "pagina"=> "form_add"
+                                        "pagina"=> "form_add",
+                                        "acciones" => $acciones,
+                                        "usuarios" => $usuarios,
+                                        "estados" => $estados,
+                                        "tasks" => $tasks
                                         )
                             );
 
@@ -119,15 +131,30 @@ class THistoriales extends CI_Controller
     }
 
     function addTHistorial(){
-        $log = "";
-        $id_task = $_POST['id_task'];
-        $id_accion = $_POST['id_accion'];
-        $id_usuario = $_POST['id_usuario'];
-        $id_estado = $_POST['id_estado'];
-                
-        $this->thistorialesCRUD->addTHistorial($log,$id_task,$id_accion,$id_usuario,$id_estado);
 
-        $this->index();
+        $this->form_validation->set_rules('log','log','trim|max_length[150]|min_length[2]|required');
+        $this->form_validation->set_rules('id_task','task','required');
+        $this->form_validation->set_rules('id_accion','accion','required');
+        $this->form_validation->set_rules('id_usuario','usuario','required');
+        $this->form_validation->set_rules('id_estado','estado','required');
+
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formAddTHistorial();
+        }else{
+            $log = $_POST['log'];
+            $id_task = $_POST['id_task'];
+            $id_accion = $_POST['id_accion'];
+            $id_usuario = $_POST['id_usuario'];
+            $id_estado = $_POST['id_estado'];
+                    
+            $this->thistorialesCRUD->addTHistorial($log,$id_task,$id_accion,$id_usuario,$id_estado);
+
+            $this->index();
+
+        }
+
+        
     }
 
     function deleteTHistorial(){

@@ -117,7 +117,21 @@ class UsuariosCRUD extends CI_Model {
 										usuarios.nombre LIKE '%".$search."%'");
 		return $query->result();
 	}
+	//FUNCTIONES DE VALIDACION//
 
+	function existeNombre($str){
+		$query = $this->db->query("select 
+										usuarios.id,
+										usuarios.nombre
+									from
+										usuarios
+									where
+										usuarios.estado = 0
+									and
+										usuarios.nombre = '".$str."'");
+		return $query->result();
+
+	}
 	
 }
 ?>

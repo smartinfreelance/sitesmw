@@ -58,7 +58,7 @@ class THistorialesCRUD extends CI_Model {
 		return $query->result();
     }
 //
-    function addTHistorial($nombre){
+    function addTHistorial($log,$id_task,$id_accion,$id_usuario,$id_estado){
     	$query= $this->db->query("insert into 
 									thistoriales 
 										(log,id_task,id_accion, id_usuario,id_estado) 

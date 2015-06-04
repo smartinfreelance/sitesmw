@@ -46,7 +46,7 @@ class TComentariosCRUD extends CI_Model {
     	$query= $this->db->query("insert into 
 									tcomentarios
     									(id_task,id_usuario,comentario)
-									values (
+									values 
     									(".$id_task.",".$id_usuario.",'".$nombre."');");
 		return 0;
 

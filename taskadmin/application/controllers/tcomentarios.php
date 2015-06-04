@@ -6,6 +6,8 @@ class TComentarios extends CI_Controller
     {
         parent::__construct();
         $this->load->model('tcomentariosCRUD');
+        $this->load->model('tasksCRUD');
+        $this->load->model('usuariosCRUD');
     }
 
     function index()
@@ -79,9 +81,14 @@ class TComentarios extends CI_Controller
 
     function formAddTComentario(){
 
+        $usuarios = $this->usuariosCRUD->getUsuarios();
+        $tasks = $this->tasksCRUD->getTasks();
+
         $this->load->view("main", array(
                                         "modulo"=> "tcomentarios", 
-                                        "pagina"=> "form_add"
+                                        "pagina"=> "form_add",
+                                        "usuarios" => $usuarios,
+                                        "tasks" => $tasks
                                         )
                             );
 
@@ -119,13 +126,23 @@ class TComentarios extends CI_Controller
     }
 
     function addTComentario(){
-        $id_task = $_POST['id_task'];
-        $id_usuario = $_POST['id_usuario'];
-        $comentario = $_POST['comentario'];
 
-        $this->tcomentariosCRUD->addTComentario($id_task,$id_usuario,$comentario);
+        $this->form_validation->set_rules('id_task','task','required');
+        $this->form_validation->set_rules('id_usuario','usuario','required');
+        $this->form_validation->set_rules('comentario','comentario', 'trim|max_length[1000]|min_lenght[2]|required');
+        
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formAddTComentario();
+        }else{
+            $id_task = $_POST['id_task'];
+            $id_usuario = $_POST['id_usuario'];
+            $comentario = $_POST['comentario'];
 
-        $this->index();
+            $this->tcomentariosCRUD->addTComentario($id_task,$id_usuario,$comentario);
+
+            $this->index();
+        }
     }
 
     function deleteTComentario(){

@@ -6,6 +6,7 @@ class Usuarios extends CI_Controller
     {
         parent::__construct();
         $this->load->model('usuariosCRUD');
+        $this->load->model('rolesCRUD');
     }
 
     function index()
@@ -79,9 +80,11 @@ class Usuarios extends CI_Controller
 
     function formAddUsuario(){
 
+        $roles = $this->rolesCRUD->getRoles();
         $this->load->view("main", array(
                                         "modulo"=> "usuarios", 
-                                        "pagina"=> "form_add"
+                                        "pagina"=> "form_add",
+                                        "roles" => $roles
                                         )
                             );
 
@@ -119,15 +122,27 @@ class Usuarios extends CI_Controller
     }
 
     function addUsuario(){
-        $usuario = $_POST['usuario'];
-        $nombre = $_POST['nombre'];
-        $apellido = $_POST['apellido'];
-        $id_rol = $_POST['id_rol'];
-        $mail = $_POST['mail'];
 
-        $this->usuariosCRUD->addUsuario($usuario, $nombre,$apellido,$id_rol,$mail);
+        $this->form_validation->set_rules('usuario','usuario','trim|max_length[16]|min_lenght[6]|required|callback_existe_en_bbdd');
+        $this->form_validation->set_rules('nombre','nombre','trim|max_length[35]|min_lenght[2]|required');
+        $this->form_validation->set_rules('apellido','apellido','trim|max_length[35]|min_lenght[2]|required');
+        $this->form_validation->set_rules('mail','mail','trim|max_length[35]|min_lenght[8]|required|valid_email');
+        $this->form_validation->set_rules('id_rol','id_rol','required');
 
-        $this->index();
+        if ($this->form_validation->run() == FALSE){
+            $this->formAddUsuario();
+
+        }else{
+            $usuario = $_POST['usuario'];
+            $nombre = $_POST['nombre'];
+            $apellido = $_POST['apellido'];
+            $id_rol = $_POST['id_rol'];
+            $mail = $_POST['mail'];
+
+            $this->usuariosCRUD->addUsuario($usuario, $nombre,$apellido,$id_rol,$mail);
+
+            $this->index();
+        }
     }
 
     function deleteUsuario(){
@@ -151,6 +166,17 @@ class Usuarios extends CI_Controller
 
         $this->index();
         
+    }
+
+    //FUNCIONES DE VALIDACION//
+    function existe_en_bbdd($str){
+        $usuario = $this->usuariosCRUD->existeNombre($str);
+        if(count($usuario) > 0){
+            $this->form_validation->set_message('existe_en_bbdd', 'Ya existe un registro con %s :"'.$str.'". Modifique este campo.');
+            return FALSE;
+        }else{
+            return TRUE;
+        }
     }
 
 }
