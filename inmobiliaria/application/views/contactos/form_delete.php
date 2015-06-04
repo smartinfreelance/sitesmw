@@ -11,7 +11,7 @@
 		<div class="widget-content">
 			<div class="nonboxy-widget">
 				<div class="widget-head">
-					<h5> Eliminar Contacto</h5>
+					<h5>¿Desea eliminar Contacto?</h5>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="typehead">Nombre</label>

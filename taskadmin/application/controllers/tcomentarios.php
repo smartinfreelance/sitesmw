@@ -25,7 +25,7 @@ class TComentarios extends CI_Controller
             $this->load->view("main", array(
                                         "modulo"=> "tcomentarios", 
                                         "pagina"=> "ver_tcomentario",
-                                        "tcomentarios" => $tcomentarios
+                                        "tcomentario" => $tcomentario[0]
                                         )
                             );
         }else{
@@ -93,7 +93,7 @@ class TComentarios extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "tcomentarios", 
                                             "pagina"=> "form_delete",
-                                            "tcomentario" => $tcomentario
+                                            "tcomentario" => $tcomentario[0]
                                             )
                                 );
         }else{
@@ -109,7 +109,7 @@ class TComentarios extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "tcomentarios", 
                                             "pagina"=> "form_edit",
-                                            "tcomentario" => $tcomentario
+                                            "tcomentario" => $tcomentario[0]
                                             )
                                 );
         }else{

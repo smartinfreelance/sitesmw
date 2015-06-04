@@ -25,7 +25,7 @@ class TInmuebles extends CI_Controller
             $this->load->view("main", array(
                                         "modulo"=> "tinmuebles", 
                                         "pagina"=> "ver_tinmueble",
-                                        "tinmuebles" => $tinmuebles
+                                        "tinmueble" => $tinmueble[0]
                                         )
                             );
         }else{
@@ -92,7 +92,7 @@ class TInmuebles extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "tinmuebles", 
                                             "pagina"=> "form_delete",
-                                            "tinmueble" => $tinmueble
+                                            "tinmueble" => $tinmueble[0]
                                             )
                                 );
         }else{
@@ -108,7 +108,7 @@ class TInmuebles extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "tinmuebles", 
                                             "pagina"=> "form_edit",
-                                            "tinmueble" => $tinmueble
+                                            "tinmueble" => $tinmueble[0]
                                             )
                                 );
         }else{

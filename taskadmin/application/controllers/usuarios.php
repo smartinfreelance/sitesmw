@@ -25,7 +25,7 @@ class Usuarios extends CI_Controller
             $this->load->view("main", array(
                                         "modulo"=> "usuarios", 
                                         "pagina"=> "ver_usuario",
-                                        "usuarios" => $usuarios
+                                        "usuario" => $usuario[0]
                                         )
                             );
         }else{
@@ -93,7 +93,7 @@ class Usuarios extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "usuarios", 
                                             "pagina"=> "form_delete",
-                                            "usuario" => $usuario
+                                            "usuario" => $usuario[0]
                                             )
                                 );
         }else{
@@ -109,7 +109,7 @@ class Usuarios extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "usuarios", 
                                             "pagina"=> "form_edit",
-                                            "usuario" => $usuario
+                                            "usuario" => $usuario[0]
                                             )
                                 );
         }else{

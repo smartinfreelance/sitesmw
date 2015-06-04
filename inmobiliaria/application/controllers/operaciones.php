@@ -25,7 +25,7 @@ class Operaciones extends CI_Controller
             $this->load->view("main", array(
                                         "modulo"=> "operaciones", 
                                         "pagina"=> "ver_operacion",
-                                        "operaciones" => $operaciones
+                                        "operacion" => $operacion[0]
                                         )
                             );
         }else{
@@ -92,7 +92,7 @@ class Operaciones extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "operaciones", 
                                             "pagina"=> "form_delete",
-                                            "operacion" => $operacion
+                                            "operacion" => $operacion[0]
                                             )
                                 );
         }else{
@@ -108,7 +108,7 @@ class Operaciones extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "operaciones", 
                                             "pagina"=> "form_edit",
-                                            "operacion" => $operacion
+                                            "operacion" => $operacion[0]
                                             )
                                 );
         }else{

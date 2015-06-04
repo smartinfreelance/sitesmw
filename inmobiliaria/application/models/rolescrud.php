@@ -58,13 +58,13 @@ class RolesCRUD extends CI_Model {
 		return 0;
 	}
 
-	function eliminarRol($idRol){
+	function deleteRol($id_rol){
 		$query= $this->db->query("update 
 										roles
 									set 
 										estado = 1
 									where 
-										id = ".$idRol);
+										id = ".$id_rol);
 		return 0;
 	}
 

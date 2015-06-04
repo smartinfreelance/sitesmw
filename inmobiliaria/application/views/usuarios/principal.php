@@ -87,9 +87,9 @@
 					</td>					
 					<td>
 			<?php
-					echo anchor("usuarios/editUsuario/".$u->id, '<i class="icon-edit"></i>'); 
+					echo anchor("usuarios/formEditUsuario/".$u->id, '<i class="icon-edit"></i>'); 
 					echo "&nbsp; &nbsp; &nbsp;";
-					echo anchor("usuarios/eliminarUsuario/".$u->id, '<i class="icon-trash"></i>', array("alt"=>"Eliminar Usuario")); 
+					echo anchor("usuarios/formDeleteUsuario/".$u->id, '<i class="icon-trash"></i>', array("alt"=>"Eliminar Usuario")); 
 			?>
 					</td>
 				</tr>

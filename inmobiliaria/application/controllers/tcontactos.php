@@ -25,7 +25,7 @@ class TContactos extends CI_Controller
             $this->load->view("main", array(
                                         "modulo"=> "tcontactos", 
                                         "pagina"=> "ver_tcontacto",
-                                        "tcontactos" => $tcontactos
+                                        "tcontacto" => $tcontacto[0]
                                         )
                             );
         }else{
@@ -92,7 +92,7 @@ class TContactos extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "tcontactos", 
                                             "pagina"=> "form_delete",
-                                            "tcontacto" => $tcontacto
+                                            "tcontacto" => $tcontacto[0]
                                             )
                                 );
         }else{
@@ -108,7 +108,7 @@ class TContactos extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "tcontactos", 
                                             "pagina"=> "form_edit",
-                                            "tcontacto" => $tcontacto
+                                            "tcontacto" => $tcontacto[0]
                                             )
                                 );
         }else{

@@ -84,6 +84,9 @@ class TasksCRUD extends CI_Model {
 										ttasks.nombre as tipo_task,
 										tasks.id_estado as id_estado,
 										estados.nombre as estado_nombre,
+										tasks.id_asignado as id_asignado,
+										usuarios.nombre as nombre_asignado,
+										usuarios.apellido as apellido_asignado
 									from
 										tasks
 									inner join
@@ -98,6 +101,10 @@ class TasksCRUD extends CI_Model {
 										estados
 									on
 										estados.id = tasks.id_estado
+									inner join
+										usuarios
+									on
+										usuarios.id = tasks.id_asignado
 									where
 										tasks.estado = 0
 									and
@@ -106,6 +113,8 @@ class TasksCRUD extends CI_Model {
 										ttasks.estado = 0
 									and
 										estados.estado = 0
+									and
+										usuarios.estado = 0
 									and
 										tasks.id = ".$id_task);
 		return $query->result();

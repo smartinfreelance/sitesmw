@@ -25,7 +25,7 @@ class THistoriales extends CI_Controller
             $this->load->view("main", array(
                                         "modulo"=> "thistoriales", 
                                         "pagina"=> "ver_thistorial",
-                                        "thistoriales" => $thistoriales
+                                        "thistorial" => $thistorial[0]
                                         )
                             );
         }else{
@@ -93,7 +93,7 @@ class THistoriales extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "thistoriales", 
                                             "pagina"=> "form_delete",
-                                            "thistorial" => $thistorial
+                                            "thistorial" => $thistorial[0]
                                             )
                                 );
         }else{
@@ -109,7 +109,7 @@ class THistoriales extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "thistoriales", 
                                             "pagina"=> "form_edit",
-                                            "thistorial" => $thistorial
+                                            "thistorial" => $thistorial[0]
                                             )
                                 );
         }else{

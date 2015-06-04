@@ -78,7 +78,7 @@ class UsuariosCRUD extends CI_Model {
 		return $query->result();
 
     }
-	function editUsuario($id, $usuario, $nombre, $apellido, $mail, $fecha_nac, $id_rol){
+	function editUsuario($id_usuario, $usuario, $nombre, $apellido, $mail, $fecha_nac, $id_rol){
 		$query= $this->db->query("update 
 										usuarios 
 									set 
@@ -89,17 +89,17 @@ class UsuariosCRUD extends CI_Model {
 	        							mail = '".$mail."',  
 	        							fecha_nac = '".$fecha_nac."' 
 									where 
-										id = ".$id);
+										id = ".$id_usuario);
 		return 0;
 	}
 
-	function eliminarUsuario($idUsuario){
+	function deleteUsuario($id_usuario){
 		$query= $this->db->query("update 
 										usuarios 
 									set 
 										estado = 1
 									where 
-										id = ".$idUsuario);
+										id = ".$id_usuario);
 		return 0;
 	}
 

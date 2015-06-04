@@ -35,7 +35,7 @@ class TContactosCRUD extends CI_Model {
 
     }
 
-    function getTContacto($idTContacto){
+    function getTContacto($id_tcontacto){
     	$query = $this->db->query("select 
 	        							tipos_contactos.id as id, 
 	        							tipos_contactos.nombre as nombre
@@ -44,27 +44,27 @@ class TContactosCRUD extends CI_Model {
 									where 
 										tipos_contactos.estado = 0
 									and
-										tipos_contactos.id = ".$id_rol);
+										tipos_contactos.id = ".$id_tcontacto);
 		return $query->result();
 
     }
-	function editTContacto($idTContacto,$nombre){
+	function editTContacto($id_tcontacto,$nombre){
 		$query= $this->db->query("update 
 										tipos_contactos
 									set 
 										nombre = '".$nombre."'
 									where 
-										id = ".$idRol);
+										id = ".$id_tcontacto);
 		return 0;
 	}
 
-	function deleteTContacto($idTContacto){
+	function deleteTContacto($id_tcontacto){
 		$query= $this->db->query("update 
 										tipos_contactos
 									set 
 										estado = 1
 									where 
-										id = ".$idRol);
+										id = ".$id_tcontacto);
 		return 0;
 	}
 

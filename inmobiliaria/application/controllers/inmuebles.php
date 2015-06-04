@@ -95,7 +95,7 @@ class Inmuebles extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "inmuebles", 
                                             "pagina"=> "form_delete",
-                                            "inmueble" => $inmueble
+                                            "inmueble" => $inmueble[0]
                                             )
                                 );
         }else{
@@ -106,12 +106,13 @@ class Inmuebles extends CI_Controller
 
     function formEditInmueble($id_inmueble = 0){
         $inmueble = $this->inmueblesCRUD->getInmueble($id_inmueble);        
-        
+        $tinmuebles = $this->tinmueblesCRUD->getTInmuebles();
         if(count($inmueble) > 0){
             $this->load->view("main", array(
                                             "modulo"=> "inmuebles", 
                                             "pagina"=> "form_edit",
-                                            "inmueble" => $inmueble
+                                            "inmueble" => $inmueble[0],
+                                            "tinmuebles" => $tinmuebles
                                             )
                                 );
         }else{
@@ -126,6 +127,10 @@ class Inmuebles extends CI_Controller
     }
 
     function deleteInmueble(){
+
+        $id_inmueble = $_POST['id_inmueble'];
+
+        $this->inmueblesCRUD->deleteInmueble($id_inmueble);
 
         $this->index();
 

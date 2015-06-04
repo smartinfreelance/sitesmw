@@ -25,7 +25,7 @@ class Roles extends CI_Controller
             $this->load->view("main", array(
                                         "modulo"=> "roles", 
                                         "pagina"=> "ver_rol",
-                                        "roles" => $roles
+                                        "rol" => $rol[0]
                                         )
                             );
         }else{
@@ -92,7 +92,7 @@ class Roles extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "roles", 
                                             "pagina"=> "form_delete",
-                                            "rol" => $rol
+                                            "rol" => $rol[0]
                                             )
                                 );
         }else{
@@ -108,7 +108,7 @@ class Roles extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "roles", 
                                             "pagina"=> "form_edit",
-                                            "rol" => $rol
+                                            "rol" => $rol[0]
                                             )
                                 );
         }else{

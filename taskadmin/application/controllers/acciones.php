@@ -25,7 +25,7 @@ class Acciones extends CI_Controller
             $this->load->view("main", array(
                                         "modulo"=> "acciones", 
                                         "pagina"=> "ver_accion",
-                                        "acciones" => $acciones
+                                        "accion" => $accion[0]
                                         )
                             );
         }else{

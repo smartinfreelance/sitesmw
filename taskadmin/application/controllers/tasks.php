@@ -26,7 +26,7 @@ class Tasks extends CI_Controller
             $this->load->view("main", array(
                                         "modulo"=> "tasks", 
                                         "pagina"=> "ver_task",
-                                        "tasks" => $tasks
+                                        "task" => $task[0]
                                         )
                             );
         }else{
@@ -95,7 +95,7 @@ class Tasks extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "tasks", 
                                             "pagina"=> "form_delete",
-                                            "task" => $task
+                                            "task" => $task[0]
                                             )
                                 );
         }else{
@@ -111,7 +111,7 @@ class Tasks extends CI_Controller
             $this->load->view("main", array(
                                             "modulo"=> "tasks", 
                                             "pagina"=> "form_edit",
-                                            "task" => $task
+                                            "task" => $task[0]
                                             )
                                 );
         }else{

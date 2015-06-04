@@ -130,7 +130,7 @@ class InmueblesCRUD extends CI_Model {
 		return 0;
 	}
 
-	function eliminarInmueble($id_inmueble){
+	function deleteInmueble($id_inmueble){
 		$query= $this->db->query("update 
 										inmuebles
 									set 

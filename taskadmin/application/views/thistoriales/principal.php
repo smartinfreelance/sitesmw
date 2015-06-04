@@ -64,12 +64,12 @@
 						</td>
 						<td>
 				<?php
-						echo $th->usuario_nombre." ".$th->usuario_apellido;
+						echo $th->nombre_usuario." ".$th->apellido_usuario;
 				?>
 						</td>
 						<td>
 				<?php
-						echo $th->estado;
+						echo $th->nombre_estado;
 				?>
 						</td>
 						<td>

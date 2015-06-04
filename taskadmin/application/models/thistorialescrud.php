@@ -14,6 +14,7 @@ class THistorialesCRUD extends CI_Model {
         $this->db->where("password = md5('".$password."')");
         return $this->db->get('usuarios')->result();  */
         $query = $this->db->query("select
+        								thistoriales.id as id,
 										thistoriales.log as log,
 										thistoriales.id_task as id_task,
 										tasks.nombre as task,
@@ -67,8 +68,9 @@ class THistorialesCRUD extends CI_Model {
 
     }
 
-    function getTHistorial($thistorial){
+    function getTHistorial($id_thistorial){
     	$query = $this->db->query("select
+    									thistoriales.id as id,
 										thistoriales.log as log,
 										thistoriales.id_task as id_task,
 										tasks.nombre as task,

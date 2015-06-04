@@ -35,7 +35,7 @@ class TInmueblesCRUD extends CI_Model {
 
     }
 
-    function getTInmueble($idTInmuebles){
+    function getTInmueble($id_tinmuebles){
     	$query = $this->db->query("select 
 	        							tipos_inmuebles.id as id, 
 	        							tipos_inmuebles.nombre as nombre
@@ -44,27 +44,27 @@ class TInmueblesCRUD extends CI_Model {
 									where 
 										tipos_inmuebles.estado = 0
 									and
-										tipos_inmuebles.id = ".$id_rol);
+										tipos_inmuebles.id = ".$id_tinmuebles);
 		return $query->result();
 
     }
-	function editTInmueble($idTInmuebles,$nombre){
+	function editTInmueble($id_tinmuebles,$nombre){
 		$query= $this->db->query("update 
 										tipos_inmuebles
 									set 
 										nombre = '".$nombre."'
 									where 
-										id = ".$idRol);
+										id = ".$id_tinmuebles);
 		return 0;
 	}
 
-	function deleteTInmueble($idTInmuebles){
+	function deleteTInmueble($id_tinmuebles){
 		$query= $this->db->query("update 
 										tipos_inmuebles
 									set 
 										estado = 1
 									where 
-										id = ".$idRol);
+										id = ".$id_tinmuebles);
 		return 0;
 	}
 
