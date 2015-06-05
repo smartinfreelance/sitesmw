@@ -1,3 +1,4 @@
+<?php $this->load->view('aux_functions'); ?>
 <div id = "main-content">
 	<div class = "container">
 		<ul class="breadcrumb">
@@ -15,37 +16,57 @@
 		<?php
 			}
 		?>
-		<?php echo form_open('roles/confirmEditRol'); ?>
-		<input type="hidden" name="id" value="<?php echo $idRol; ?>">
-		<br/>
+		<?php echo form_open('roles/editRol'); ?>
+		<input type="hidden" name="id_rol" value="<?php echo $rol->id; ?>">
 		<div class="widget-content">
-			<div class="widget-box">
-				<div class="control-group">
-					<div class="controls">
-						<div>
-							<input type="text" placeholder="Nombre" name="nombre" value="<?php 
-																							if($rol->nombre){
-																								echo $rol->nombre;
-																							}else{
-																								echo set_value('nombre'); 
-																							}
-																						?>">
-						</div>
-					</div>
-				</div>	
-				<div class="clearfix">
-		            <?php 
-		            	echo anchor("roles/index", 'Cancelar', array("class"=>'btn btn-inverse'));
-		            	echo "&nbsp;";
-		        		echo form_submit(array(
-		        			'value'=>'Editar',
-		        			'class'=>'btn'
-		        		)); 
-		        	?>
+			<div class="nonboxy-widget">
+				<div class="widget-head">
+					<h5> Editar Rol</h5>
 				</div>
-				<!--<div class="remember-me">
-					<input class="rem_me" type="checkbox" value=""> Remeber Me
-				</div>-->
+				<div class="widget-content">
+					<div class="widget-box">
+						<form class="form-horizontal well">
+							<fieldset>
+								<div class="control-group">
+									<label class="control-label" for="input01">Nombre</label>
+									<div class="controls">
+										<input type="text" class="input-xlarge" id="nombre" name ="nombre" value = "<?php echo populateText(set_value('nombre'),$rol->nombre); ?>">
+										<input type="hidden" class="input-xlarge" id="nombre_check" name ="nombre_check" value = "<?php echo $rol->nombre; ?>">
+									</div>
+								</div>
+
+								<div class="control-group">
+										<label class="control-label">Rol Superior</label>
+										<div class="controls">
+											<select id = "id_superior" name = "id_superior" autocomplete = "off">
+												<option value = ""<?php if(set_value('id_superior')==""){ echo "selected = 'selected'"; }?>>Seleccione</option>
+											<?php
+												foreach($roles as $r){
+													if($r->id > 1){
+											?>
+												<option value = "<?php echo $r->id?>" <?php echo populateSelect(set_value('id_superior'),$rol->id_superior,$r->id); ?> ><?php echo $r->nombre; ?></option>												
+											<?php
+													}
+												}
+											?>
+											</select>
+										</div>
+									</div>
+
+								<div class="form-actions">
+									<?php 
+						        		echo form_submit(array(
+						        			'value'=>'Editar',
+						        			'class'=>'btn btn-info'
+						        		)); 
+						        		echo "&nbsp;";
+						        		echo anchor("roles/index", 'Cancelar', array("class"=>'btn btn-warning'));
+						        	?>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

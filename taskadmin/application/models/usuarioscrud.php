@@ -70,12 +70,10 @@ class UsuariosCRUD extends CI_Model {
 		return $query->result();
 
     }
-	function editUsuario($id_usuario,$usuario,$password,$nombre,$apellido,$mail,$id_rol){
+	function editUsuario($id_usuario,$nombre,$apellido,$id_rol,$mail){
 		$query= $this->db->query("update 
 										usuarios 
 									set 
-										usuario = '".$usuario."', 
-										password = md5('".$password."'), 
 										nombre = '".$nombre."',
 										apellido = '".$apellido."',
 										mail = '".$mail."',

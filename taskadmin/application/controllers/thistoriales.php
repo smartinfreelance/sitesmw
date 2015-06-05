@@ -115,13 +115,21 @@ class THistoriales extends CI_Controller
     }
 
     function formEditTHistorial($id_thistorial = 0){
-        $thistorial = $this->thistorialesCRUD->getTHistorial($id_thistorial);        
+        $thistorial = $this->thistorialesCRUD->getTHistorial($id_thistorial);
+        $acciones = $this->accionesCRUD->getAcciones();
+        $usuarios = $this->usuariosCRUD->getUsuarios();
+        $estados = $this->estadosCRUD->getEstados();
+        $tasks = $this->tasksCRUD->getTasks();
         
         if(count($thistorial) > 0){
             $this->load->view("main", array(
                                             "modulo"=> "thistoriales", 
                                             "pagina"=> "form_edit",
-                                            "thistorial" => $thistorial[0]
+                                            "thistorial" => $thistorial[0],
+                                            "acciones" => $acciones,
+                                            "usuarios" => $usuarios,
+                                            "estados" => $estados,
+                                            "tasks" => $tasks
                                             )
                                 );
         }else{
@@ -167,16 +175,28 @@ class THistoriales extends CI_Controller
     }
 
     function editTHistorial(){
-        $id_thistorial = $_POST['id_thistorial'];
-        $log = "";
-        $id_task = $_POST['id_task'];
-        $id_accion = $_POST['id_accion'];
-        $id_usuario = $_POST['id_usuario'];
-        $id_estado = $_POST['id_estado'];
 
-        $this->thistorialesCRUD->editTHistorial($id_thistorial,$log,$id_task,$id_accion,$id_usuario,$id_estado);
+        $this->form_validation->set_rules('log','log','trim|max_length[150]|min_length[2]|required');
+        $this->form_validation->set_rules('id_task','task','required');
+        $this->form_validation->set_rules('id_accion','accion','required');
+        $this->form_validation->set_rules('id_usuario','usuario','required');
+        $this->form_validation->set_rules('id_estado','estado','required');
 
-        $this->index();
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formEditTHistorial($_POST['id_thistorial']);
+        }else{
+            $id_thistorial = $_POST['id_thistorial'];
+            $log = $_POST['log'];
+            $id_task = $_POST['id_task'];
+            $id_accion = $_POST['id_accion'];
+            $id_usuario = $_POST['id_usuario'];
+            $id_estado = $_POST['id_estado'];
+
+            $this->thistorialesCRUD->editTHistorial($id_thistorial,$log,$id_task,$id_accion,$id_usuario,$id_estado);
+
+            $this->index();
+        }
         
     }
 

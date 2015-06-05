@@ -1,3 +1,4 @@
+<?php $this->load->view('aux_functions'); ?>
 <div id = "main-content">
 	<div class = "container">
 		<ul class="breadcrumb">
@@ -30,7 +31,7 @@
 								<div class="control-group">
 									<label class="control-label" for="input01">Nombre</label>
 									<div class="controls">
-										<input type="text" class="input-xlarge" id="nombre" name ="nombre" value = "<?php if(set_value('nombre')!=""){ echo set_value('nombre');}else{echo $ttask->nombre;} ?>"  maxlength="50">
+										<input type="text" class="input-xlarge" id="nombre" name ="nombre" value = "<?php echo populateText(set_value('nombre'),$ttask->nombre); ?>"  maxlength="50">
 										<input type="hidden" class="input-xlarge" id="nombre_check" name ="nombre_check" value = "<?php echo $ttask->nombre; ?>"  maxlength="50">
 									</div>
 								</div>

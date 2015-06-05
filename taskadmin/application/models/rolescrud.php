@@ -91,14 +91,14 @@ class RolesCRUD extends CI_Model {
 
 	function existeNombre($str){
 		$query = $this->db->query("select 
-										acciones.id,
-										acciones.nombre
+										roles.id,
+										roles.nombre
 									from
-										acciones
+										roles
 									where
-										acciones.estado = 0
+										roles.estado = 0
 									and
-										acciones.nombre = '".$str."'");
+										roles.nombre = '".$str."'");
 		return $query->result();
 
 	}

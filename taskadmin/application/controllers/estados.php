@@ -122,7 +122,6 @@ class Estados extends CI_Controller
     function addEstado(){
 
         $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]|callback_existe_en_bbdd');
-        $this->form_validation->set_rules('nombre', 'Nombre', '');
         if ($this->form_validation->run() == FALSE)
         {
             $this->formAddEstado();

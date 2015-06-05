@@ -96,6 +96,7 @@ class TComentarios extends CI_Controller
 
     function formDeleteTComentario($id_tcomentario = 0){
         $tcomentario = $this->tcomentariosCRUD->getTComentario($id_tcomentario);    
+
         if(count($tcomentario) > 0){    
             $this->load->view("main", array(
                                             "modulo"=> "tcomentarios", 
@@ -110,13 +111,17 @@ class TComentarios extends CI_Controller
     }
 
     function formEditTComentario($id_tcomentario = 0){
-        $tcomentario = $this->tcomentariosCRUD->getTComentario($id_tcomentario);        
+        $tcomentario = $this->tcomentariosCRUD->getTComentario($id_tcomentario);   
+        $usuarios = $this->usuariosCRUD->getUsuarios();
+        $tasks = $this->tasksCRUD->getTasks();     
         
         if(count($tcomentario) > 0){
             $this->load->view("main", array(
                                             "modulo"=> "tcomentarios", 
                                             "pagina"=> "form_edit",
-                                            "tcomentario" => $tcomentario[0]
+                                            "tcomentario" => $tcomentario[0],
+                                            "usuarios" => $usuarios,
+                                            "tasks" => $tasks
                                             )
                                 );
         }else{
@@ -129,7 +134,7 @@ class TComentarios extends CI_Controller
 
         $this->form_validation->set_rules('id_task','task','required');
         $this->form_validation->set_rules('id_usuario','usuario','required');
-        $this->form_validation->set_rules('comentario','comentario', 'trim|max_length[1000]|min_lenght[2]|required');
+        $this->form_validation->set_rules('comentario','comentario', 'trim|max_length[1000]|min_length[2]|required');
         
         if ($this->form_validation->run() == FALSE)
         {
@@ -155,15 +160,24 @@ class TComentarios extends CI_Controller
     }
 
     function editTComentario(){
-        $id_tcomentario = $_POST['id_tcomentario'];
-        $id_task = $_POST['id_task'];
-        $id_usuario = $_POST['id_usuario'];
-        $comentario = $_POST['comentario'];
 
-        $this->tcomentariosCRUD->editTComentario($id_tcomentario,$id_task,$id_usuario,$comentario);
-
-        $this->index();
+        $this->form_validation->set_rules('id_task','task','required');
+        $this->form_validation->set_rules('id_usuario','usuario','required');
+        $this->form_validation->set_rules('comentario','comentario', 'trim|max_length[1000]|min_length[2]|required');
         
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formEditTComentario($_POST['id_tcomentario']);
+        }else{
+            $id_tcomentario = $_POST['id_tcomentario'];
+            $id_task = $_POST['id_task'];
+            $id_usuario = $_POST['id_usuario'];
+            $comentario = $_POST['comentario'];
+
+            $this->tcomentariosCRUD->editTComentario($id_tcomentario,$id_task,$id_usuario,$comentario);
+
+            $this->index();
+        }
     }
 
 }

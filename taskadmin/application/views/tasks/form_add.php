@@ -16,7 +16,7 @@
 			}
 		?>
 		<?php echo form_open('tasks/addTask'); ?>
-		<br/>
+		<br/>	
 		<div class="widget-content">
 			<div class="nonboxy-widget">
 				<div class="widget-head">
@@ -43,6 +43,7 @@
 					<div class="control">
 						<div>
 							<input type="text" class="input-xlarge" id="demora" name ="demora" value = "<?php echo set_value('demora'); ?>" maxlength="50">
+							<p class="help-block">(Ejemplo: 2h 20m)</p>
 						</div>
 					</div>
 				</div>
@@ -51,6 +52,7 @@
 					<div class="control">
 						<div>
 							<input type="text" class="input-xlarge" id="demora_actual" name ="demora_actual" value = "<?php echo set_value('demora_actual'); ?>" maxlength="50">
+							<p class="help-block">(Ejemplo: 2h 20m)</p>
 						</div>
 					</div>
 				</div>

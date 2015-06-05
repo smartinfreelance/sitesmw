@@ -114,13 +114,21 @@ class Tasks extends CI_Controller
     }
 
     function formEditTask($id_task = 0){
-        $task = $this->tasksCRUD->getTask($id_task);        
+        $task = $this->tasksCRUD->getTask($id_task);
+        $proyectos = $this->proyectosCRUD->getProyectos();
+        $ttasks = $this->ttasksCRUD->getTTasks();
+        $estados = $this->estadosCRUD->getEstados();
+        $usuarios = $this->usuariosCRUD->getUsuarios();
         
         if(count($task) > 0){
             $this->load->view("main", array(
                                             "modulo"=> "tasks", 
                                             "pagina"=> "form_edit",
-                                            "task" => $task[0]
+                                            "task" => $task[0],
+                                            "ttasks" => $ttasks,
+                                            "estados" => $estados,
+                                            "usuarios" => $usuarios,
+                                            "proyectos" => $proyectos
                                             )
                                 );
         }else{
@@ -171,18 +179,37 @@ class Tasks extends CI_Controller
     }
 
     function editTask(){
-        $id_task = $_POST['id_task'];
-        $nombre = $_POST['nombre'];
-        $descripcion = $_POST['descripcion'];
-        $demora = $_POST['demora'];
-        $demora_actual = $_POST['demora_actual'];
-        $id_proyecto = $_POST['id_proyecto'];
-        $id_tipo = $_POST['id_ttask'];
-        $id_estado = $_POST['id_estado'];
 
-        $this->tasksCRUD->editTask($id_task,$nombre,$descripcion,$demora,$demora_actual,$id_proyecto,$id_tipo,$id_estado);
+        $this->form_validation->set_rules('nombre', 'nombre', 'trim|max_length[50]|min_length[2]|required');
+        $this->form_validation->set_rules('descripcion', 'descripcion', 'trim|max_length[2000]|min_length[5]|required');
+        $this->form_validation->set_rules('demora','demora','trim|max_length[10]|min_length[2]|required');
+        $this->form_validation->set_rules('demora_actual','demora actual','trim|max_length[10]|min_length[2]');
+        $this->form_validation->set_rules('id_proyecto','proyecto','required');
+        $this->form_validation->set_rules('id_ttask','tipo','required');
+        $this->form_validation->set_rules('id_estado','estado','required');
+        $this->form_validation->set_rules('id_usuario','usuario asignado','required');
 
-        $this->index();
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formEditTask($_POST['id_task']);
+
+        }else{
+            $id_task = $_POST['id_task'];
+            $nombre = $_POST['nombre'];
+            $descripcion = $_POST['descripcion'];
+            $demora = $_POST['demora'];
+            $demora_actual = $_POST['demora_actual'];
+            $id_proyecto = $_POST['id_proyecto'];
+            $id_tipo = $_POST['id_ttask'];
+            $id_estado = $_POST['id_estado'];
+
+            $this->tasksCRUD->editTask($id_task,$nombre,$descripcion,$demora,$demora_actual,$id_proyecto,$id_tipo,$id_estado);
+
+            $this->index();
+
+        }        
+
+        
         
     }
 

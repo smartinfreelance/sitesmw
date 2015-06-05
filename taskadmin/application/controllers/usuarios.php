@@ -106,13 +106,14 @@ class Usuarios extends CI_Controller
     }
 
     function formEditUsuario($id_usuario = 0){
-        $usuario = $this->usuariosCRUD->getUsuario($id_usuario);        
-        
+        $usuario = $this->usuariosCRUD->getUsuario($id_usuario);
+        $roles = $this->rolesCRUD->getRoles();
         if(count($usuario) > 0){
             $this->load->view("main", array(
                                             "modulo"=> "usuarios", 
                                             "pagina"=> "form_edit",
-                                            "usuario" => $usuario[0]
+                                            "usuario" => $usuario[0],
+                                            "roles" => $roles
                                             )
                                 );
         }else{
@@ -123,10 +124,12 @@ class Usuarios extends CI_Controller
 
     function addUsuario(){
 
-        $this->form_validation->set_rules('usuario','usuario','trim|max_length[16]|min_lenght[6]|required|callback_existe_en_bbdd');
-        $this->form_validation->set_rules('nombre','nombre','trim|max_length[35]|min_lenght[2]|required');
-        $this->form_validation->set_rules('apellido','apellido','trim|max_length[35]|min_lenght[2]|required');
-        $this->form_validation->set_rules('mail','mail','trim|max_length[35]|min_lenght[8]|required|valid_email');
+        $this->form_validation->set_rules('usuario','usuario','trim|max_length[16]|min_length[6]|required|alpha_dash|callback_existe_en_bbdd');
+        $this->form_validation->set_rules('password','password','trim|max_length[16]|min_length[6]|required');
+        $this->form_validation->set_rules('password_conf','confirmacion password','matches[password]|required');
+        $this->form_validation->set_rules('nombre','nombre','trim|max_length[35]|min_length[2]|required');
+        $this->form_validation->set_rules('apellido','apellido','trim|max_length[35]|min_length[2]|required');
+        $this->form_validation->set_rules('mail','mail','trim|max_length[35]|min_length[8]|required|valid_email');
         $this->form_validation->set_rules('id_rol','id_rol','required');
 
         if ($this->form_validation->run() == FALSE){
@@ -134,12 +137,13 @@ class Usuarios extends CI_Controller
 
         }else{
             $usuario = $_POST['usuario'];
-            $nombre = $_POST['nombre'];
+            $password = $_POST['password'];
+            $nombre = $_POST['nombre'];            
             $apellido = $_POST['apellido'];
             $id_rol = $_POST['id_rol'];
             $mail = $_POST['mail'];
 
-            $this->usuariosCRUD->addUsuario($usuario, $nombre,$apellido,$id_rol,$mail);
+            $this->usuariosCRUD->addUsuario($usuario, $password,$nombre,$apellido,$mail,$id_rol);
 
             $this->index();
         }
@@ -155,16 +159,26 @@ class Usuarios extends CI_Controller
     }
 
     function editUsuario(){
-        $id_usuario = $_POST['id_usuario'];
-        $usuario = $_POST['usuario'];
-        $nombre = $_POST['nombre'];
-        $apellido = $_POST['apellido'];
-        $id_rol = $_POST['id_rol'];
-        $mail = $_POST['mail'];
 
-        $this->usuariosCRUD->editUsuario($id_usuario,$usuario,$nombre,$apellido,$id_rol,$mail);
+        $this->form_validation->set_rules('nombre','nombre','trim|max_length[35]|min_length[2]|alpha_dash|required');
+        $this->form_validation->set_rules('apellido','apellido','trim|max_length[35]|min_length[2]|required');
+        $this->form_validation->set_rules('mail','mail','trim|max_length[35]|min_length[8]|required|valid_email');
+        $this->form_validation->set_rules('id_rol','id_rol','required');
 
-        $this->index();
+        if ($this->form_validation->run() == FALSE){
+            $this->formEditUsuario($_POST['id_usuario']);
+
+        }else{
+            $id_usuario = $_POST['id_usuario'];
+            $nombre = $_POST['nombre'];
+            $apellido = $_POST['apellido'];
+            $id_rol = $_POST['id_rol'];
+            $mail = $_POST['mail'];
+
+            $this->usuariosCRUD->editUsuario($id_usuario,$nombre,$apellido,$id_rol,$mail);
+
+            $this->index();
+        }
         
     }
 

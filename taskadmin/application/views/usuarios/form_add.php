@@ -85,14 +85,6 @@
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="typehead">Fecha de Nacimiento</label>
-					<div class="control">
-						<div>
-							<input type="text" class="input-xlarge" id="fecha_nac" name ="fecha_nac" value = "<?php echo set_value('fecha_nac'); ?>" maxlength="50">
-						</div>
-					</div>
-				</div>
-				<div class="control-group">
 					<label class="control-label" for="typehead">E-mail</label>
 					<div class="control">
 						<div>

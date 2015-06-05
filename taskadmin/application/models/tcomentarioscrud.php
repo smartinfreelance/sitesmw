@@ -82,11 +82,12 @@ class TComentariosCRUD extends CI_Model {
 		return $query->result();
 
     }
-	function editTComentario($id_tcomentario,$id_task,$comentario){
+	function editTComentario($id_tcomentario,$id_task,$id_usuario,$comentario){
 		$query= $this->db->query("update 
 										tcomentarios
 									set 
 										comentario = '".$comentario."',
+										id_usuario = ".$id_usuario.",
 										id_task = ".$id_task."
 									where 
 										id = ".$id_tcomentario);

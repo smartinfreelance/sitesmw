@@ -1,3 +1,4 @@
+<?php $this->load->view('aux_functions'); ?>
 <div id = "main-content">
 	<div class = "container">
 		<ul class="breadcrumb">
@@ -15,9 +16,9 @@
 		<?php
 			}
 		?>
-		<?php echo form_open('tasks/addTask'); ?>
-		<input type="hidden" id = "id_task" name="id_task" value="<?php echo $task->id; ?>">
-		<br/>
+		<?php echo form_open('tasks/editTask'); ?>
+		<input type="hidden" name="id_task" value="<?php echo $task->id; ?>">
+		<br/>	
 		<div class="widget-content">
 			<div class="nonboxy-widget">
 				<div class="widget-head">
@@ -27,7 +28,7 @@
 					<label class="control-label" for="typehead">Nombre</label>
 					<div class="control">
 						<div>
-							<?php echo $task->nombre; ?>
+							<input type="text" class="input-xlarge" id="nombre" name ="nombre" value = "<?php echo populateText(set_value('nombre'),$task->nombre); ?>" maxlength="50">
 						</div>
 					</div>
 				</div>
@@ -35,7 +36,7 @@
 					<label class="control-label" for="typehead">Descripcion</label>
 					<div class="control">
 						<div>
-							<?php echo $task->descripcion; ?>
+							<textarea rows="5" class="input-xlarge" id="descripcion" name ="descripcion" maxlength="2000"><?php echo populateText(set_value('descripcion'),$task->descripcion); ?></textarea>
 						</div>
 					</div>
 				</div>
@@ -43,7 +44,8 @@
 					<label class="control-label" for="typehead">Demora</label>
 					<div class="control">
 						<div>
-							<?php echo $task->demora; ?>
+							<input type="text" class="input-xlarge" id="demora" name ="demora" value = "<?php echo populateText(set_value('demora'),$task->demora); ?>" maxlength="50">
+							<p class="help-block">(Ejemplo: 2h 20m)</p>
 						</div>
 					</div>
 				</div>
@@ -51,7 +53,8 @@
 					<label class="control-label" for="typehead">Demora actual</label>
 					<div class="control">
 						<div>
-							<?php echo $task->demora_actual; ?>
+							<input type="text" class="input-xlarge" id="demora_actual" name ="demora_actual" value = "<?php echo populateText(set_value('demora_actual'),$task->demora_actual); ?>" maxlength="50">
+							<p class="help-block">(Ejemplo: 2h 20m)</p>
 						</div>
 					</div>
 				</div>
@@ -59,7 +62,16 @@
 					<label class="control-label" for="typehead">Proyecto</label>
 					<div class="control">
 						<div>
-							<?php echo $task->nombre_proyecto; ?>
+							<select id = "id_proyecto" name = "id_proyecto" autocomplete="off">
+								<option value = "" <?php if(set_value('id_proyecto')==""){ echo "selected = 'selected'"; }?>>Seleccione</option>
+							<?php
+								foreach($proyectos as $p){
+							?>
+								<option value = "<?php echo $p->id?>" <?php echo populateSelect(set_value('id_proyecto'),$task->id_proyecto,$p->id); ?> ><?php echo $p->nombre; ?></option>
+							<?php
+								}
+							?>
+							</select>
 						</div>
 					</div>
 				</div>
@@ -67,7 +79,16 @@
 					<label class="control-label" for="typehead">Tipo</label>
 					<div class="control">
 						<div>
-							<?php echo $task->tipo_task; ?>
+							<select id = "id_ttask" name = "id_ttask" autocomplete="off">
+								<option value = ""<?php if(set_value('id_ttask')==""){ echo "selected = 'selected'"; }?>>Seleccione</option>
+							<?php
+								foreach($ttasks as $tt){
+							?>
+								<option value = "<?php echo $tt->id?>" <?php echo populateSelect(set_value('id_ttask'),$task->id_tipo,$tt->id); ?> ><?php echo $tt->nombre; ?></option>
+							<?php
+								}
+							?>
+							</select>
 						</div>
 					</div>
 				</div>
@@ -75,22 +96,40 @@
 					<label class="control-label" for="typehead">Estado</label>
 					<div class="control">
 						<div>
-							<?php echo $task->estado_nombre; ?>
+							<select id = "id_estado" name = "id_estado" autocomplete="off">
+								<option value = ""<?php if(set_value('id_estado')==""){ echo "selected = 'selected'"; }?>>Seleccione</option>
+							<?php
+								foreach($estados as $e){
+							?>
+								<option value = "<?php echo $e->id?>" <?php echo populateSelect(set_value('id_estado'),$task->id_estado,$e->id); ?> ><?php echo $e->nombre; ?></option>
+							<?php
+								}
+							?>
+							</select>
 						</div>
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="typehead">Asignado</label>
+					<label class="control-label" for="typehead">Usuario Asignado</label>
 					<div class="control">
 						<div>
-							<?php echo $task->nombre_asignado; ?>
+							<select id = "id_usuario" name = "id_usuario" autocomplete="off">
+								<option value = "" <?php echo populateSelect(set_value('id_usuario'),$task->id_asignado,"");?>>Seleccione</option>
+							<?php
+								foreach($usuarios as $u){
+							?>
+								<option value = "<?php echo $u->id?>" <?php echo populateSelect(set_value('id_usuario'),$task->id_asignado,$u->id); ?> ><?php echo $u->nombre; ?></option>
+							<?php
+								}
+							?>
+							</select>
 						</div>
 					</div>
 				</div>
 				<div class="form-actions">
 					<?php 
 		        		echo form_submit(array(
-		        			'value'=>'Agregar',
+		        			'value'=>'Editar',
 		        			'class'=>'btn btn-info'
 		        		)); 
 		        		echo "&nbsp;";

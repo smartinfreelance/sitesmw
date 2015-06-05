@@ -105,12 +105,13 @@ class Roles extends CI_Controller
 
     function formEditRol($id_rol = 0){
         $rol = $this->rolesCRUD->getRol($id_rol);        
-        
+        $roles = $this->rolesCRUD->getRoles();
         if(count($rol) > 0){
             $this->load->view("main", array(
                                             "modulo"=> "roles", 
                                             "pagina"=> "form_edit",
-                                            "rol" => $rol[0]
+                                            "rol" => $rol[0],
+                                            "roles" => $roles
                                             )
                                 );
         }else{
@@ -150,11 +151,11 @@ class Roles extends CI_Controller
 
     function editRol(){
         
-
-        $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
         $this->form_validation->set_rules('id_superior', 'rol superior', 'required');
         if($_POST['nombre']!=$_POST['nombre_check']){
-            $this->form_validation->set_rules('nombre', 'Nombre', 'callback_existe_en_bbdd');
+            $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]|callback_existe_en_bbdd');
+        }else{
+            $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
         }        
 
         if ($this->form_validation->run() == FALSE)
@@ -165,7 +166,7 @@ class Roles extends CI_Controller
         {
             $id_rol = $_POST['id_rol'];
             $nombre = $_POST['nombre'];
-            $nombre = $_POST['id_superior'];
+            $id_superior = $_POST['id_superior'];
 
             $this->rolesCRUD->editRol($id_rol,$nombre,$id_superior);
 

@@ -124,8 +124,8 @@ class TasksCRUD extends CI_Model {
 		$query= $this->db->query("update 
 									tasks 
 								set 
-									tasks.nombre = '".$nombre." ,'
-									tasks.descripcion = '".$descripcion."'' ,
+									tasks.nombre = '".$nombre."',
+									tasks.descripcion = '".$descripcion."' ,
 									tasks.demora = '".$demora."', 
 									tasks.demora_actual = '".$demora_actual."', 
 									tasks.id_proyecto = ".$id_proyecto.", 
