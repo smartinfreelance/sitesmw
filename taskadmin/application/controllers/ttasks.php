@@ -8,13 +8,21 @@ class TTasks extends CI_Controller
         $this->load->model('ttasksCRUD');
     }
 
-    function index()
+    function index($pagina_nro = 0)
     {
-        $ttasks = $this->ttasksCRUD->getTTasks();
+        $cant_rows = 2;
+        $controller = "ttasks";
+        $total_rows = $this->ttasksCRUD->getCantTTasks();
+
+        $linksPaginacion = $this->smartin->getPaginacion($pagina_nro,$cant_rows,$total_rows,$controller); 
+
+        $desde_row = $pagina_nro * $cant_rows;
+        $ttasks = $this->ttasksCRUD->getXTTasks($desde_row,$cant_rows);
         $this->load->view("main", array(
                                     "modulo"=> "ttasks", 
                                     "pagina"=> "principal",
-                                    "ttasks" => $ttasks
+                                    "ttasks" => $ttasks,
+                                    "links" => $linksPaginacion
                                     )
                         );
     }

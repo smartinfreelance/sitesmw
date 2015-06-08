@@ -55,7 +55,7 @@ class Login extends CI_Controller
 
         $cantRows = $this->productosCRUD->getCantProductos();
         if($cantRows > $cantResPP){
-            $cantPages = round($cantRows / $cantResPP);
+            $cantPages = ceil($cantRows / $cantResPP);
             if(($cantRows % $cantResPP) > 0 ){
                 $s = 1;
             }else if(($cantRows % $cantResPP) == 0 ){

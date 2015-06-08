@@ -8,13 +8,21 @@ class Roles extends CI_Controller
         $this->load->model('rolesCRUD');
     }
 
-    function index()
+    function index($pagina_nro = 0)
     {
-        $roles = $this->rolesCRUD->getRoles();
+        $cant_rows = 2;
+        $controller = "roles";
+        $total_rows = $this->rolesCRUD->getCantRoles();
+
+        $linksPaginacion = $this->smartin->getPaginacion($pagina_nro,$cant_rows,$total_rows,$controller); 
+
+        $desde_row = $pagina_nro * $cant_rows;
+        $roles = $this->rolesCRUD->getXRoles($desde_row,$cant_rows);
         $this->load->view("main", array(
                                     "modulo"=> "roles", 
                                     "pagina"=> "principal",
-                                    "roles" => $roles
+                                    "roles" => $roles,
+                                    "links" => $linksPaginacion
                                     )
                         );
     }
@@ -118,11 +126,21 @@ class Roles extends CI_Controller
     }
 
     function addRol(){
-        $nombre = $_POST['nombre'];
 
-        $this->rolesCRUD->addRol($nombre);
+        $this->form_validation->set_rules('nombre', 'nombre', 'required|min_length[2]|max_length[50]');
 
-        $this->index();
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formAddRol();
+        }
+        else
+        {
+            $nombre = $_POST['nombre'];
+
+            $this->rolesCRUD->addRol($nombre);
+
+            $this->index();
+        }
     }
 
     function deleteRol(){
@@ -135,12 +153,39 @@ class Roles extends CI_Controller
     }
 
     function editRol(){
-        $id_rol =  $_POST['id_rol'];
-        $nombre = $_POST['nombre'];
 
-        $this->rolesCRUD->editRol($id_rol,$nombre);
-        $this->index();
+        if($_POST['nombre']!=$_POST['nombre_check']){
+            $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]|callback_existe_en_bbdd');
+        }else{
+            $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
+        }        
+        
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formEditRol($_POST['id_rol']);
+        }
+        else
+        {
+            $id_rol =  $_POST['id_rol'];
+            $nombre = $_POST['nombre'];
+
+            $this->rolesCRUD->editRol($id_rol,$nombre);
+            $this->index();
+        }
         
     }
+
+
+    //FUNCIONES DE VALIDACION//
+    function existe_en_bbdd($str){
+        $rol = $this->rolesCRUD->existeNombre($str);
+        if(count($rol) > 0){
+            $this->form_validation->set_message('existe_en_bbdd', 'Ya existe un registro con %s :"'.$str.'". Modifique este campo.');
+            return FALSE;
+        }else{
+            return TRUE;
+        }
+    }
+
 
 }

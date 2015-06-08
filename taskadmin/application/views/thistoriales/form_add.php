@@ -2,7 +2,7 @@
 	<div class = "container">
 		<ul class="breadcrumb">
   			<li><?php echo anchor('thistoriales' , 'THistoriales');?><span class="divider">&raquo;</span></li>
-  			<li class="active">Agregar THistorial</li>
+  			<li class="active">Agregar Historia</li>
 		</ul>
 		<?php
 			if(validation_errors()!=""){
@@ -20,7 +20,7 @@
 		<div class="widget-content">
 			<div class="nonboxy-widget">
 				<div class="widget-head">
-					<h5>Agregar THistorial</h5>
+					<h5>Agregar Historia</h5>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="typehead">Log</label>

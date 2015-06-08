@@ -10,13 +10,21 @@ class TComentarios extends CI_Controller
         $this->load->model('usuariosCRUD');
     }
 
-    function index()
+    function index($pagina_nro = 0)
     {
-        $tcomentarios = $this->tcomentariosCRUD->getTComentarios();
+        $cant_rows = 2;
+        $controller = "tcomentarios";
+        $total_rows = $this->tcomentariosCRUD->getCantTComentarios();
+
+        $linksPaginacion = $this->smartin->getPaginacion($pagina_nro,$cant_rows,$total_rows,$controller); 
+
+        $desde_row = $pagina_nro * $cant_rows;
+        $tcomentarios = $this->tcomentariosCRUD->getXTComentarios($desde_row,$cant_rows);
         $this->load->view("main", array(
                                     "modulo"=> "tcomentarios", 
                                     "pagina"=> "principal",
-                                    "tcomentarios" => $tcomentarios
+                                    "tcomentarios" => $tcomentarios,
+                                    "links" => $linksPaginacion
                                     )
                         );
     }

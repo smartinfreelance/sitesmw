@@ -8,13 +8,21 @@ class Operaciones extends CI_Controller
         $this->load->model('operacionesCRUD');
     }
 
-    function index()
+    function index($pagina_nro = 0)
     {
-        $operaciones = $this->operacionesCRUD->getOperaciones();
+        $cant_rows = 10;
+        $controller = "operaciones";
+        $total_rows = $this->operacionesCRUD->getCantOperaciones();
+
+        $linksPaginacion = $this->smartin->getPaginacion($pagina_nro,$cant_rows,$total_rows,$controller); 
+
+        $desde_row = $pagina_nro * $cant_rows;
+        $operaciones = $this->operacionesCRUD->getXOperaciones($desde_row,$cant_rows);
         $this->load->view("main", array(
                                     "modulo"=> "operaciones", 
                                     "pagina"=> "principal",
-                                    "operaciones" => $operaciones
+                                    "operaciones" => $operaciones,
+                                    "links" => $linksPaginacion
                                     )
                         );
     }
@@ -118,11 +126,20 @@ class Operaciones extends CI_Controller
     }
 
     function addOperacion(){
-        $nombre = $_POST['nombre'];
+        
+        $this->form_validation->set_rules('nombre', 'nombre', 'required|min_length[2]|max_length[50]|callback_existe_en_bbdd');
 
-        $this->operacionesCRUD->addOperacion($nombre);
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formAddOperacion();
+        }
+        else
+        {
 
-        $this->index();
+            $this->operacionesCRUD->addOperacion($nombre);
+
+            $this->index();
+        }
     }
 
     function deleteOperacion(){
@@ -135,12 +152,36 @@ class Operaciones extends CI_Controller
     }
 
     function editOperacion(){
-        $id_operacion =  $_POST['id_operacion'];
-        $nombre = $_POST['nombre'];
 
-        $this->operacionesCRUD->editOperacion($id_operacion,$nombre);
-        $this->index();
-        
+        if($_POST['nombre']!=$_POST['nombre_check']){
+            $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]|callback_existe_en_bbdd');
+        }else{
+            $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
+        }  
+
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formEditOperacion($_POST['id_operacion']);
+        }
+        else
+        {
+            $id_operacion =  $_POST['id_operacion'];
+            $nombre = $_POST['nombre'];
+
+            $this->operacionesCRUD->editOperacion($id_operacion,$nombre);
+            $this->index();
+        }
+    }
+
+    //FUNCIONES DE VALIDACION//
+    function existe_en_bbdd($str){
+        $operacion = $this->operacionesCRUD->existeNombre($str);
+        if(count($operacion) > 0){
+            $this->form_validation->set_message('existe_en_bbdd', 'Ya existe un registro con %s :"'.$str.'". Modifique este campo.');
+            return FALSE;
+        }else{
+            return TRUE;
+        }
     }
 
 }

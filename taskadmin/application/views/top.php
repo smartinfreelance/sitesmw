@@ -42,7 +42,7 @@
 					<div class="logo">
 						<a href="index.html"></a>
 						<?php
-							echo anchor('inmuebles', '<h4>SMartin - Inmobiliaria</h4>', array("class" => "divisor"));
+							echo anchor('inmuebles', '<h4>SMartin - Taskadmin</h4>', array("class" => "divisor"));
 						?>
 					</div>
 				</div>

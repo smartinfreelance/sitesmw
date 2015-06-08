@@ -22,6 +22,23 @@ class MovimientosCRUD extends CI_Model {
         								movimientos.estado = 0");
 		return $query->result();
     }
+    function getXMovimientos($desde_row,$cant_rows)
+    {
+        /*
+        $this->db->where("usuario = '".$usuario."'");
+        $this->db->where("password = md5('".$password."')");
+        return $this->db->get('usuarios')->result();  */
+        $query = $this->db->query("select 
+                                        movimientos.id as id, 
+                                        movimientos.tipo as tipo
+                                    from 
+                                        movimientos 
+                                    where 
+                                        movimientos.estado = 0
+                                    limit
+                                        ".$desde_row.",".$cant_rows);
+        return $query->result();
+    }
 
     function getDiezMovimientos($nroPagina=0)
     {

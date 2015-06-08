@@ -34,6 +34,7 @@
 																								echo $contacto->nombre;
 																							}
 																						?>" maxlength = "50">
+							<input type="hidden" placeholder="Nombre" name="nombre_check" value="<?php echo $contacto->nombre; ?>" maxlength = "50">
 						</div>
 					</div>
 				</div>

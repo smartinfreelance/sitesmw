@@ -2,7 +2,7 @@
 	<div class = "container">
 		<ul class="breadcrumb">
   			<li><?php echo anchor('tcomentarios' , 'TComentarios');?><span class="divider">&raquo;</span></li>
-  			<li class="active">Eliminar TComentario</li>
+  			<li class="active">Eliminar Comentario</li>
 		</ul>
 		<?php echo validation_errors(); ?>
 		<?php echo form_open('tcomentarios/deleteTComentario'); ?>
@@ -11,7 +11,7 @@
 		<div class="widget-content">
 			<div class="nonboxy-widget">
 				<div class="widget-head">
-					<h5>¿Desea eliminar TComentario?</h5>
+					<h5>¿Desea eliminar Comentario?</h5>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="typehead">Tarea</label>

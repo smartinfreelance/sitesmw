@@ -32,7 +32,60 @@ class ContactosCRUD extends CI_Model {
 										contactos.id");
 		return $query->result();
     }
+
+function getXContactos($desde,$cuantos)
+	{
+		/*
+        $this->db->where("usuario = '".$usuario."'");
+        $this->db->where("password = md5('".$password."')");
+        return $this->db->get('usuarios')->result();  */
+        $query = $this->db->query("select 
+	        							contactos.id as id, 
+	        							contactos.nombre as nombre,
+	        							contactos.telefono as telefono,
+	        							contactos.id_tipo as id_tipo,
+	        							tipos_contactos.nombre as tipo_contacto,
+	        							contactos.mail as mail
+        							from 
+        								contactos 
+        							inner join
+        								tipos_contactos 
+        							on
+        								tipos_contactos.id = contactos.id_tipo
+									where 
+										contactos.estado = 0
+									limit
+                                        ".$desde.",".$cuantos." ");
+		return $query->result();
+    }    
 //
+    function getDiezContactos($nroPagina=0)
+	{
+		/*
+        $this->db->where("usuario = '".$usuario."'");
+        $this->db->where("password = md5('".$password."')");
+        return $this->db->get('usuarios')->result();  */
+        $query = $this->db->query("select 
+	        							contactos.id as id, 
+	        							contactos.nombre as nombre,
+	        							contactos.telefono as telefono,
+	        							contactos.id_tipo as id_tipo,
+	        							tipos_contactos.nombre as tipo_contacto,
+	        							contactos.mail as mail
+        							from 
+        								contactos 
+        							inner join
+        								tipos_contactos 
+        							on
+        								tipos_contactos.id = contactos.id_tipo
+									where 
+										contactos.estado = 0
+									order by
+										contactos.id
+									limit
+                                        ".$nroPagina.",10");
+		return $query->result();
+    }
     function addContacto($nombre,$telefono,$id_tipo,$mail){
     	$query= $this->db->query("insert into 
     								contactos (
@@ -134,6 +187,23 @@ class ContactosCRUD extends CI_Model {
 		return $query->result();
 
 	}
+
+
+	/*PAGINATION FUNCTIONS*/
+    function getCantContactos(){
+
+        $query= $this->db->query("select 
+                                    count(*) as numrows
+                                from 
+                                        contactos 
+                                    where 
+                                        contactos.estado = 0");
+        if ($query->num_rows() == 0)
+            return '0';
+
+        $row = $query->row();
+        return $row->numrows;
+    }
 	
 }
 ?>

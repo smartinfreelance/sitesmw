@@ -3,7 +3,7 @@
 	<div class = "container">
 		<ul class="breadcrumb">
   			<li><?php echo anchor('thistoriales' , 'THistoriales');?><span class="divider">&raquo;</span></li>
-  			<li class="active">Editar THistorial</li>
+  			<li class="active">Editar Historia</li>
 		</ul>
 		<?php
 			if(validation_errors()!=""){

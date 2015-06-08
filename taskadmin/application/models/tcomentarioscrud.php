@@ -41,6 +41,41 @@ class TComentariosCRUD extends CI_Model {
 										tcomentarios.id");
 		return $query->result();
     }
+
+	function getXTComentarios($desde,$cuantos)
+	{
+		/*
+        $this->db->where("usuario = '".$usuario."'");
+        $this->db->where("password = md5('".$password."')");
+        return $this->db->get('usuarios')->result();  */
+        $query = $this->db->query("select 
+	        							tcomentarios.id as id, 
+	        							tcomentarios.id_task as id_task,
+	        							tasks.nombre as nombre_task,
+	        							tcomentarios.id_usuario as id_usuario,
+	        							usuarios.nombre as nombre_usuario,
+	        							usuarios.apellido as apellido_usuario,
+	        							tcomentarios.comentario as comentario
+        							from 
+        								tcomentarios 
+        							inner join
+        								tasks
+        							on
+        								tasks.id = tcomentarios.id_task
+        							inner join
+        								usuarios
+        							on
+        								usuarios.id = tcomentarios.id_usuario
+									where 
+										tcomentarios.estado = 0
+									and
+										tasks.estado = 0
+									and
+										usuarios.estado = 0
+									limit
+                                        ".$desde.",".$cuantos." ");
+		return $query->result();
+    }        
 //
     function addTComentario($id_task,$id_usuario,$nombre){
     	$query= $this->db->query("insert into 
@@ -133,6 +168,22 @@ class TComentariosCRUD extends CI_Model {
 										tcomentarios.nombre LIKE '%".$search."%'");
 		return $query->result();
 	}
+
+	/*PAGINATION FUNCTIONS*/
+    function getCantTComentarios(){
+
+        $query= $this->db->query("select 
+                                    count(*) as numrows
+                                from 
+                                        tcomentarios 
+                                    where 
+                                        tcomentarios.estado = 0");
+        if ($query->num_rows() == 0)
+            return '0';
+
+        $row = $query->row();
+        return $row->numrows;
+    }	
 
 	
 }

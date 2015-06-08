@@ -2,7 +2,7 @@
 	<div class = "container">
 		<ul class="breadcrumb">
   			<li><?php echo anchor('tinmuebles' , 'TInmuebles');?><span class="divider">&raquo;</span></li>
-  			<li class="active">Eliminar TInmueble</li>
+  			<li class="active">Eliminar Tipo de Inmueble</li>
 		</ul>
 		<?php echo validation_errors(); ?>
 		<?php echo form_open('tinmuebles/deleteTInmueble'); ?>
@@ -11,7 +11,7 @@
 		<div class="widget-content">
 			<div class="nonboxy-widget">
 				<div class="widget-head">
-					<h5>¿Desea eliminar TInmueble?</h5>
+					<h5>¿Desea eliminar Tipo de Inmueble?</h5>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="typehead">Nombre</label>

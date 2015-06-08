@@ -8,13 +8,21 @@ class TInmuebles extends CI_Controller
         $this->load->model('tinmueblesCRUD');
     }
 
-    function index()
+    function index($pagina_nro = 0)
     {
-        $tinmuebles = $this->tinmueblesCRUD->getTInmuebles();
+        $cant_rows = 2;
+        $controller = "tinmuebles";
+        $total_rows = $this->tinmueblesCRUD->getCantTInmuebles();
+
+        $linksPaginacion = $this->smartin->getPaginacion($pagina_nro,$cant_rows,$total_rows,$controller); 
+
+        $desde_row = $pagina_nro * $cant_rows;
+        $tinmuebles = $this->tinmueblesCRUD->getXTInmuebles($desde_row,$cant_rows);
         $this->load->view("main", array(
                                     "modulo"=> "tinmuebles", 
                                     "pagina"=> "principal",
-                                    "tinmuebles" => $tinmuebles
+                                    "tinmuebles" => $tinmuebles,
+                                    "links" => $linksPaginacion
                                     )
                         );
     }
@@ -119,12 +127,18 @@ class TInmuebles extends CI_Controller
 
 
     function addTInmueble(){
-        $nombre = $_POST['nombre'];
+        $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]|callback_existe_en_bbdd');
+        
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formAddTInmueble();
+        }else{
+            $nombre = $_POST['nombre'];
 
-        $this->tinmueblesCRUD->addTInmueble($nombre);
+            $this->tinmueblesCRUD->addTInmueble($nombre);
 
-        $this->index();
-    }
+            $this->index();
+        }
 
     function deleteTInmueble(){
         $id_tinmueble = $_POST['id_tinmueble'];
@@ -136,12 +150,36 @@ class TInmuebles extends CI_Controller
     }
 
     function editTInmueble(){
-        $id_tinmueble =  $_POST['id_tinmueble'];
-        $nombre = $_POST['nombre'];
+        if($_POST['nombre']!=$_POST['nombre_check']){
+            $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]|callback_existe_en_bbdd');
+        }else{
+            $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
+        }        
+        
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formEditTInmueble($_POST['id_tinmueble']);
+        }
+        else
+        {
+            $id_tinmueble =  $_POST['id_tinmueble'];
+            $nombre = $_POST['nombre'];
 
-        $this->tinmueblesCRUD->editTInmueble($id_tinmueble,$nombre);
-        $this->index();
+            $this->tinmueblesCRUD->editTInmueble($id_tinmueble,$nombre);
+            $this->index();
+        }
         
     }
+    //FUNCIONES DE VALIDACION//
+    function existe_en_bbdd($str){
+        $tinmueble = $this->tinmueblesCRUD->existeNombre($str);
+        if(count($tinmueble) > 0){
+            $this->form_validation->set_message('existe_en_bbdd', 'Ya existe un registro con %s :"'.$str.'". Modifique este campo.');
+            return FALSE;
+        }else{
+            return TRUE;
+        }
+    }
+
 
 }

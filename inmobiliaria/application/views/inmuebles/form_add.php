@@ -1,3 +1,4 @@
+<?php $this->load->view('aux_functions'); ?>
 <!--http://uno-de-piera.com/selects-en-cascada-con-codeigniter-y-jquery-4-niveles/-->
 <div id = "main-content">
 	<div class = "container">
@@ -20,198 +21,172 @@
 		<div class="widget-content">
 			<div class="nonboxy-widget">
 				<div class="widget-head">
-					<h5> Agregar Inmueble</h5>
+					<h5>Agregar Inmueble</h5>
 				</div>
-				<div class="widget-content">
-					<div class="widget-box">
-						<form class="form-horizontal well">
-							<fieldset>
-								<div class="control-group">
-									<label class="control-label">Tipo de Inmueble</label>
-									<div class="controls">
-										<select id = "id_tipo" name = "id_tipo">
-											<option value = "0">Seleccionar</option>
-										<?php
-											foreach($tinmuebles as $ti){
-										?>
-											<option value ="<?php echo $ti->id; ?>"><?php echo $ti->nombre; ?></option>
-										<?php
-											}
-										?>
-										</select>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label" for="input01">Direccion</label>
-									<div class="controls">
-										<input type="text" class="input-xlarge" id="input01">
-										<select id = "piso" name = "piso" class="span1">
-											<option value = "-1" selected="selected">Piso</option>
-										<?php
-											for($p = 0; $p <=30; $p++){
-										?>
-											<option value ="<?php echo $p; ?>"><?php if($p==0){ echo 'PB';}else{ echo $p;}?></option>
-										<?php
-											}
-										?>
-										</select>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">Piso</label>
-									<div class="controls">
-										
-									</div>
-								</div>
-
-								<div class="control-group">
-									<label class="control-label" for="input01">Departamento</label>
-									<div class="controls">
-										<input type="text" class="span1" id="depto" name = "depto">
-									</div>
-								</div>
-
-								<div class="control-group">
-									<label class="control-label">Descripcion</label>
-									<div class="controls">
-										<textarea class="input-xlarge" rows="3"></textarea>
-									</div>
-								</div>
-
-								<div class="control-group">
-									<label class="control-label" for="input01">Direccion</label>
-									<div class="controls">
-										<input type="text" class="input-xlarge" id="input01">
-									</div>
-								</div>
-
-								<div class="control-group">
-									<label class="control-label" for="typehead">Auto Complete</label>
-									<div class="controls">
-										<input type="text" class=" input-xlarge" data-provide="typeahead" data-items="5" data-source="[&quot;Alabama&quot;,&quot;Alaska&quot;,&quot;Arizona&quot;,&quot;Arkansas&quot;,&quot;California&quot;,&quot;Colorado&quot;,&quot;Connecticut&quot;,&quot;Delaware&quot;,&quot;Florida&quot;,&quot;Georgia&quot;,&quot;Hawaii&quot;,&quot;Idaho&quot;,&quot;Illinois&quot;,&quot;Indiana&quot;,&quot;Iowa&quot;,&quot;Kansas&quot;,&quot;Kentucky&quot;,&quot;Louisiana&quot;,&quot;Maine&quot;,&quot;Maryland&quot;,&quot;Massachusetts&quot;,&quot;Michigan&quot;,&quot;Minnesota&quot;,&quot;Mississippi&quot;,&quot;Missouri&quot;,&quot;Montana&quot;,&quot;Nebraska&quot;,&quot;Nevada&quot;,&quot;New Hampshire&quot;,&quot;New Jersey&quot;,&quot;New Mexico&quot;,&quot;New York&quot;,&quot;North Dakota&quot;,&quot;North Carolina&quot;,&quot;Ohio&quot;,&quot;Oklahoma&quot;,&quot;Oregon&quot;,&quot;Pennsylvania&quot;,&quot;Rhode Island&quot;,&quot;South Carolina&quot;,&quot;South Dakota&quot;,&quot;Tennessee&quot;,&quot;Texas&quot;,&quot;Utah&quot;,&quot;Vermont&quot;,&quot;Virginia&quot;,&quot;Washington&quot;,&quot;West Virginia&quot;,&quot;Wisconsin&quot;,&quot;Wyoming&quot;]" id="typehead">
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label" for="input02">Password Input</label>
-									<div class="controls">
-										<input type="password" class="input-xlarge" id="input02">
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">Uneditable input</label>
-									<div class="controls">
-										<span class="input-xlarge uneditable-input">Some value here</span>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label" for="input04">Disable Input</label>
-									<div class="controls">
-										<input type="text" class="input-xlarge disabled" disabled="disabled" placeholder="Disabled input here…" id="input04">
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">Checkbox</label>
-									<div class="controls">
-										<label class="checkbox">
-										<input type="checkbox" value="option1">
-										Option one</label>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">Disabled checkbox</label>
-									<div class="controls">
-										<label class="checkbox">
-										<input type="checkbox" disabled="" value="option1">
-										This is a disabled checkbox </label>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">Inline checkboxes</label>
-									<div class="controls">
-										<label class="checkbox inline">
-										<input type="checkbox" value="option1">
-										1 </label>
-										<label class="checkbox inline">
-										<input type="checkbox" value="option2">
-										2 </label>
-										<label class="checkbox inline">
-										<input type="checkbox" value="option3">
-										3 </label>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">Checkboxes</label>
-									<div class="controls">
-										<label class="checkbox">
-										<input type="checkbox" value="option1" name="optionsCheckboxList1">
-										Option one</label>
-										<label class="checkbox">
-										<input type="checkbox" value="option2" name="optionsCheckboxList2">
-										Option two</label>
-										<label class="checkbox">
-										<input type="checkbox" value="option3" name="optionsCheckboxList3">
-										Option three</label>
-										<p class="help-block">
-											<strong>Note:</strong> Labels surround all the options for much larger click areas and a more usable form.
-										</p>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">Radio buttons</label>
-									<div class="controls">
-										<label class="radio">
-										<input type="radio" checked="" value="option1" name="optionsRadios">
-										Option one</label>
-										<label class="radio">
-										<input type="radio" value="option2" name="optionsRadios">
-										Option two</label>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">Select list</label>
-									<div class="controls">
-										<select>
-											<option>something</option>
-											<option>2</option>
-											<option>3</option>
-											<option>4</option>
-											<option>5</option>
-										</select>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">Multicon-select</label>
-									<div class="controls">
-										<select multiple="multiple">
-											<option>1</option>
-											<option>2</option>
-											<option>3</option>
-											<option>4</option>
-											<option>5</option>
-										</select>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">File input</label>
-									<div class="controls">
-										<div class="uni-uploader" id="uniform-undefined"><input class="input-file" type="file" size="19" style="opacity: 0;"><span class="filename">No file selected</span><span class="action">Choose File</span></div>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">Textarea</label>
-									<div class="controls">
-										<textarea class="input-xlarge" rows="3"></textarea>
-									</div>
-								</div>
-								<div class="form-actions">
-									<button type="submit" class="btn btn-info">Save changes</button>
-									<button class="btn btn-warning">Cancel</button>
-								</div>
-							</fieldset>
-						</form>
+				<div class="control-group">
+					<label class="control-label" for="typehead">Tipo de Inmueble</label>
+					<div class="controls">
+						<div>
+							<select id = "id_tinmueble" name = "id_tinmueble" autocomplete = "off">
+								<option value = ""<?php if(set_value('id_tinmueble')==""){ echo "selected = 'selected'"; }?>>Seleccione</option>
+							<?php
+								foreach($tinmuebles as $ti){
+							?>
+								<option value = "<?php echo $ti->id?>" <?php echo populateSelect(set_value('id_tinmueble'),"",$ti->id); ?> ><?php echo $ti->nombre; ?></option>
+							<?php
+								}
+							?>
+							</select>
+						</div>
 					</div>
 				</div>
+				<div class="control-group">
+					<label class="control-label" for="typehead">Operacion</label>
+					<div class="controls">
+						<div>
+							<select id = "id_operacion" name = "id_operacion" autocomplete = "off">
+								<option value = ""<?php if(set_value('id_operacion')==""){ echo "selected = 'selected'"; }?>>Seleccione</option>
+							<?php
+								foreach($operaciones as $o){
+							?>
+								<option value = "<?php echo $o->id?>" <?php echo populateSelect(set_value('id_operacion'),"",$o->id); ?> ><?php echo $o->nombre; ?></option>
+							<?php
+								}
+							?>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="typehead">Ubicacion Geografica</label>
+					<div class="controls">
+						<div>
+							<select id = "id_provincia" name = "id_provincia" autocomplete = "off">
+								<option value = ""<?php if(set_value('id_provincia')==""){ echo "selected = 'selected'"; }?>>Provincia</option>
+							<?php
+								foreach($provincias as $p){
+							?>
+								<option value = "<?php echo $p->id?>" <?php echo populateSelect(set_value('id_provincia'),"",$p->id); ?> ><?php echo $p->nombre; ?></option>
+							<?php
+								}
+							?>
+							</select>
+							<input type = "hidden" id = "provincia_text" name = "provincia_text" value = "<?php echo populateText(set_value('provincia_text'),''); ?>"/>
+							&nbsp;
+							<select id = "id_departamento" name = "id_departamento" autocomplete = "off">
+								<option value = "">Departamento</option>
+							</select>
+							<input type = "hidden" id = "departamento_text" name = "departamento_text" value = "<?php echo populateText(set_value('departamento_text'),''); ?>"/>
+							&nbsp;
+							<select id = "id_localidad" name = "id_localidad" autocomplete = "off">
+								<option value = "">Localidad/Barrio</option>
+							</select>
+							<input type = "hidden" id = "localidad_text" name = "localidad_text" value = "<?php echo populateText(set_value('localidad_text'),''); ?>"/>
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="typehead">Direccion</label>
+					<div class="controls">
+						<div>
+							<input type="text" class="span2" placeholder = "Calle" id="calle" name ="calle" value = "<?php echo populateText(set_value('calle'),''); ?>" maxlength= "50">
+							<input type="text" class="span1" placeholder = "Altura" id="altura" name ="altura" value = "<?php echo populateText(set_value('altura'),''); ?>" maxlength= "5">
+							<select id = "piso" name="piso" class="span1">
+								<option val = "">Piso</option>
+								<option val = "0">PB</option>
+						<?php
+							for($p=1; $p <= 30; $p++){
+						?>
+								<option value = "<?php echo $p; ?>"><?php echo $p; ?></option>
+						<?php
+							}
+						?>
+
+							</select>
+							<input type="text" class="span1" placeholder = "Depto" id="depto" name ="depto" value = "<?php echo populateText(set_value('depto'),''); ?>" maxlength="2">
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="typehead">Descripcion</label>
+					<div class="controls">
+						<div>
+							<textarea rows = "5" id="descripcion" name ="descripcion" maxlength="2000"><?php echo populateText(set_value('descripcion'),""); ?></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="typehead">Precio</label>
+					<div class="controls">
+						<div>
+							<select id = "moneda" name = "moneda" class="span1">
+								<option value = "$" >$</option>
+								<option value = "U$S" >U$S</option>
+							</select>
+							<input type="text" class="span1" id="precio" name ="precio" value = "<?php echo populateText(set_value('precio'),''); ?>" maxlength="8">
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="typehead">Contacto</label>
+					<div class="controls">
+						<div>
+							<select id = "id_contacto" name = "id_contacto" autocomplete = "off">
+								<option value = ""<?php if(set_value('id_contacto')==""){ echo "selected = 'selected'"; }?>>Seleccione</option>
+							<?php
+								foreach($contactos as $c){
+							?>
+								<option value = "<?php echo $c->id?>" <?php echo populateSelect(set_value('id_contacto'),"",$c->id); ?> ><?php echo $c->nombre; ?></option>
+							<?php
+								}
+							?>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="form-actions">
+					<?php 
+		        		echo form_submit(array(
+		        			'value'=>'Agregar',
+		        			'class'=>'btn btn-info'
+		        		)); 
+		        		echo "&nbsp;";
+		        		echo anchor("inmuebles/index", 'Cancelar', array("class"=>'btn btn-warning')); 
+		        	?>
+				</div>
+				<!--<div class="remember-me">
+					<input class="rem_me" type="checkbox" value=""> Remeber Me
+				</div>-->
 			</div>
 		</div>
 	</div>
 </div>
+<script type="text/javascript">  
+	$(document).ready(function() { 
+		$("#id_provincia").change(function(){  
+			/*dropdown post *///  
+			$("#id_localidad").html("<option value=''>Localidad/Barrio</option>");  
+			$("#provincia_text").val($('#id_provincia option:selected').text());  
+			$.ajax({  
+				url:"<?php echo base_url();?>index.php/inmuebles/buildDeptos",  
+				data: {id: $(this).val()},  
+				type: "POST",  
+				success:function(data){  
+					$("#id_departamento").html(data);  
+				}  
+			});  
+		});  
+
+		$("#id_departamento").change(function(){  
+			/*dropdown post *///  
+			$.ajax({  
+				url:"<?php echo base_url();?>index.php/inmuebles/buildLocalidades",  
+				data: {id: $(this).val()},  
+				type: "POST",  
+				success:function(data){  
+					$("#id_localidad").html(data);  
+				}  
+			});  
+		});  
+	});  
+</script> 

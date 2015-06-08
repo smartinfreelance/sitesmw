@@ -2,7 +2,7 @@
 	<div class = "container">
 		<ul class="breadcrumb">
   			<li><?php echo anchor('roles' , 'Roles');?><span class="divider">&raquo;</span></li>
-  			<li class="active">Editar Rol</li>
+  			<li class="active">Editar Tipo de Contacto</li>
 		</ul>
 		<?php
 			if(validation_errors()!=""){
@@ -19,7 +19,10 @@
 		<input type="hidden" name="id" value="<?php echo $idRol; ?>">
 		<br/>
 		<div class="widget-content">
-			<div class="widget-box">
+			<div class="nonboxy-widget">
+				<div class="widget-head">
+					<h5>Editar Tipo de Contacto</h5>
+				</div>
 				<div class="control-group">
 					<div class="controls">
 						<div>

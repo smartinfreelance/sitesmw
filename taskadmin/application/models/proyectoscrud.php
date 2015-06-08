@@ -24,6 +24,24 @@ class ProyectosCRUD extends CI_Model {
 										proyectos.id");
 		return $query->result();
     }
+
+	function getXProyectos($desde,$cuantos)
+	{
+		/*
+        $this->db->where("usuario = '".$usuario."'");
+        $this->db->where("password = md5('".$password."')");
+        return $this->db->get('usuarios')->result();  */
+        $query = $this->db->query("select 
+	        							proyectos.id as id, 
+	        							proyectos.nombre as nombre
+        							from 
+        								proyectos 
+									where 
+										proyectos.estado = 0
+									limit
+                                        ".$desde.",".$cuantos." ");
+		return $query->result();
+    }    
 //
     function addProyecto($nombre){
     	$query= $this->db->query("insert into 
@@ -80,6 +98,22 @@ class ProyectosCRUD extends CI_Model {
 										proyectos.nombre LIKE '%".$search."%'");
 		return $query->result();
 	}
+
+	/*PAGINATION FUNCTIONS*/
+    function getCantProyectos(){
+
+        $query= $this->db->query("select 
+                                    count(*) as numrows
+                                from 
+                                        proyectos 
+                                    where 
+                                        proyectos.estado = 0");
+        if ($query->num_rows() == 0)
+            return '0';
+
+        $row = $query->row();
+        return $row->numrows;
+    }	
 
 	//FUNCTIONES DE VALIDACION//
 

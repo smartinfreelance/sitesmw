@@ -1,7 +1,7 @@
 <div id = "main-content">
 	<div class = "container">
 		<ul class="breadcrumb">
-  			<li class="active">TContactos</li>
+  			<li class="active">Tipos de Contacto</li>
 		</ul>
 		<?php echo anchor(
 							'tcontactos/formAddTContacto',
@@ -9,13 +9,19 @@
 							array("class"=>'btn btn-success')); 
 		?><br />
 		<br />
-		<!--<div class='container' align='center'>
-			<ul class = 'breadcrumb'>
-				<li>
-					<?php echo $links; ?>
-				</li>
-			</ul>
-		</div>-->
+		<?php
+			if($links!=""){
+		?>
+				<div class='container' align='center'>
+					<ul class = 'breadcrumb'>
+						<li>
+							<?php echo $links; ?>
+						</li>
+					</ul>
+				</div>
+		<?php
+			}
+		?>
 		<table class="table table-striped">
 			<thead>
 				<tr>

@@ -33,6 +33,33 @@ class ProductosCRUD extends CI_Model {
 		return $query->result();
     }
 
+    function getXProductos($desde_row,$cant_rows){
+		/*
+        $this->db->where("usuario = '".$usuario."'");
+        $this->db->where("password = md5('".$password."')");
+        return $this->db->get('usuarios')->result();  */
+        $query = $this->db->query("select 
+	        							productos.id as id, 
+	        							productos.nombre as nombre, 
+	        							productos.id_categoria as id_categoria, 
+	        							categorias.nombre as categoria,
+	        							productos.precio as precio, 
+        								productos.stock as stock, 
+        								productos.stock_min as stock_min, 
+        								productos.stock_max as stock_max 
+        							from 
+        								productos 
+									inner join 
+										categorias on categorias.id = productos.id_categoria 
+									where 
+										productos.estado = 0
+									order by
+										productos.id
+									limit
+										".$desde_row.",".$cant_rows);
+		return $query->result();
+    }
+
     function getDiezProductos($nroPagina=0)
 	{
 		/*

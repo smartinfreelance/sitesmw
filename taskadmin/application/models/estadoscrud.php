@@ -24,6 +24,24 @@ class EstadosCRUD extends CI_Model {
 										estados.id");
 		return $query->result();
     }
+
+	function getXEstados($desde,$cuantos)
+	{
+		/*
+        $this->db->where("usuario = '".$usuario."'");
+        $this->db->where("password = md5('".$password."')");
+        return $this->db->get('usuarios')->result();  */
+        $query = $this->db->query("select
+										estados.id,
+										estados.nombre
+									from
+										estados
+									where
+										estados.estado = 0
+									limit
+                                        ".$desde.",".$cuantos." ");
+		return $query->result();
+    }    
 //
     function addEstado($nombre){
     	$query= $this->db->query("insert into 
@@ -80,6 +98,22 @@ class EstadosCRUD extends CI_Model {
 										estados.nombre LIKE '%".$search."%'");
 		return $query->result();
 	}
+
+	/*PAGINATION FUNCTIONS*/
+    function getCantEstados(){
+
+        $query= $this->db->query("select 
+                                    count(*) as numrows
+                                from 
+                                        estados 
+                                    where 
+                                        estados.estado = 0");
+        if ($query->num_rows() == 0)
+            return '0';
+
+        $row = $query->row();
+        return $row->numrows;
+    }
 	
 	//FUNCTIONES DE VALIDACION//
 

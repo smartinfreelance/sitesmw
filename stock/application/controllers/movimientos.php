@@ -11,11 +11,18 @@ class Movimientos extends CI_Controller
         $this->load->model('productosCRUD');
     }
 
-    function index()
+    function index($pagina_nro = 0)
     {
         //$movimientos = $this->movimientosCRUD->getMovimientos();
-        $movimientos = $this->movimientosCRUD->getDiezMovimientos();
-        $linksPaginacion = $this->getLinksPaginacion(0,10); 
+        $cant_rows = 2;
+        $controller = "movimientos";
+        $total_rows = $this->movimientosCRUD->getCantMovimientos();
+
+        $linksPaginacion = $this->smartin->getPaginacion($pagina_nro,$cant_rows,$total_rows,$controller); 
+        
+        $desde_row = $pagina_nro * $cant_rows;
+        
+        $movimientos = $this->movimientosCRUD->getXMovimientos($desde_row,$cant_rows);
         $this->load->view(
             'main', 
             array(
@@ -36,7 +43,10 @@ class Movimientos extends CI_Controller
         {  
         //here we build a dropdown item line for each  query result  
             $output .= "<option value='".$p->id."'>".$p->nombre."</option>";  
-        }  
+        }
+        if($output == null){
+            $output = "<option value=''>Seleccione un producto</option>";
+        }
         echo $output;  
     }
 
@@ -153,7 +163,7 @@ class Movimientos extends CI_Controller
 
         $cantRows = $this->movimientosCRUD->getCantMovimientos();
         if($cantRows > $cantResPP){
-            $cantPages = round($cantRows / $cantResPP);
+            $cantPages = ceil($cantRows / $cantResPP);
             if(($cantRows % $cantResPP) > 0 ){
                 $s = 1;
             }else if(($cantRows % $cantResPP) == 0 ){

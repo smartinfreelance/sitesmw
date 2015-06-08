@@ -19,8 +19,11 @@
 		<input type="hidden" name="id" value="<?php echo $idRol; ?>">
 		<br/>
 		<div class="widget-content">
-			<div class="widget-box">
+			<div class="nonboxy-widget">
 				<div class="control-group">
+					<div class="widget-head">
+						<h5>¿Desea eliminar Tipo de Inmueble?</h5>
+					</div>
 					<div class="controls">
 						<div>
 							<input type="text" placeholder="Nombre" name="nombre" value="<?php 

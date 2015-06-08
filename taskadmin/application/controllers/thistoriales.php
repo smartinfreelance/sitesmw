@@ -12,13 +12,21 @@ class THistoriales extends CI_Controller
         $this->load->model('tasksCRUD');
     }
 
-    function index()
+    function index($pagina_nro = 0)
     {
-        $thistoriales = $this->thistorialesCRUD->getTHistoriales();
+        $cant_rows = 2;
+        $controller = "thistoriales";
+        $total_rows = $this->thistorialesCRUD->getCantTHistoriales();
+
+        $linksPaginacion = $this->smartin->getPaginacion($pagina_nro,$cant_rows,$total_rows,$controller); 
+
+        $desde_row = $pagina_nro * $cant_rows;
+        $thistoriales = $this->thistorialesCRUD->getXTHistoriales($desde_row,$cant_rows);
         $this->load->view("main", array(
                                     "modulo"=> "thistoriales", 
                                     "pagina"=> "principal",
-                                    "thistoriales" => $thistoriales
+                                    "thistoriales" => $thistoriales,
+                                    "links" => $linksPaginacion
                                     )
                         );
     }

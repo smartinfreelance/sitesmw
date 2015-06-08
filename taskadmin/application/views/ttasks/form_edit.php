@@ -3,7 +3,7 @@
 	<div class = "container">
 		<ul class="breadcrumb">
   			<li><?php echo anchor('ttasks' , 'TTasks');?><span class="divider">&raquo;</span></li>
-  			<li class="active">Editar TTask</li>
+  			<li class="active">Editar Tipo de Task</li>
 		</ul>
 		<?php
 			if(validation_errors()!=""){
@@ -22,7 +22,7 @@
 		<div class="widget-content">
 			<div class="nonboxy-widget">
 				<div class="widget-head">
-					<h5> Editar TTask</h5>
+					<h5> Editar Tipo de Task</h5>
 				</div>
 				<div class="widget-content">
 					<div class="widget-box">

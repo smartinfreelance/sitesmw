@@ -22,8 +22,20 @@ class CategoriasCRUD extends CI_Model {
         								categorias.estado = 0");
 		return $query->result();
     }
+    function getXCategorias($desde,$cuantas){
+        $query = $this->db->query("select 
+                                        categorias.id as id, 
+                                        categorias.nombre as nombre
+                                    from 
+                                        categorias 
+                                    where 
+                                        categorias.estado = 0
+                                    limit
+                                        ".$desde.",".$cuantas." ");
+        return $query->result();
 
-    function getDiezCategorias($nroPagina=0)
+    }
+    function getDiezCategorias($desde=0)
     {
         /*
         $this->db->where("usuario = '".$usuario."'");
@@ -37,7 +49,7 @@ class CategoriasCRUD extends CI_Model {
                                     where 
                                         categorias.estado = 0
                                     limit
-                                        ".$nroPagina.",10");
+                                        ".$desde.",10");
         return $query->result();
     }
 

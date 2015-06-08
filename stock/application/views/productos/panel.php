@@ -9,13 +9,19 @@
 							array("class"=>'btn btn-success')); 
 		?><br />
 		<br />
-		<div class='container' align='center'>
-			<ul class = 'breadcrumb'>
-				<li>
-					<?php echo $links; ?>
-				</li>
-			</ul>
-		</div>
+		<?php
+			if($links!=""){
+		?>
+				<div class='container' align='center'>
+					<ul class = 'breadcrumb'>
+						<li>
+							<?php echo $links; ?>
+						</li>
+					</ul>
+				</div>
+		<?php
+			}
+		?>
 		<table class="table table-striped">
 			<thead>
 				<tr>

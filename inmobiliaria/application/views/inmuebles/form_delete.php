@@ -14,22 +14,6 @@
 					<h5>¿Desea eliminar Inmueble?</h5>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="typehead">Direccion</label>
-					<div class="controls">
-						<div>
-							<?php echo $inmueble->direccion.", Piso: ".$inmueble->piso.", Depto: ".$inmueble->depto; ?>
-						</div>
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="typehead">Descripcion</label>
-					<div class="controls">
-						<div>
-							<?php echo $inmueble->descripcion; ?>
-						</div>
-					</div>
-				</div>
-				<div class="control-group">
 					<label class="control-label" for="typehead">Tipo</label>
 					<div class="controls">
 						<div>
@@ -42,6 +26,43 @@
 					<div class="controls">
 						<div>
 							<?php echo $inmueble->operacion; ?>
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="typehead">Ubicacion Geografica</label>
+					<div class="controls">
+						<div>
+							<?php echo $inmueble->nombre_provincia." ".$inmueble->nombre_departamento." ".$inmueble->nombre_localidad; ?>
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="typehead">Direccion</label>
+					<div class="controls">
+						<div>
+							<?php 
+								echo $inmueble->direccion;
+								if($inmueble->tipo_inmueble == "Casa"){
+									", Piso: ".$inmueble->piso.", Depto: ".$inmueble->depto; 
+								}								
+							?>
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="typehead">Descripcion</label>
+					<div class="controls">
+						<div>
+							<?php echo $inmueble->descripcion; ?>
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="typehead">Precio</label>
+					<div class="controls">
+						<div>
+							<?php echo $inmueble->moneda.$inmueble->precio; ?>
 						</div>
 					</div>
 				</div>

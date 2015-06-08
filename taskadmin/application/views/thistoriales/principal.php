@@ -1,21 +1,27 @@
 <div id = "main-content">
 	<div class = "container">
 		<ul class="breadcrumb">
-  			<li class="active">thistoriales</li>
+  			<li class="active">Historiales</li>
 		</ul>
 		<?php echo anchor(
 							'thistoriales/formAddTHistorial',
-							"Agregar THistorial", 
+							"Agregar Historia", 
 							array("class"=>'btn btn-success')); 
 		?><br />
 		<br />
-		<!--<div class='container' align='center'>
-			<ul class = 'breadcrumb'>
-				<li>
-					<?php echo $links; ?>
-				</li>
-			</ul>
-		</div>-->
+		<?php
+			if($links!=""){
+		?>
+				<div class='container' align='center'>
+					<ul class = 'breadcrumb'>
+						<li>
+							<?php echo $links; ?>
+						</li>
+					</ul>
+				</div>
+		<?php
+			}
+		?>
 		<?php
 			if(count($thistoriales) > 0){
 		?>		

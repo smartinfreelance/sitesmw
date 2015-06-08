@@ -8,13 +8,21 @@ class Proyectos extends CI_Controller
         $this->load->model('proyectosCRUD');
     }
 
-    function index()
+    function index($pagina_nro = 0)
     {
-        $proyectos = $this->proyectosCRUD->getProyectos();
+        $cant_rows = 2;
+        $controller = "proyectos";
+        $total_rows = $this->proyectosCRUD->getCantProyectos();
+
+        $linksPaginacion = $this->smartin->getPaginacion($pagina_nro,$cant_rows,$total_rows,$controller); 
+
+        $desde_row = $pagina_nro * $cant_rows;
+        $proyectos = $this->proyectosCRUD->getXProyectos($desde_row,$cant_rows);
         $this->load->view("main", array(
                                     "modulo"=> "proyectos", 
                                     "pagina"=> "principal",
-                                    "proyectos" => $proyectos
+                                    "proyectos" => $proyectos,
+                                    "links" => $linksPaginacion
                                     )
                         );
     }

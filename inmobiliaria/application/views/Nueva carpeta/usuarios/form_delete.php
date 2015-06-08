@@ -15,33 +15,41 @@
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="typehead">Usuario</label>
-					<div class="control">
+					<div class="controls">
 						<div>
-							<?php echo $usuario->usuario; ?>
+							<?php echo $usuario->usuario;?>
 						</div>
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="typehead">Nombre y apellido</label>
-					<div class="control">
+					<label class="control-label" for="typehead">Nombre y Apellido</label>
+					<div class="controls">
 						<div>
 							<?php echo $usuario->nombre." ".$usuario->apellido; ?>
 						</div>
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="typehead">E-mail</label>
-					<div class="control">
+					<label class="control-label" for="typehead">Rol</label>
+					<div class="controls">
 						<div>
-							<?php echo $usuario->mail; ?>
+							<?php echo $usuario->rol; ?>
 						</div>
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="typehead">Rol</label>
-					<div class="control">
+					<label class="control-label" for="typehead">Fecha de Nacimiento</label>
+					<div class="controls">
 						<div>
-							<?php echo $usuario->rol; ?>
+							<?php echo $usuario->fecha_nac; ?>
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="typehead">Mail</label>
+					<div class="controls">
+						<div>
+							<?php echo $usuario->mail; ?>
 						</div>
 					</div>
 				</div>

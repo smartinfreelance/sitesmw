@@ -1,21 +1,27 @@
 <div id = "main-content">
 	<div class = "container">
 		<ul class="breadcrumb">
-  			<li class="active">TComentarios</li>
+  			<li class="active">Comentarios</li>
 		</ul>
 		<?php echo anchor(
 							'tcomentarios/formAddTComentario',
-							"Agregar TComentario", 
+							"Agregar Comentario", 
 							array("class"=>'btn btn-success')); 
 		?><br />
 		<br />
-		<!--<div class='container' align='center'>
-			<ul class = 'breadcrumb'>
-				<li>
-					<?php echo $links; ?>
-				</li>
-			</ul>
-		</div>-->
+		<?php
+			if($links!=""){
+		?>
+				<div class='container' align='center'>
+					<ul class = 'breadcrumb'>
+						<li>
+							<?php echo $links; ?>
+						</li>
+					</ul>
+				</div>
+		<?php
+			}
+		?>
 		<?php
 			if(count($tcomentarios) > 0){
 		?>

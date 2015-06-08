@@ -30,6 +30,7 @@
 																								echo set_value('nombre'); 
 																							}
 																						?>">
+							<input type="hidden" placeholder="Nombre" name="nombre_check" value="<?php echo $rol->nombre; ?>" maxlength = "50">
 						</div>
 					</div>
 				</div>	

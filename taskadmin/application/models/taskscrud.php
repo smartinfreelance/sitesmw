@@ -60,6 +60,61 @@ class TasksCRUD extends CI_Model {
 										tasks.id");
 		return $query->result();
     }
+
+
+	function getXTasks($desde,$cuantos)
+	{
+		/*
+        $this->db->where("usuario = '".$usuario."'");
+        $this->db->where("password = md5('".$password."')");
+        return $this->db->get('usuarios')->result();  */
+        $query = $this->db->query("select
+										tasks.id as id,
+										tasks.nombre as nombre,
+										tasks.descripcion as descripcion,
+										tasks.demora as demora,
+										tasks.demora_actual as demora_actual,
+										tasks.id_proyecto as id_proyecto,
+										proyectos.nombre as nombre_proyecto,
+										tasks.id_tipo as id_tipo,
+										ttasks.nombre as tipo_task,
+										tasks.id_estado as id_estado,
+										estados.nombre as estado_nombre,
+										tasks.id_asignado as id_asignado,
+										usuarios.nombre as nombre_asignado,
+										usuarios.apellido as apellido_asignado
+									from
+										tasks
+									inner join
+										proyectos 
+									on
+										proyectos.id = tasks.id_proyecto
+									inner join
+										ttasks
+									on
+										ttasks.id = tasks.id_tipo
+									inner join
+										estados
+									on
+										estados.id = tasks.id_estado
+									inner join
+										usuarios
+									on
+										usuarios.id = tasks.id_asignado
+									where
+										tasks.estado = 0
+									and
+										proyectos.estado = 0
+									and
+										ttasks.estado = 0
+									and
+										estados.estado = 0
+									and
+										usuarios.estado = 0
+									limit
+                                        ".$desde.",".$cuantos." ");
+		return $query->result();
+    }    
 //
     function addTask($nombre,$descripcion,$demora,$demora_actual,$id_proyecto,$id_tipo,$id_estado){
     	$query= $this->db->query("insert into 
@@ -193,6 +248,22 @@ class TasksCRUD extends CI_Model {
 										estados.nombre LIKE '%".$search."%')");
 		return $query->result();
 	}
+
+	/*PAGINATION FUNCTIONS*/
+    function getCantTasks(){
+
+        $query= $this->db->query("select 
+                                    count(*) as numrows
+                                from 
+                                        tasks 
+                                    where 
+                                        tasks.estado = 0");
+        if ($query->num_rows() == 0)
+            return '0';
+
+        $row = $query->row();
+        return $row->numrows;
+    }	
 
 	
 }

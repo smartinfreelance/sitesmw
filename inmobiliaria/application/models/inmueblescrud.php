@@ -14,11 +14,19 @@ class InmueblesCRUD extends CI_Model {
         $this->db->where("password = md5('".$password."')");
         return $this->db->get('usuarios')->result();  */
         $query = $this->db->query("select 
-	        							inmuebles.id as id, 
+	        							inmuebles.id as id, 	        							
+	        							inmuebles.id_provincia as id_provincia, 
+	        							provincias.nombre as nombre_provincia, 	        							
+	        							inmuebles.id_departamento as id_departamento, 
+	        							departamentos.nombre as nombre_departamento, 	        							
+	        							inmuebles.id_localidad as id_localidad, 
+	        							localidades.nombre as nombre_localidad, 
 	        							inmuebles.direccion as direccion,
 	        							inmuebles.piso as piso,
 	        							inmuebles.depto as depto,
 	        							inmuebles.descripcion as descripcion,
+	        							inmuebles.moneda as moneda,
+	        							inmuebles.precio as precio,
 	        							inmuebles.pos_lat as pos_lat,
 	        							inmuebles.pos_lng as pos_lng,
 	        							inmuebles.id_tipo as id_tipo,
@@ -29,6 +37,18 @@ class InmueblesCRUD extends CI_Model {
 	        							contactos.nombre as contacto
         							from 
         								inmuebles 
+        							inner join
+        								provincias 
+        							on
+        								provincias.id = inmuebles.id_provincia
+        							inner join
+        								departamentos 
+        							on
+        								departamentos.id = inmuebles.id_departamento
+        							inner join
+        								localidades
+        							on
+        								localidades.id = inmuebles.id_localidad
         							inner join
         								tipos_inmuebles 
         							on
@@ -47,14 +67,80 @@ class InmueblesCRUD extends CI_Model {
 										inmuebles.id");
 		return $query->result();
     }
+
+    function getXInmuebles($desde,$cuantos)
+	{
+		/*
+        $this->db->where("usuario = '".$usuario."'");
+        $this->db->where("password = md5('".$password."')");
+        return $this->db->get('usuarios')->result();  */
+        $query = $this->db->query("select 
+	        							inmuebles.id as id, 
+	        							inmuebles.id_provincia as id_provincia, 
+	        							provincias.nombre as nombre_provincia, 	        							
+	        							inmuebles.id_departamento as id_departamento, 
+	        							departamentos.nombre as nombre_departamento, 	        							
+	        							inmuebles.id_localidad as id_localidad, 
+	        							localidades.nombre as nombre_localidad, 
+	        							inmuebles.direccion as direccion,
+	        							inmuebles.piso as piso,
+	        							inmuebles.depto as depto,
+	        							inmuebles.descripcion as descripcion,
+	        							inmuebles.moneda as moneda,
+	        							inmuebles.precio as precio,
+	        							inmuebles.pos_lat as pos_lat,
+	        							inmuebles.pos_lng as pos_lng,
+	        							inmuebles.id_tipo as id_tipo,
+	        							tipos_inmuebles.nombre as tipo_inmueble,
+	        							inmuebles.id_operacion as id_operacion,
+	        							operaciones.nombre as operacion,
+	        							inmuebles.id_contacto as id_contacto,
+	        							contactos.nombre as contacto
+        							from 
+        								inmuebles 
+        							inner join
+        								provincias 
+        							on
+        								provincias.id = inmuebles.id_provincia
+        							inner join
+        								departamentos 
+        							on
+        								departamentos.id = inmuebles.id_departamento
+        							inner join
+        								localidades
+        							on
+        								localidades.id = inmuebles.id_localidad
+        							inner join
+        								tipos_inmuebles 
+        							on
+        								tipos_inmuebles.id = inmuebles.id_tipo
+        							inner join
+        								contactos
+        							on
+        								contactos.id = inmuebles.id_contacto
+        							inner join
+        								operaciones
+        							on
+        								operaciones.id = inmuebles.id_operacion
+									where 
+										inmuebles.estado = 0
+									limit
+                                        ".$desde.",".$cuantos." ");
+		return $query->result();
+    }
 //
-    function addInmueble($direccion,$piso, $depto,$pos_lat, $pos_lng,$id_tipo, $id_operacion, $id_contacto){
+    function addInmueble($id_provincia,$id_departamento,$id_localidad,$direccion,$piso, $depto,$descripcion,$moneda,$precio,$pos_lat, $pos_lng,$id_tipo, $id_operacion, $id_contacto){
     	$query= $this->db->query("insert into 
     								inmuebles (
+    									id_provincia,
+    									id_departamento,
+    									id_localidad,
     									direccion,
 	        							piso,
 	        							depto,
 	        							descripcion,
+	        							moneda,
+	        							precio,
 	        							pos_lat,
 	        							pos_lng,
 	        							id_tipo,
@@ -62,10 +148,15 @@ class InmueblesCRUD extends CI_Model {
 	        							id_contacto
 	        							) 
     								values (
+    									".$id_provincia.",
+    									".$id_departamento.",
+    									".$id_localidad.",
     									'".$direccion."',
 	        							".$piso.",
 	        							'".$depto."',
 	        							'".$descripcion."',
+	        							'".$moneda."',
+	        							'".$precio."',
 	        							'".$pos_lat."',
 	        							'".$pos_lng."',
 	        							".$id_tipo.",
@@ -78,11 +169,19 @@ class InmueblesCRUD extends CI_Model {
 
     function getInmueble($id_inmueble){
     	$query = $this->db->query("select 
-	        							inmuebles.id as id, 
+	        							inmuebles.id as id,
+	        							inmuebles.id_provincia as id_provincia, 
+	        							provincias.nombre as nombre_provincia, 	        							
+	        							inmuebles.id_departamento as id_departamento, 
+	        							departamentos.nombre as nombre_departamento, 	        							
+	        							inmuebles.id_localidad as id_localidad, 
+	        							localidades.nombre as nombre_localidad,  
 	        							inmuebles.direccion as direccion,
 	        							inmuebles.piso as piso,
 	        							inmuebles.depto as depto,
 	        							inmuebles.descripcion as descripcion,
+	        							inmuebles.moneda as moneda,
+	        							inmuebles.precio as precio,
 	        							inmuebles.pos_lat as pos_lat,
 	        							inmuebles.pos_lng as pos_lng,
 	        							inmuebles.id_tipo as id_tipo,
@@ -93,6 +192,18 @@ class InmueblesCRUD extends CI_Model {
 	        							contactos.nombre as contacto
         							from 
         								inmuebles 
+        							inner join
+        								provincias 
+        							on
+        								provincias.id = inmuebles.id_provincia
+        							inner join
+        								departamentos 
+        							on
+        								departamentos.id = inmuebles.id_departamento
+        							inner join
+        								localidades
+        							on
+        								localidades.id = inmuebles.id_localidad
         							inner join
         								tipos_inmuebles 
         							on
@@ -112,17 +223,22 @@ class InmueblesCRUD extends CI_Model {
 		return $query->result();
 
     }
-	function editInmueble($id_inmueble,$direccion,$piso, $depto,$pos_lat, $pos_lng,$id_tipo, $id_operacion, $id_contacto){
+	function editInmueble($id_inmueble,$id_provincia,$id_departamento,$id_localidad,$direccion,$piso, $depto,$descripcion,$moneda,$precio,$lat, $lng, $id_tinmueble, $id_operacion, $id_contacto){
 		$query= $this->db->query("update 
 										inmuebles
-									set 
+									set
+										id_provincia = ".$id_provincia.",
+										id_departamento = ".$id_departamento.",
+										id_localidad = ".$id_localidad.", 
 										direccion = '".$direccion."',
 	        							piso = ".$piso.",
 	        							depto = '".$depto."',
 	        							descripcion = '".$descripcion."',
-	        							pos_lat = '".$pos_lat."',
-	        							pos_lng = '".$pos_lng."',
-	        							id_tipo = ".$id_tipo.",
+	        							moneda = '".$moneda."',
+	        							precio = ".$precio.",
+	        							pos_lat = '".$lat."',
+	        							pos_lng = '".$lng."',
+	        							id_tipo = ".$id_tinmueble.",
 	        							id_operacion = ".$id_operacion.",
 	        							id_contacto = ".$id_contacto."
 									where 
@@ -139,6 +255,34 @@ class InmueblesCRUD extends CI_Model {
 										id = ".$id_inmueble);
 		return 0;
 	}
+
+	/*PAGINATION FUNCTIONS*/
+    function getCantInmuebles(){
+
+        $query= $this->db->query("select 
+                                    count(*) as numrows
+                                from 
+                                        inmuebles 
+                                inner join
+    								provincias 
+    							on
+    								provincias.id = inmuebles.id_provincia
+    							inner join
+    								departamentos 
+    							on
+    								departamentos.id = inmuebles.id_departamento
+    							inner join
+    								localidades
+    							on
+    								localidades.id = inmuebles.id_localidad
+                                    where 
+                                        inmuebles.estado = 0");
+        if ($query->num_rows() == 0)
+            return '0';
+
+        $row = $query->row();
+        return $row->numrows;
+    }	
 
 	
 }

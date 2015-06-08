@@ -8,13 +8,22 @@ class Acciones extends CI_Controller
         $this->load->model('accionesCRUD');
     }
 
-    function index()
+    function index($pagina_nro = 0)
     {
-        $acciones = $this->accionesCRUD->getAcciones();
+        $cant_rows = 2;
+        $controller = "acciones";
+        $total_rows = $this->accionesCRUD->getCantAcciones();
+
+        $linksPaginacion = $this->smartin->getPaginacion($pagina_nro,$cant_rows,$total_rows,$controller); 
+
+        $desde_row = $pagina_nro * $cant_rows;
+        $acciones = $this->accionesCRUD->getXAcciones($desde_row,$cant_rows);
+
         $this->load->view("main", array(
                                     "modulo"=> "acciones", 
                                     "pagina"=> "principal",
-                                    "acciones" => $acciones
+                                    "acciones" => $acciones,
+                                    "links" => $linksPaginacion
                                     )
                         );
     }

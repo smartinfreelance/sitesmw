@@ -9,13 +9,21 @@ class Contactos extends CI_Controller
         $this->load->model('tcontactosCRUD');
     }
 
-    function index()
+    function index($pagina_nro = 0)
     {
-        $contactos = $this->contactosCRUD->getContactos();
+        $cant_rows = 2;
+        $controller = "contactos";
+        $total_rows = $this->contactosCRUD->getCantContactos();
+
+        $linksPaginacion = $this->smartin->getPaginacion($pagina_nro,$cant_rows,$total_rows,$controller); 
+
+        $desde_row = $pagina_nro * $cant_rows;
+        $contactos = $this->contactosCRUD->getXContactos($desde_row,$cant_rows);
         $this->load->view("main", array(
                                     "modulo"=> "contactos", 
                                     "pagina"=> "principal",
-                                    "contactos" => $contactos
+                                    "contactos" => $contactos,
+                                    "links" => $linksPaginacion
                                     )
                         );
     }
@@ -157,7 +165,11 @@ class Contactos extends CI_Controller
     }
 
     function editContacto(){
-        $this->form_validation->set_rules('nombre', 'nombre', 'required|min_length[2]|max_length[50]');
+        if($_POST['nombre']!=$_POST['nombre_check']){
+            $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]|callback_existe_en_bbdd');
+        }else{
+            $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
+        }  
         $this->form_validation->set_rules('telefono', 'telefono', 'required|min_length[7]|max_length[14]|is_numeric');
         $this->form_validation->set_rules('id_tipo', 'tipo', 'required');
         $this->form_validation->set_rules('mail', 'E-mail', 'required|valid_email');
@@ -190,5 +202,5 @@ class Contactos extends CI_Controller
             return TRUE;
         }
     }
-
+    //FIN DE FUNCIONES DE VALIDACION//
 }

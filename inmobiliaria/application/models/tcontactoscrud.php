@@ -24,6 +24,24 @@ class TContactosCRUD extends CI_Model {
 										tipos_contactos.id");
 		return $query->result();
     }
+
+    function getXTContactos($desde,$cuantos)
+	{
+		/*
+        $this->db->where("usuario = '".$usuario."'");
+        $this->db->where("password = md5('".$password."')");
+        return $this->db->get('usuarios')->result();  */
+        $query = $this->db->query("select 
+	        							tipos_contactos.id as id, 
+	        							tipos_contactos.nombre as nombre
+        							from 
+        								tipos_contactos 
+									where 
+										tipos_contactos.estado = 0
+									limit
+                                        ".$desde.",".$cuantos." ");
+		return $query->result();
+    }
 //
     function addTContacto($nombre){
     	$query= $this->db->query("insert into 
@@ -80,7 +98,21 @@ class TContactosCRUD extends CI_Model {
 										tipos_contactos.nombre LIKE '%".$search."%'");
 		return $query->result();
 	}
+	/*PAGINATION FUNCTIONS*/
+    function getCantTContactos(){
 
+        $query= $this->db->query("select 
+                                    count(*) as numrows
+                                from 
+                                        tipos_contactos 
+                                    where 
+                                        tipos_contactos.estado = 0");
+        if ($query->num_rows() == 0)
+            return '0';
+
+        $row = $query->row();
+        return $row->numrows;
+    }	
 	
 }
 ?>

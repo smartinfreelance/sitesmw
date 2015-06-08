@@ -8,13 +8,21 @@ class TContactos extends CI_Controller
         $this->load->model('tcontactosCRUD');
     }
 
-    function index()
+    function index($pagina_nro = 0)
     {
-        $tcontactos = $this->tcontactosCRUD->getTContactos();
+        $cant_rows = 2;
+        $controller = "tcontactos";
+        $total_rows = $this->tcontactosCRUD->getCantTContactos();
+
+        $linksPaginacion = $this->smartin->getPaginacion($pagina_nro,$cant_rows,$total_rows,$controller); 
+
+        $desde_row = $pagina_nro * $cant_rows;
+        $tcontactos = $this->tcontactosCRUD->getXTContactos($desde_row,$cant_rows);
         $this->load->view("main", array(
                                     "modulo"=> "tcontactos", 
                                     "pagina"=> "principal",
-                                    "tcontactos" => $tcontactos
+                                    "tcontactos" => $tcontactos,
+                                    "links" => $linksPaginacion
                                     )
                         );
     }
@@ -118,11 +126,21 @@ class TContactos extends CI_Controller
     }
 
     function addTContacto(){
-        $nombre = $_POST['nombre'];
 
-        $this->tcontactosCRUD->addTContacto($nombre);
+        $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]|callback_existe_en_bbdd');
+        
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formAddTContacto();
+        }
+        else
+        {        
+            $nombre = $_POST['nombre'];
 
-        $this->index();
+            $this->tcontactosCRUD->addTContacto($nombre);
+
+            $this->index();
+        }
     }
 
     function deleteTContacto(){
@@ -135,12 +153,39 @@ class TContactos extends CI_Controller
     }
 
     function editTContacto(){
-        $id_tcontacto =  $_POST['id_tcontacto'];
-        $nombre = $_POST['nombre'];
+        if($_POST['nombre']!=$_POST['nombre_check']){
+            $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]|callback_existe_en_bbdd');
+        }else{
+            $this->form_validation->set_rules('nombre', 'Nombre', 'required|min_length[2]|max_length[50]');
+        }        
+        
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->formEditTContacto($_POST['id_tcontacto']);
+        }
+        else
+        {
+            $id_tcontacto =  $_POST['id_tcontacto'];
+            $nombre = $_POST['nombre'];
 
-        $this->tcontactosCRUD->editTContacto($id_tcontacto,$nombre);
-        $this->index();
+            $this->tcontactosCRUD->editTContacto($id_tcontacto,$nombre);
+            $this->index();
+        }
         
     }
+
+
+    //FUNCIONES DE VALIDACION//
+    function existe_en_bbdd($str){
+        $tcontacto = $this->tcontactosCRUD->existeNombre($str);
+        if(count($tcontacto) > 0){
+            $this->form_validation->set_message('existe_en_bbdd', 'Ya existe un registro con %s :"'.$str.'". Modifique este campo.');
+            return FALSE;
+        }else{
+            return TRUE;
+        }
+    }
+
+
 
 }

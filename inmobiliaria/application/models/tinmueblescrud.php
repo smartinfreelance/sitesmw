@@ -24,6 +24,24 @@ class TInmueblesCRUD extends CI_Model {
 										tipos_inmuebles.id");
 		return $query->result();
     }
+
+    function getXTInmuebles($desde,$cuantos)
+	{
+		/*
+        $this->db->where("usuario = '".$usuario."'");
+        $this->db->where("password = md5('".$password."')");
+        return $this->db->get('usuarios')->result();  */
+        $query = $this->db->query("select 
+	        							tipos_inmuebles.id as id, 
+	        							tipos_inmuebles.nombre as nombre
+        							from 
+        								tipos_inmuebles 
+									where 
+										tipos_inmuebles.estado = 0
+									limit
+                                        ".$desde.",".$cuantos." ");
+		return $query->result();
+    }
 //
     function addTInmueble($nombre){
     	$query= $this->db->query("insert into 
@@ -80,6 +98,22 @@ class TInmueblesCRUD extends CI_Model {
 										tipos_inmuebles.nombre LIKE '%".$search."%'");
 		return $query->result();
 	}
+
+	/*PAGINATION FUNCTIONS*/
+    function getCantTInmuebles(){
+
+        $query= $this->db->query("select 
+                                    count(*) as numrows
+                                from 
+                                        tipos_inmuebles 
+                                    where 
+                                        tipos_inmuebles.estado = 0");
+        if ($query->num_rows() == 0)
+            return '0';
+
+        $row = $query->row();
+        return $row->numrows;
+    }	
 
 	
 }

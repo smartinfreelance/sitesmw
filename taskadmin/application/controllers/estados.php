@@ -9,13 +9,22 @@ class Estados extends CI_Controller
 
     }
 
-    function index()
+    function index($pagina_nro = 0)
     {
-        $estados = $this->estadosCRUD->getEstados();
+        $cant_rows = 2;
+        $controller = "estados";
+        $total_rows = $this->estadosCRUD->getCantEstados();
+
+        $linksPaginacion = $this->smartin->getPaginacion($pagina_nro,$cant_rows,$total_rows,$controller); 
+
+        $desde_row = $pagina_nro * $cant_rows;
+        $estados = $this->estadosCRUD->getXEstados($desde_row,$cant_rows);
+
         $this->load->view("main", array(
                                     "modulo"=> "estados", 
                                     "pagina"=> "principal",
-                                    "estados" => $estados
+                                    "estados" => $estados,
+                                    "links" => $linksPaginacion
                                     )
                         );
     }

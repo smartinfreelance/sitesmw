@@ -8,13 +8,21 @@ class Roles extends CI_Controller
         $this->load->model('rolesCRUD');
     }
 
-    function index()
+    function index($pagina_nro = 0)
     {
-        $roles = $this->rolesCRUD->getRoles();
+        $cant_rows = 2;
+        $controller = "roles";
+        $total_rows = $this->rolesCRUD->getCantRoles();
+
+        $linksPaginacion = $this->smartin->getPaginacion($pagina_nro,$cant_rows,$total_rows,$controller); 
+
+        $desde_row = $pagina_nro * $cant_rows;
+        $roles = $this->rolesCRUD->getXRoles($desde_row,$cant_rows);
         $this->load->view("main", array(
                                     "modulo"=> "roles", 
                                     "pagina"=> "principal",
-                                    "roles" => $roles
+                                    "roles" => $roles,
+                                    "links" => $linksPaginacion
                                     )
                         );
     }

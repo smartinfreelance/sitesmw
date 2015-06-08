@@ -12,13 +12,21 @@ class Tasks extends CI_Controller
         $this->load->model('usuariosCRUD');
     }
 
-    function index()
+    function index($pagina_nro = 0)
     {
-        $tasks = $this->tasksCRUD->getTasks();
+        $cant_rows = 2;
+        $controller = "tasks";
+        $total_rows = $this->tasksCRUD->getCantTasks();
+
+        $linksPaginacion = $this->smartin->getPaginacion($pagina_nro,$cant_rows,$total_rows,$controller); 
+
+        $desde_row = $pagina_nro * $cant_rows;
+        $tasks = $this->tasksCRUD->getXTasks($desde_row,$cant_rows);
         $this->load->view("main", array(
                                     "modulo"=> "tasks", 
                                     "pagina"=> "principal",
-                                    "tasks" => $tasks
+                                    "tasks" => $tasks,
+                                    "links" => $linksPaginacion
                                     )
                         );
     }

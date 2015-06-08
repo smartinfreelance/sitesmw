@@ -24,6 +24,24 @@ class OperacionesCRUD extends CI_Model {
 										operaciones.id");
 		return $query->result();
     }
+
+    function getXOperaciones($desde,$cuantos)
+	{
+		/*
+        $this->db->where("usuario = '".$usuario."'");
+        $this->db->where("password = md5('".$password."')");
+        return $this->db->get('usuarios')->result();  */
+        $query = $this->db->query("select 
+	        							operaciones.id as id, 
+	        							operaciones.nombre as nombre
+        							from 
+        								operaciones 
+									where 
+										operaciones.estado = 0
+									limit
+                                        ".$desde.",".$cuantos." ");
+		return $query->result();
+    }
 //
     function addOperacion($nombre){
     	$query= $this->db->query("insert into 
@@ -81,6 +99,22 @@ class OperacionesCRUD extends CI_Model {
 		return $query->result();
 
 	}
+
+	/*PAGINATION FUNCTIONS*/
+    function getCantOperaciones(){
+
+        $query= $this->db->query("select 
+                                    count(*) as numrows
+                                from 
+                                        operaciones 
+                                    where 
+                                        operaciones.estado = 0");
+        if ($query->num_rows() == 0)
+            return '0';
+
+        $row = $query->row();
+        return $row->numrows;
+    }	
 
 	
 }

@@ -24,6 +24,24 @@ class TTasksCRUD extends CI_Model {
 										ttasks.id");
 		return $query->result();
     }
+
+	function getXTTasks($desde,$cuantos)
+	{
+		/*
+        $this->db->where("usuario = '".$usuario."'");
+        $this->db->where("password = md5('".$password."')");
+        return $this->db->get('usuarios')->result();  */
+        $query = $this->db->query("select 
+	        							ttasks.id as id, 
+	        							ttasks.nombre as nombre
+        							from 
+        								ttasks 
+									where 
+										ttasks.estado = 0
+									limit
+                                        ".$desde.",".$cuantos." ");
+		return $query->result();
+    }    
 //
     function addTTask($nombre){
     	$query= $this->db->query("insert into 
@@ -96,6 +114,22 @@ class TTasksCRUD extends CI_Model {
 		return $query->result();
 
 	}
+
+	/*PAGINATION FUNCTIONS*/
+    function getCantTTasks(){
+
+        $query= $this->db->query("select 
+                                    count(*) as numrows
+                                from 
+                                        ttasks 
+                                    where 
+                                        ttasks.estado = 0");
+        if ($query->num_rows() == 0)
+            return '0';
+
+        $row = $query->row();
+        return $row->numrows;
+    }		
 
 	
 }

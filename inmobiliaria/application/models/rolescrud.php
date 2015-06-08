@@ -24,6 +24,24 @@ class RolesCRUD extends CI_Model {
 										roles.id");
 		return $query->result();
     }
+
+    function getXRoles($desde,$cuantos)
+	{
+		/*
+        $this->db->where("usuario = '".$usuario."'");
+        $this->db->where("password = md5('".$password."')");
+        return $this->db->get('usuarios')->result();  */
+        $query = $this->db->query("select 
+	        							roles.id as id, 
+	        							roles.nombre as nombre
+        							from 
+        								roles 
+									where 
+										roles.estado = 0
+									limit
+                                        ".$desde.",".$cuantos." ");
+		return $query->result();
+    }
 //
     function addRol($nombre){
     	$query= $this->db->query("insert into 
@@ -81,6 +99,22 @@ class RolesCRUD extends CI_Model {
 		return $query->result();
 
 	}
+
+	/*PAGINATION FUNCTIONS*/
+    function getCantRoles(){
+
+        $query= $this->db->query("select 
+                                    count(*) as numrows
+                                from 
+                                        roles 
+                                    where 
+                                        roles.estado = 0");
+        if ($query->num_rows() == 0)
+            return '0';
+
+        $row = $query->row();
+        return $row->numrows;
+    }	
 
 	
 }
