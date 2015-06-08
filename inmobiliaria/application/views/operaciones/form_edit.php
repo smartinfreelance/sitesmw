@@ -1,7 +1,8 @@
+<?php $this->load->view('aux_functions'); ?>
 <div id = "main-content">
 	<div class = "container">
 		<ul class="breadcrumb">
-  			<li><?php echo anchor('roles' , 'Roles');?><span class="divider">&raquo;</span></li>
+  			<li><?php echo anchor('operaciones' , 'Operaciones');?><span class="divider">&raquo;</span></li>
   			<li class="active">Editar Rol</li>
 		</ul>
 		<?php
@@ -15,33 +16,29 @@
 		<?php
 			}
 		?>
-		<?php echo form_open('roles/confirmEditRol'); ?>
-		<input type="hidden" name="id" value="<?php echo $idRol; ?>">
-		<br/>
+		<?php echo form_open('operaciones/editOperacion'); ?>
+		<input type="hidden" name="id_operacion" value="<?php echo $operacion->id; ?>">
 		<div class="widget-content">
-			<div class="widget-box">
+			<div class="nonboxy-widget">
+				<div class="widget-head">
+					<h5> Editar Contacto</h5>
+				</div>
 				<div class="control-group">
 					<div class="controls">
 						<div>
-							<input type="text" placeholder="Nombre" name="nombre" value="<?php 
-																							if($rol->nombre){
-																								echo $rol->nombre;
-																							}else{
-																								echo set_value('nombre'); 
-																							}
-																						?>">
-							<input type="hidden" placeholder="Nombre" name="nombre_check" value="<?php echo $rol->nombre; ?>" maxlength = "50">
+							<input type="text" placeholder="Nombre" name="nombre" value="<?php echo populateText(set_value('nombre'),$operacion->nombre); ?>">
+							<input type="hidden" placeholder="Nombre" name="nombre_check" value="<?php echo populateText(set_value('nombre_check'),$operacion->nombre); ?>" maxlength = "50">
 						</div>
 					</div>
 				</div>	
-				<div class="clearfix">
-		            <?php 
-		            	echo anchor("roles/index", 'Cancelar', array("class"=>'btn btn-inverse'));
-		            	echo "&nbsp;";
+				<div class="form-actions">
+					<?php 
 		        		echo form_submit(array(
 		        			'value'=>'Editar',
-		        			'class'=>'btn'
+		        			'class'=>'btn btn-info'
 		        		)); 
+		        		echo "&nbsp;";
+		        		echo anchor("operaciones/index", 'Cancelar', array("class"=>'btn btn-warning')); 
 		        	?>
 				</div>
 				<!--<div class="remember-me">

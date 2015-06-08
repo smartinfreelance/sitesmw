@@ -10,7 +10,7 @@ class Proyectos extends CI_Controller
 
     function index($pagina_nro = 0)
     {
-        $cant_rows = 2;
+        $cant_rows = 10;
         $controller = "proyectos";
         $total_rows = $this->proyectosCRUD->getCantProyectos();
 

@@ -57,7 +57,7 @@ class TasksCRUD extends CI_Model {
 									and
 										usuarios.estado = 0
 									order by
-										tasks.id");
+										tasks.id asc");
 		return $query->result();
     }
 
@@ -111,6 +111,8 @@ class TasksCRUD extends CI_Model {
 										estados.estado = 0
 									and
 										usuarios.estado = 0
+									order by
+										tasks.id desc
 									limit
                                         ".$desde.",".$cuantos." ");
 		return $query->result();
@@ -245,7 +247,9 @@ class TasksCRUD extends CI_Model {
 									or
 										ttasks.nombre LIKE '%".$search."%'
 									or
-										estados.nombre LIKE '%".$search."%')");
+										estados.nombre LIKE '%".$search."%')
+									order by
+										tasks.id desc");
 		return $query->result();
 	}
 

@@ -49,13 +49,33 @@
 			</div>
 		</div>
 	</div>
+<?php $this->load->view('aux_functions'); ?>
 <?php echo form_open('login/login/intenta_loggear'); ?>
+<div id = "main-content">
+	<div class = "container">
+		<div class="widget-content">
+			<div class="nonboxy-widget">
+				<?php
+					if(validation_errors()!=""){
+				?>
+					<div class="widget-box">
+						<div class="alert alert-error fade in">
+							<strong><?php echo validation_errors(); ?></strong>
+						</div>
+					</div>
+				<?php
+					}
+				?>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="login-container">
 	<div class="well-login">
 		<div class="control-group">
 			<div class="controls">
 				<div>
-					<input type="text" placeholder="Username or Email" name="usuario" class="login-input user-name">
+					<input type="text" placeholder="Username or Email" name="usuario" class="login-input user-name" value = "<?php echo populateText(set_value('usuario'),''); ?>">
 				</div>
 			</div>
 		</div>

@@ -21,7 +21,7 @@ class TTasksCRUD extends CI_Model {
 									where 
 										ttasks.estado = 0
 									order by
-										ttasks.id");
+										ttasks.id asc");
 		return $query->result();
     }
 
@@ -38,6 +38,8 @@ class TTasksCRUD extends CI_Model {
         								ttasks 
 									where 
 										ttasks.estado = 0
+									order by
+										ttasks.id desc
 									limit
                                         ".$desde.",".$cuantos." ");
 		return $query->result();
@@ -95,7 +97,9 @@ class TTasksCRUD extends CI_Model {
 									where 
 										ttasks.estado = 0
 									and									
-										ttasks.nombre LIKE '%".$search."%'");
+										ttasks.nombre LIKE '%".$search."%'
+									order by
+										ttasks.id desc");
 		return $query->result();
 	}
 

@@ -54,7 +54,7 @@ class THistorialesCRUD extends CI_Model {
 									and
 										estados.estado = 0	
 									order by
-										thistoriales.id");
+										thistoriales.id asc");
 		return $query->result();
     }
 
@@ -103,7 +103,9 @@ class THistorialesCRUD extends CI_Model {
 									and
 										acciones.estado = 0
 									and
-										estados.estado = 0	
+										estados.estado = 0
+									order by
+										thistoriales.id desc
 									limit
                                         ".$desde.",".$cuantos." ");
 		return $query->result();
@@ -230,7 +232,9 @@ class THistorialesCRUD extends CI_Model {
 									and
 										estados.estado = 0	
 									and									
-										thistoriales.nombre LIKE '%".$search."%'");
+										thistoriales.nombre LIKE '%".$search."%'
+									order by
+										thistoriales.id desc");
 		return $query->result();
 	}
 

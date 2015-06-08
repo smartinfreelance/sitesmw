@@ -6,7 +6,8 @@ class Login extends CI_Controller
     {
         parent::__construct();
         $this->load->model('loginCRUD');
-        //$this->load->model('productosCRUD');
+        $this->load->model('inmueblesCRUD');
+        $this->load->model('usuariosCRUD');
     }
 
     function index()
@@ -15,135 +16,58 @@ class Login extends CI_Controller
             'login/login'
         );
     }
-    function intenta_loggear()
+    function intenta_loggear($pagina_nro=0)
     {
-        $usuario = array();
-        if(isset($_POST['usuario'])) $usuario = $this->loginCRUD->intentaLoggear($_POST['usuario'],$_POST['pass']);
-        if(count($usuario) > 0){
-            $datos=array("idusuario_inmo"=> $usuario[0]->id,"nombre"=> $usuario[0]->nombre,"usuario"=> $usuario[0]->usuario,"rol"=> $usuario[0]->id_rol);
-            $this->session->set_userdata($datos);
-            $productos = $this->productosCRUD->getDiezProductos();
-            $linksPaginacion = $this->getLinksPaginacion(0,10); 
-            $this->load->view(
-                'main', 
-                array(
-                    "modulo" => 'productos',
-                    "pagina" => 'panel',
-                    "productos" => $productos,
-                    "links" => $linksPaginacion
-                )
-            );
+        $this->form_validation->set_rules('usuario','usuario','required|callback_existe_en_bbdd');
+        $this->form_validation->set_rules('pass','password','required');
+
+        if ($this->form_validation->run() == FALSE){
+            $this->index();
+
         }else{
-            $this->load->view('login/login');
+            $usuario = array();
+            if(isset($_POST['usuario'])) $usuario = $this->loginCRUD->intentaLoggear($_POST['usuario'],$_POST['pass']);
+            if(count($usuario) > 0){
+                $datos=array("idusuario_inmo"=> $usuario[0]->id,"nombre"=> $usuario[0]->nombre,"usuario"=> $usuario[0]->usuario,"rol"=> $usuario[0]->id_rol);
+                $this->session->set_userdata($datos);
+                $cant_rows = 10;
+                $controller = "inmuebles";
+                $total_rows = $this->inmueblesCRUD->getCantInmuebles();
+
+                $linksPaginacion = $this->smartin->getPaginacion($pagina_nro,$cant_rows,$total_rows,$controller); 
+
+                $desde_row = $pagina_nro * $cant_rows;
+                $inmuebles = $this->inmueblesCRUD->getXInmuebles($desde_row,$cant_rows);
+                $this->load->view("main", array(
+                                            "modulo"=> "inmuebles", 
+                                            "pagina"=> "principal",
+                                            "inmuebles" => $inmuebles,
+                                            "links" => $linksPaginacion
+                                            )
+                                );
+            }else{
+                $this->load->view('login/login');
+            }
         }
     }
 
     function intenta_desloggear()
     {
-        $datos=array("idusuario"=> "","nombre"=> "","usuario"=> "","rol"=> "");
+        $datos=array("idusuario_inmo"=> "","nombre"=> "","usuario"=> "","rol"=> "");
         $this->session->unset_userdata($datos);
         $this->index();
     }
 
-    /*PAGINATION FUNCTIONS*/
+    //FUNCIONES DE VALIDACION//
+    function existe_en_bbdd($str){
 
-    function getLinksPaginacion($nroPagina = 0,$cantResPP = 10){
-        $links = "";
-        $cont = 0;
-        $cantPages = 0;
-        $aparece = 0;
-
-        $cantRows = $this->productosCRUD->getCantProductos();
-        if($cantRows > $cantResPP){
-            $cantPages = round($cantRows / $cantResPP);
-            if(($cantRows % $cantResPP) > 0 ){
-                $s = 1;
-            }else if(($cantRows % $cantResPP) == 0 ){
-                $s = 0;
-
-
-            }
-            $s = $s + $cantPages;
+        $usuario = $this->usuariosCRUD->existeNombre($str);
+        if(count($usuario) > 0){
+            return TRUE;
+        }else{                
+            $this->form_validation->set_message('existe_en_bbdd', 'No hay registro de un %s :"'.$str.'".');
+            return FALSE;
         }
-
-        $links = $links."<div class='pagination'><ul>";
-
-
-
-        for($x = 0 ; $x < $cantPages ; $x++){
-            if($cantPages < 11){
-                $cont++;
-                $aparece = $x + 1;
-
-                if($nroPagina == $x){
-                    $str = " class ='active'";
-
-                }else{
-                    $str ="";                
-                }
-                $links = $links."<li ".$str."><a href='".base_url()."index.php/productos/paginado/".$x."' style= 'strong'>".$aparece."</a></li>&nbsp;&nbsp;&nbsp;&nbsp;";
-                if($cont == 10){
-                    $links = $links."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ul></div>";
-                    $links = $links."<div class='pagination'><ul>";
-
-                }
-            }else{
-                $cont++;
-                $aparece = $x + 1;
-
-                if($nroPagina == $x){
-                    $str = " class ='active'";
-
-                }else{
-                    $str ="";                
-                }
-                
-                if(($aparece==1)||($aparece==2)||($aparece==3)||//q aparezcan los primeros 3
-                    ($aparece==($nroPagina-1))||($aparece==$nroPagina)||
-                    ($aparece==($nroPagina+1))||($aparece==($nroPagina+2))||($aparece==($nroPagina+3))||
-                    ($aparece==($cantPages-1))||($aparece==$cantPages)||($aparece==($cantPages-2))//q aparezcan los ultimos 3
-                    )
-                {
-                    $links = $links."<li ".$str."><a href='".base_url()."index.php/productos/paginado/".$x."' style= 'strong'>".$aparece."</a></li>&nbsp;&nbsp;&nbsp;&nbsp;";
-                    if(($aparece == 3)||($aparece == ($nroPagina+3))||($aparece == ($nroPagina-3))
-                        ){
-                        if(($aparece!=1)&&($aparece!=2)){
-                            $links = $links.". . .  ";
-                        }
-
-                    }
-
-                }
-                
-
-            }
-    
-        }
-        $links = $links."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ul></div>";
-        
-
-        return $links;
     }
-    function paginado($nroPagina){
-
-        $aPartirDe = $nroPagina * 10;        
-        $productos = $this->productosCRUD->getDiezProductos($aPartirDe); //nro: es a partir de que posicion empieza a traer
-        $linksPaginacion = $this->getLinksPaginacion($nroPagina, 10);
-        //$pagos_registrados = $this->PedidosCRUD->getSaldoPagosPedidos();
-        $this->load->view(
-            'main', 
-            array(
-                "modulo" => 'productos',
-                "pagina" => 'panel', 
-                "productos" => $productos,
-                "links" => $linksPaginacion
-            )
-        );
-
-
-
-    }
-
-    /*PAGINATION FUNCTIONS*/
     
 }

@@ -21,7 +21,7 @@ class RolesCRUD extends CI_Model {
 									where 
 										roles.estado = 0
 									order by
-										roles.id");
+										roles.id desc");
 		return $query->result();
     }
 
@@ -38,6 +38,8 @@ class RolesCRUD extends CI_Model {
         								roles 
 									where 
 										roles.estado = 0
+									order by
+										roles.id desc
 									limit
                                         ".$desde.",".$cuantos." ");
 		return $query->result();
@@ -95,10 +97,29 @@ class RolesCRUD extends CI_Model {
 									where 
 										roles.estado = 0
 									and									
-										roles.nombre LIKE '%".$search."%'");
+										roles.nombre LIKE '%".$search."%'
+									order by
+										roles.id desc");
 		return $query->result();
 
 	}
+
+	//FUNCTIONES DE VALIDACION//
+
+	function existeNombre($str){
+		$query = $this->db->query("select 
+										roles.id,
+										roles.nombre
+									from
+										roles
+									where
+										roles.estado = 0
+									and
+										roles.nombre = '".$str."'");
+		return $query->result();
+
+	}
+
 
 	/*PAGINATION FUNCTIONS*/
     function getCantRoles(){
@@ -106,9 +127,9 @@ class RolesCRUD extends CI_Model {
         $query= $this->db->query("select 
                                     count(*) as numrows
                                 from 
-                                        roles 
-                                    where 
-                                        roles.estado = 0");
+                                    roles 
+                                where 
+                                    roles.estado = 0");
         if ($query->num_rows() == 0)
             return '0';
 

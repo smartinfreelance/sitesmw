@@ -22,7 +22,7 @@ class RolesCRUD extends CI_Model {
 									where
 										roles.estado = 0
 									order by
-										roles.id");
+										roles.id asc");
 		return $query->result();
     }
 
@@ -40,6 +40,8 @@ class RolesCRUD extends CI_Model {
 										roles
 									where
 										roles.estado = 0
+									order by
+										roles.id desc									
 									limit
                                         ".$desde.",".$cuantos." ");
 		return $query->result();
@@ -102,7 +104,9 @@ class RolesCRUD extends CI_Model {
 									where 
 										roles.estado = 0
 									and									
-										roles.nombre LIKE '%".$search."%'");
+										roles.nombre LIKE '%".$search."%'
+									order by
+										roles.id desc");
 		return $query->result();
 	}
 

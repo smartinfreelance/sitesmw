@@ -28,8 +28,10 @@ class ContactosCRUD extends CI_Model {
         								tipos_contactos.id = contactos.id_tipo
 									where 
 										contactos.estado = 0
+									and
+										tipos_contactos.estado = 0
 									order by
-										contactos.id");
+										contactos.id desc");
 		return $query->result();
     }
 
@@ -54,6 +56,10 @@ function getXContactos($desde,$cuantos)
         								tipos_contactos.id = contactos.id_tipo
 									where 
 										contactos.estado = 0
+									and
+										tipos_contactos.estado = 0
+                                    order by
+										contactos.id desc									
 									limit
                                         ".$desde.",".$cuantos." ");
 		return $query->result();
@@ -81,7 +87,7 @@ function getXContactos($desde,$cuantos)
 									where 
 										contactos.estado = 0
 									order by
-										contactos.id
+										contactos.id desc
 									limit
                                         ".$nroPagina.",10");
 		return $query->result();
@@ -167,7 +173,9 @@ function getXContactos($desde,$cuantos)
 									or
 										contactos.telefono LIKE '%".$search."%'
 									or
-										contactos.mail LIKE '%".$search."%')");
+										contactos.mail LIKE '%".$search."%')
+									order by
+										contactos.id desc");
 		return $query->result();
 
 	}
@@ -196,8 +204,14 @@ function getXContactos($desde,$cuantos)
                                     count(*) as numrows
                                 from 
                                         contactos 
-                                    where 
-                                        contactos.estado = 0");
+    							inner join
+    								tipos_contactos 
+    							on
+    								tipos_contactos.id = contactos.id_tipo
+								where 
+									contactos.estado = 0
+								and
+									tipos_contactos.estado = 0");
         if ($query->num_rows() == 0)
             return '0';
 

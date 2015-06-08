@@ -21,7 +21,7 @@ class EstadosCRUD extends CI_Model {
 									where
 										estados.estado = 0
 									order by
-										estados.id");
+										estados.id asc");
 		return $query->result();
     }
 
@@ -38,6 +38,8 @@ class EstadosCRUD extends CI_Model {
 										estados
 									where
 										estados.estado = 0
+									order by
+										estados.id desc
 									limit
                                         ".$desde.",".$cuantos." ");
 		return $query->result();
@@ -95,7 +97,9 @@ class EstadosCRUD extends CI_Model {
 									where 
 										estados.estado = 0
 									and									
-										estados.nombre LIKE '%".$search."%'");
+										estados.nombre LIKE '%".$search."%'
+									order by
+										estados.id desc");
 		return $query->result();
 	}
 

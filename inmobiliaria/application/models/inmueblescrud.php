@@ -63,6 +63,14 @@ class InmueblesCRUD extends CI_Model {
         								operaciones.id = inmuebles.id_operacion
 									where 
 										inmuebles.estado = 0
+									and
+										tipos_inmuebles.estado = 0
+									and
+										contactos.estado = 0
+									and
+										operaciones.estado = 0
+									order by 
+										inmuebles.id desc
 									order by
 										inmuebles.id");
 		return $query->result();
@@ -124,6 +132,14 @@ class InmueblesCRUD extends CI_Model {
         								operaciones.id = inmuebles.id_operacion
 									where 
 										inmuebles.estado = 0
+									and
+										tipos_inmuebles.estado = 0
+									and
+										contactos.estado = 0
+									and
+										operaciones.estado = 0
+									order by 
+										inmuebles.id desc
 									limit
                                         ".$desde.",".$cuantos." ");
 		return $query->result();
@@ -219,6 +235,12 @@ class InmueblesCRUD extends CI_Model {
 									where 
 										inmuebles.estado = 0
 									and
+										tipos_inmuebles.estado = 0
+									and
+										contactos.estado = 0
+									and
+										operaciones.estado = 0
+									and
 										inmuebles.id = ".$id_inmueble);
 		return $query->result();
 
@@ -264,7 +286,7 @@ class InmueblesCRUD extends CI_Model {
                                 from 
                                         inmuebles 
                                 inner join
-    								provincias 
+    									provincias 
     							on
     								provincias.id = inmuebles.id_provincia
     							inner join
@@ -275,8 +297,26 @@ class InmueblesCRUD extends CI_Model {
     								localidades
     							on
     								localidades.id = inmuebles.id_localidad
-                                    where 
-                                        inmuebles.estado = 0");
+    							inner join
+    								tipos_inmuebles 
+    							on
+    								tipos_inmuebles.id = inmuebles.id_tipo
+    							inner join
+    								contactos
+    							on
+    								contactos.id = inmuebles.id_contacto
+    							inner join
+    								operaciones
+    							on
+    								operaciones.id = inmuebles.id_operacion
+                                where 
+                                    inmuebles.estado = 0
+                                and
+									tipos_inmuebles.estado = 0
+								and
+									contactos.estado = 0
+								and
+									operaciones.estado = 0");
         if ($query->num_rows() == 0)
             return '0';
 

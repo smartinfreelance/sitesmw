@@ -1,3 +1,4 @@
+<?php $this->load->view('aux_functions'); ?>
 <div id = "main-content">
 	<div class = "container">
 		<ul class="breadcrumb">
@@ -28,7 +29,7 @@
 								<div class="conttinmueble-group">
 									<label class="conttinmueble-label" for="input01">Nombre</label>
 									<div class="conttinmuebles">
-										<input type="text" class="input-xlarge" id="nombre" name ="nombre">
+										<input type="text" class="input-xlarge" id="nombre" name ="nombre" value="<?php echo populateText(set_value('nombre'),''); ?>">
 									</div>
 								</div>
 								<div class="form-actions">

@@ -1,7 +1,8 @@
+<?php $this->load->view('aux_functions'); ?>
 <div id = "main-content">
 	<div class = "container">
 		<ul class="breadcrumb">
-  			<li><?php echo anchor('roles' , 'Roles');?><span class="divider">&raquo;</span></li>
+  			<li><?php echo anchor('tinmuebles' , 'Tipos de Inmueble');?><span class="divider">&raquo;</span></li>
   			<li class="active">Editar Rol</li>
 		</ul>
 		<?php
@@ -15,35 +16,30 @@
 		<?php
 			}
 		?>
-		<?php echo form_open('roles/confirmEditRol'); ?>
-		<input type="hidden" name="id" value="<?php echo $idRol; ?>">
+		<?php echo form_open('tinmuebles/editTInmueble'); ?>
+		<input type="hidden" name="id_tinmueble" value="<?php echo populateText(set_value('id_tinmueble'),$tinmueble->id); ?>">
 		<br/>
 		<div class="widget-content">
 			<div class="nonboxy-widget">
 				<div class="control-group">
 					<div class="widget-head">
-						<h5>¿Desea eliminar Tipo de Inmueble?</h5>
+						<h5>Editar Tipo de Inmueble</h5>
 					</div>
 					<div class="controls">
 						<div>
-							<input type="text" placeholder="Nombre" name="nombre" value="<?php 
-																							if($rol->nombre){
-																								echo $rol->nombre;
-																							}else{
-																								echo set_value('nombre'); 
-																							}
-																						?>">
+							<input type="text" placeholder="Nombre" name="nombre" value="<?php echo populateText(set_value('nombre'),$tinmueble->nombre); ?>">
+							<input type="hidden" placeholder="Nombre" name="nombre_check" value="<?php echo populateText(set_value('nombre_check'),''); ?>">
 						</div>
 					</div>
 				</div>	
-				<div class="clearfix">
-		            <?php 
-		            	echo anchor("roles/index", 'Cancelar', array("class"=>'btn btn-inverse'));
-		            	echo "&nbsp;";
+				<div class="form-actions">
+					<?php 
 		        		echo form_submit(array(
 		        			'value'=>'Editar',
-		        			'class'=>'btn'
+		        			'class'=>'btn btn-info'
 		        		)); 
+		        		echo "&nbsp;";
+		        		echo anchor("tinmuebles/index", 'Cancelar', array("class"=>'btn btn-warning')); 
 		        	?>
 				</div>
 				<!--<div class="remember-me">

@@ -1,3 +1,4 @@
+<?php $this->load->view('aux_functions'); ?>
 <div id = "main-content">
 	<div class = "container">
 		<ul class="breadcrumb">
@@ -15,32 +16,30 @@
 		<?php
 			}
 		?>
-		<?php echo form_open('roles/confirmEditRol'); ?>
-		<input type="hidden" name="id" value="<?php echo $idRol; ?>">
+		<?php echo form_open('roles/editRol'); ?>
+		<input type="hidden" name="id_rol" value="<?php echo populateText(set_value('id_rol'),$rol->id); ?>">
 		<br/>
 		<div class="widget-content">
-			<div class="widget-box">
+			<div class="nonboxy-widget">
+				<div class="widget-head">
+					<h5> Editar Rol</h5>
+				</div>
 				<div class="control-group">
 					<div class="controls">
 						<div>
-							<input type="text" placeholder="Nombre" name="nombre" value="<?php 
-																							if($rol->nombre){
-																								echo $rol->nombre;
-																							}else{
-																								echo set_value('nombre'); 
-																							}
-																						?>">
+							<input type="text" placeholder="Nombre" name="nombre" value="<?php echo populateText(set_value('nombre'),$rol->nombre); ?>">
+							<input type="hidden" placeholder="Nombre" name="nombre_check" value="<?php echo populateText(set_value('nombre_check'),$rol->nombre); ?>">
 						</div>
 					</div>
 				</div>	
-				<div class="clearfix">
-		            <?php 
-		            	echo anchor("roles/index", 'Cancelar', array("class"=>'btn btn-inverse'));
-		            	echo "&nbsp;";
+				<div class="form-actions">
+					<?php 
 		        		echo form_submit(array(
 		        			'value'=>'Editar',
-		        			'class'=>'btn'
+		        			'class'=>'btn btn-info'
 		        		)); 
+		        		echo "&nbsp;";
+		        		echo anchor("roles/index", 'Cancelar', array("class"=>'btn btn-warning')); 
 		        	?>
 				</div>
 				<!--<div class="remember-me">

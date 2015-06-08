@@ -1,6 +1,6 @@
 <?php 
 	header('Content-type: text/html; charset=utf-8');
-	$this->load->view('top',$modulo);
+	$this->load->view('top',"Inmobiliaria - ".$modulo);
 ?>
 
 <?php if($this->session->flashdata('done')) { ?>	

@@ -12,7 +12,7 @@ class TComentarios extends CI_Controller
 
     function index($pagina_nro = 0)
     {
-        $cant_rows = 2;
+        $cant_rows = 10;
         $controller = "tcomentarios";
         $total_rows = $this->tcomentariosCRUD->getCantTComentarios();
 

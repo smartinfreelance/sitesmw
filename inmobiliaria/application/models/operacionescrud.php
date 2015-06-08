@@ -21,7 +21,7 @@ class OperacionesCRUD extends CI_Model {
 									where 
 										operaciones.estado = 0
 									order by
-										operaciones.id");
+										operaciones.id desc");
 		return $query->result();
     }
 
@@ -38,6 +38,8 @@ class OperacionesCRUD extends CI_Model {
         								operaciones 
 									where 
 										operaciones.estado = 0
+									order by 
+										operaciones.id desc
 									limit
                                         ".$desde.",".$cuantos." ");
 		return $query->result();
@@ -95,7 +97,24 @@ class OperacionesCRUD extends CI_Model {
 									where 
 										operaciones.estado = 0
 									and									
-										operaciones.nombre LIKE '%".$search."%'");
+										operaciones.nombre LIKE '%".$search."%'
+									order by
+										operaciones.id desc");
+		return $query->result();
+
+	}
+	//FUNCTIONES DE VALIDACION//
+
+	function existeNombre($str){
+		$query = $this->db->query("select 
+										operaciones.id,
+										operaciones.nombre
+									from
+										operaciones
+									where
+										operaciones.estado = 0
+									and
+										operaciones.nombre = '".$str."'");
 		return $query->result();
 
 	}

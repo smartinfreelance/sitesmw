@@ -1,3 +1,4 @@
+<?php $this->load->view('aux_functions'); ?>
 <div id = "main-content">
 	<div class = "container">
 		<ul class="breadcrumb">
@@ -27,13 +28,7 @@
 					<label class="control-label" for="typehead">Nombre</label>
 					<div class="controls">
 						<div>
-							<input type="text" placeholder="Nombre" name="nombre" value="<?php 
-																							if(set_value('nombre')!=''){
-																								echo set_value('nombre'); 
-																							}else{
-																								echo $contacto->nombre;
-																							}
-																						?>" maxlength = "50">
+							<input type="text" placeholder="Nombre" name="nombre" value="<?php echo populateText(set_value('nombre'),$contacto->nombre); ?>" maxlength = "50">
 							<input type="hidden" placeholder="Nombre" name="nombre_check" value="<?php echo $contacto->nombre; ?>" maxlength = "50">
 						</div>
 					</div>
@@ -41,35 +36,18 @@
 				<div class="control-group">
 					<label class="control-label" for="typehead">Telefono</label>
 					<div class="controls">
-						<input type="text" class=" input-xlarge" id="telefono" name ="telefono" value="<?php 
-																											if(set_value('telefono')!=''){
-																												echo set_value('telefono'); 
-																											}else{
-																												echo $contacto->telefono;
-																											}
-																										?>" 
-																								maxlength="14">
+						<input type="text" class=" input-xlarge" id="telefono" name ="telefono" value="<?php echo populateText(set_value('telefono'),$contacto->telefono); ?>" maxlength="14">
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label">Tipo Contacto</label>
 					<div class="controls">
 						<select id = "id_tipo" name = "id_tipo">
-							<option value = "">Seleccionar</option>
+							<option value = "" <?php echo populateSelect(set_value('id_tipo'),$contacto->id_tipo,""); ?>>Seleccionar</option>
 						<?php
 							foreach($tcontactos as $tc){
 						?>
-							<option value ="<?php echo $tc->id; ?>" <?php 
-																		if(set_value('id_tipo') != ''){ 
-																			if(set_value('id_tipo') == $tc->id){
-																				echo "selected='true'";
-																			}
-																		}else{ 
-																			if($tc->id == $contacto->id_tipo){
-																				echo "selected='true'";
-																			}
-																		}  
-																	?> ><?php echo $tc->nombre; ?></option>
+							<option value ="<?php echo $tc->id; ?>" <?php echo populateSelect(set_value('id_tipo'),$contacto->id_tipo,$tc->id); ?> ><?php echo $tc->nombre; ?></option>
 						<?php
 							}
 						?>
@@ -79,14 +57,7 @@
 				<div class="control-group">
 					<label class="control-label" for="typehead">E-mail</label>
 					<div class="controls">
-						<input type="text" class=" input-xlarge" id="mail" name ="mail" value="<?php 
-																									if(set_value('mail')!=''){
-																										echo set_value('mail'); 
-																									}else{
-																										echo $contacto->mail;
-																									}
-																								?>" 
-																						maxlength="50">
+						<input type="text" class=" input-xlarge" id="mail" name ="mail" value="<?php echo populateText(set_value('mail'),$contacto->mail); ?>" maxlength="50">
 					</div>
 				</div>
 				<div class="form-actions">

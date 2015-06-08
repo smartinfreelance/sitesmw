@@ -128,21 +128,85 @@
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="typehead">Contacto</label>
+					<label class="control-label">Contacto</label>
 					<div class="controls">
-						<div>
-							<select id = "id_contacto" name = "id_contacto" autocomplete = "off">
-								<option value = ""<?php if(set_value('id_contacto')==""){ echo "selected = 'selected'"; }?>>Seleccione</option>
-							<?php
-								foreach($contactos as $c){
-							?>
-								<option value = "<?php echo $c->id?>" <?php echo populateSelect(set_value('id_contacto'),"",$c->id); ?> ><?php echo $c->nombre; ?></option>
-							<?php
-								}
-							?>
-							</select>
+						<label class="radio">
+							<input type = "radio" id = "contact_exist" name = "contact_exist" value = "contacto_existente"> Contacto existente
+						</label>
+						<label class="radio">
+							<input type = "radio" id = "contact_exist" name = "contact_exist" value = "contacto_nuevo"> Contacto Nuevo
+						</label>
+					</div>
+				</div>
+				<div id = "contacto_nuevo">
+					<div class="widget-content">
+						<div class="nonboxy-widget">
+							<div class="widget-head">
+								<h5> Agregar Contacto</h5>
+							</div>
+							<div class="widget-content">
+								<div class="widget-box">
+									<form class="form-horizontal well">
+										<fieldset>
+											<div class="control-group">
+												<label class="control-label" for="input01">Nombre</label>
+												<div class="controls">
+													<input type="text" class="input-xlarge" id="nombre" name ="nombre" value = "<?php echo populateText(set_value('nombre'),''); ?>" maxlength = "50">
+												</div>
+											</div>
+											<div class="control-group">
+												<label class="control-label" for="typehead">Telefono</label>
+												<div class="controls">
+													<input type="text" class=" input-xlarge" id="telefono" name ="telefono" value = "<?php echo populateText(set_value('telefono'),''); ?>" maxlength="14">
+												</div>
+											</div>
+											<div class="control-group">
+												<label class="control-label">Tipo Contacto</label>
+												<div class="controls">
+													<select id = "id_tipo" name = "id_tipo">
+														<option value = "" <?php echo populateSelect(set_value('id_tipo'),"",""); ?>>Seleccionar</option>
+													<?php
+														foreach($tcontactos as $tc){
+													?>
+														<option value ="<?php echo $tc->id; ?>" <?php echo populateSelect(set_value('id_tipo'),"",$tc->id); ?>><?php echo $tc->nombre; ?></option>
+													<?php
+														}
+													?>
+													</select>
+												</div>
+											</div>
+											<div class="control-group">
+												<label class="control-label" for="typehead">E-mail</label>
+												<div class="controls">
+													<input type="text" class=" input-xlarge" id="mail" name ="mail" value = "<?php echo set_value('mail'); ?>" maxlength="50">
+												</div>
+											</div>
+										</fieldset>
+									</form>
+								</div>
+							</div>
 						</div>
 					</div>
+				</div>
+				<div id = "contacto_existente">
+					<div class="control-group">
+						<label class="control-label" for="typehead">Contacto</label>
+						<div class="controls">
+							<div>
+								<select id = "id_contacto" name = "id_contacto" autocomplete = "off">
+									<option value = ""<?php if(set_value('id_contacto')==""){ echo "selected = 'selected'"; }?>>Seleccione</option>
+								<?php
+									foreach($contactos as $c){
+								?>
+									<option value = "<?php echo $c->id?>" <?php echo populateSelect(set_value('id_contacto'),"",$c->id); ?> ><?php echo $c->nombre; ?></option>
+								<?php
+									}
+								?>
+								</select>
+							</div>
+						</div>
+					</div>
+					
 				</div>
 				<div class="form-actions">
 					<?php 
@@ -163,6 +227,10 @@
 </div>
 <script type="text/javascript">  
 	$(document).ready(function() { 
+		
+		$("#contacto_existente").css('display','none');
+		$("#contacto_nuevo").css('display','none');
+
 		$("#id_provincia").change(function(){  
 			/*dropdown post *///  
 			$("#id_localidad").html("<option value=''>Localidad/Barrio</option>");  
@@ -188,5 +256,16 @@
 				}  
 			});  
 		});  
+
+		$("input[name$='contact_exist']").click(function() {
+	        var test = $(this).val();
+	        if($("#contact_exist").val() == "contacto_nuevo"){
+		        $("#contacto_nuevo").css('display','none');
+		        $("#contacto_existente").css('display','block');
+		    }else{
+		    	$("#contacto_nuevo").css('display','block');
+		        $("#contacto_existente").css('display','none');
+		    }
+		}); 
 	});  
 </script> 

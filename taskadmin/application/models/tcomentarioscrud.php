@@ -38,7 +38,7 @@ class TComentariosCRUD extends CI_Model {
 									and
 										usuarios.estado = 0
 									order by
-										tcomentarios.id");
+										tcomentarios.id asc");
 		return $query->result();
     }
 
@@ -72,6 +72,8 @@ class TComentariosCRUD extends CI_Model {
 										tasks.estado = 0
 									and
 										usuarios.estado = 0
+									order by
+										tcomentarios.id desc
 									limit
                                         ".$desde.",".$cuantos." ");
 		return $query->result();
@@ -165,7 +167,9 @@ class TComentariosCRUD extends CI_Model {
 									and
 										usuarios.estado = 0
 									and									
-										tcomentarios.nombre LIKE '%".$search."%'");
+										tcomentarios.nombre LIKE '%".$search."%'
+									order by
+										tcomentarios.id desc");
 		return $query->result();
 	}
 

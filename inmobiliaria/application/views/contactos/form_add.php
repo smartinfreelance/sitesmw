@@ -1,3 +1,4 @@
+<?php $this->load->view('aux_functions'); ?>
 <div id = "main-content">
 	<div class = "container">
 		<ul class="breadcrumb">
@@ -28,30 +29,24 @@
 								<div class="control-group">
 									<label class="control-label" for="input01">Nombre</label>
 									<div class="controls">
-										<input type="text" class="input-xlarge" id="nombre" name ="nombre" value = "<?php echo set_value('nombre'); ?>" maxlength = "50">
+										<input type="text" class="input-xlarge" id="nombre" name ="nombre" value = "<?php echo populateText(set_value('nombre'),''); ?>" maxlength = "50">
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label" for="typehead">Telefono</label>
 									<div class="controls">
-										<input type="text" class=" input-xlarge" id="telefono" name ="telefono" value = "<?php echo set_value('telefono'); ?>" maxlength="14">
+										<input type="text" class=" input-xlarge" id="telefono" name ="telefono" value = "<?php echo populateText(set_value('telefono'),''); ?>" maxlength="14">
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Tipo Contacto</label>
 									<div class="controls">
 										<select id = "id_tipo" name = "id_tipo">
-											<option value = "">Seleccionar</option>
+											<option value = "" <?php echo populateSelect(set_value('id_tipo'),"",""); ?>>Seleccionar</option>
 										<?php
 											foreach($tcontactos as $tc){
 										?>
-											<option value ="<?php echo $tc->id; ?>" <?php 
-																						if(set_value('id_tipo')!=""){ 
-																							if(set_value('id_tipo') == $tc->id){
-																								echo "selected = 'true'";
-																							}
-																						}
-																					?>><?php echo $tc->nombre; ?></option>
+											<option value ="<?php echo $tc->id; ?>" <?php echo populateSelect(set_value('id_tipo'),"",$tc->id); ?>><?php echo $tc->nombre; ?></option>
 										<?php
 											}
 										?>

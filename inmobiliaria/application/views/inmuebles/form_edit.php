@@ -63,7 +63,7 @@
 					<div class="controls">
 						<div>
 							<select id = "id_provincia" name = "id_provincia" autocomplete = "off">
-								<option value = ""<?php echo populateSelect(set_value('id_operacion'),$inmueble->id_operacion,""); ?>>Provincia</option>
+								<option value = "" <?php echo populateSelect(set_value('id_provincia'),$inmueble->id_provincia,""); ?>>Provincia</option>
 							<?php
 								foreach($provincias as $p){
 							?>

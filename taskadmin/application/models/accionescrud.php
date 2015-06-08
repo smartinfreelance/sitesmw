@@ -21,7 +21,7 @@ class AccionesCRUD extends CI_Model {
 									where
 										acciones.estado = 0
 									order by
-										acciones.id");
+										acciones.id asc");
 		return $query->result();
     }
 	function getXAcciones($desde,$cuantos)
@@ -37,6 +37,8 @@ class AccionesCRUD extends CI_Model {
 										acciones
 									where
 										acciones.estado = 0
+									order by
+										acciones.id desc
 									limit
                                         ".$desde.",".$cuantos." ");
 		return $query->result();
@@ -94,7 +96,9 @@ class AccionesCRUD extends CI_Model {
 									where 
 										acciones.estado = 0
 									and									
-										acciones.nombre LIKE '%".$search."%'");
+										acciones.nombre LIKE '%".$search."%'
+									order by
+										acciones.id desc");
 		return $query->result();
 	}
 

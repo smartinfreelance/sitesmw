@@ -21,7 +21,7 @@ class TContactosCRUD extends CI_Model {
 									where 
 										tipos_contactos.estado = 0
 									order by
-										tipos_contactos.id");
+										tipos_contactos.id desc");
 		return $query->result();
     }
 
@@ -38,6 +38,8 @@ class TContactosCRUD extends CI_Model {
         								tipos_contactos 
 									where 
 										tipos_contactos.estado = 0
+									order by
+										tipos_contactos.id desc
 									limit
                                         ".$desde.",".$cuantos." ");
 		return $query->result();
@@ -95,9 +97,28 @@ class TContactosCRUD extends CI_Model {
 									where 
 										tipos_contactos.estado = 0
 									and									
-										tipos_contactos.nombre LIKE '%".$search."%'");
+										tipos_contactos.nombre LIKE '%".$search."%'
+									order by
+										tipos_contactos.id desc");
 		return $query->result();
 	}
+
+	//FUNCTIONES DE VALIDACION//
+
+	function existeNombre($str){
+		$query = $this->db->query("select 
+										tipos_contactos.id,
+										tipos_contactos.nombre
+									from
+										tipos_contactos
+									where
+										tipos_contactos.estado = 0
+									and
+										tipos_contactos.nombre = '".$str."'");
+		return $query->result();
+
+	}
+	
 	/*PAGINATION FUNCTIONS*/
     function getCantTContactos(){
 

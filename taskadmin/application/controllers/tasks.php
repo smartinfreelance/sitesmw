@@ -14,7 +14,7 @@ class Tasks extends CI_Controller
 
     function index($pagina_nro = 0)
     {
-        $cant_rows = 2;
+        $cant_rows = 10;
         $controller = "tasks";
         $total_rows = $this->tasksCRUD->getCantTasks();
 

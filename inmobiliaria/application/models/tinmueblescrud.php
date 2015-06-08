@@ -21,7 +21,7 @@ class TInmueblesCRUD extends CI_Model {
 									where 
 										tipos_inmuebles.estado = 0
 									order by
-										tipos_inmuebles.id");
+										tipos_inmuebles.id desc");
 		return $query->result();
     }
 
@@ -38,6 +38,8 @@ class TInmueblesCRUD extends CI_Model {
         								tipos_inmuebles 
 									where 
 										tipos_inmuebles.estado = 0
+									order by
+										tipos_inmuebles.id desc
 									limit
                                         ".$desde.",".$cuantos." ");
 		return $query->result();
@@ -95,8 +97,26 @@ class TInmueblesCRUD extends CI_Model {
 									where 
 										tipos_inmuebles.estado = 0
 									and									
-										tipos_inmuebles.nombre LIKE '%".$search."%'");
+										tipos_inmuebles.nombre LIKE '%".$search."%'
+									order by
+										tipos_inmuebles.id desc");
 		return $query->result();
+	}
+
+	//FUNCTIONES DE VALIDACION//
+
+	function existeNombre($str){
+		$query = $this->db->query("select 
+										tipos_inmuebles.id,
+										tipos_inmuebles.nombre
+									from
+										tipos_inmuebles
+									where
+										tipos_inmuebles.estado = 0
+									and
+										tipos_inmuebles.nombre = '".$str."'");
+		return $query->result();
+
 	}
 
 	/*PAGINATION FUNCTIONS*/

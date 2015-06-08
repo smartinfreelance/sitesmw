@@ -21,7 +21,7 @@ class ProyectosCRUD extends CI_Model {
 									where 
 										proyectos.estado = 0
 									order by
-										proyectos.id");
+										proyectos.id asc");
 		return $query->result();
     }
 
@@ -38,6 +38,8 @@ class ProyectosCRUD extends CI_Model {
         								proyectos 
 									where 
 										proyectos.estado = 0
+									order by
+										proyectos.id desc
 									limit
                                         ".$desde.",".$cuantos." ");
 		return $query->result();
@@ -95,7 +97,9 @@ class ProyectosCRUD extends CI_Model {
 									where 
 										proyectos.estado = 0
 									and									
-										proyectos.nombre LIKE '%".$search."%'");
+										proyectos.nombre LIKE '%".$search."%'
+									order by
+										proyectos.id desc");
 		return $query->result();
 	}
 
