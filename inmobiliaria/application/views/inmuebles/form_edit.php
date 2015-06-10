@@ -172,6 +172,30 @@
 					<input class="rem_me" type="checkbox" value=""> Remeber Me
 				</div>-->
 			</div>
+			<div class="nonboxy-widget">
+				<div class="widget-head">
+					<h5>Editar fotos de Inmueble</h5>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="typehead">Fotos</label>
+					<div class="controls">
+						<div>
+						<?php
+							foreach($fotos as $f){
+						?>
+								<img src = "<?php echo base_url().$f->path_thumb; ?>" alt = "<?php echo $f->direccion_inmueble; ?>"/>
+						<?php
+							}
+						?>
+						</div>
+					</div>
+				</div>
+				<div class="form-actions">
+					<?php 
+		        		echo anchor("inmuebles/form_cargar_foto/".$inmueble->id, 'Editar Fotos', array("class"=>'btn btn-info')); 
+		        	?>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

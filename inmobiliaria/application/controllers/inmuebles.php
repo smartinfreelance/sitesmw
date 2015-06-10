@@ -8,11 +8,16 @@ class Inmuebles extends CI_Controller
         $this->load->model('inmueblesCRUD');
         $this->load->model('tinmueblesCRUD');
 
+        $this->load->model('einmueblesCRUD');
         $this->load->model('contactosCRUD');
         $this->load->model('provinciasCRUD');
         $this->load->model('departamentosCRUD');
         $this->load->model('localidadesCRUD');
         $this->load->model('operacionesCRUD');
+
+        $this->load->model('tcontactosCRUD');
+        $this->load->model('fotosCRUD');
+        
     }
 
     function index($pagina_nro = 0)
@@ -120,13 +125,19 @@ class Inmuebles extends CI_Controller
             $provincias = $this->provinciasCRUD->getProvincias();
             $operaciones = $this->operacionesCRUD->getOperaciones();
             $tinmuebles = $this->tinmueblesCRUD->getTInmuebles();
+
+            $estados_inmueble = $this->einmueblesCRUD->getEInmuebles();
+
+            $tcontactos = $this->tcontactosCRUD->getTContactos(); 
             $this->load->view("main", array(
                                             "modulo"=> "inmuebles", 
                                             "pagina"=> "form_add",
                                             "contactos" => $contactos,
                                             "provincias" => $provincias, 
                                             "operaciones" => $operaciones,
-                                            "tinmuebles" => $tinmuebles 
+                                            "tinmuebles" => $tinmuebles,
+                                            "tcontactos" => $tcontactos,
+                                            "estados_inmueble" => $estados_inmueble
                                             )
                                 );
         }else{
@@ -162,6 +173,8 @@ class Inmuebles extends CI_Controller
             $provincias = $this->provinciasCRUD->getProvincias();
             $operaciones = $this->operacionesCRUD->getOperaciones();
             $tinmuebles = $this->tinmueblesCRUD->getTInmuebles();
+
+            $fotos = $this->fotosCRUD->getFotosByInmo($id_inmueble);
             if(count($inmueble) > 0){
                 $this->load->view("main", array(
                                                 "modulo"=> "inmuebles", 
@@ -170,7 +183,8 @@ class Inmuebles extends CI_Controller
                                                 "contactos" => $contactos,
                                                 "provincias" => $provincias, 
                                                 "operaciones" => $operaciones,
-                                                "tinmuebles" => $tinmuebles 
+                                                "tinmuebles" => $tinmuebles,
+                                                "fotos" => $fotos
                                                 )
                                     );
             }else{
@@ -196,12 +210,36 @@ class Inmuebles extends CI_Controller
             $this->form_validation->set_rules('descripcion','descripcion','required|max_length[2000]|min_length[20]|trim');
             $this->form_validation->set_rules('moneda','moneda', 'required');
             $this->form_validation->set_rules('precio','precio', 'required|max_length[8]|min_length[2]|trim|is_numeric');
-            $this->form_validation->set_rules('id_contacto','contacto', 'required');
+
+            $this->form_validation->set_rules('estado_inmueble','estado del inmueble', 'required');
+            $this->form_validation->set_rules('antiguedad','antiguedad', 'trim|is_numeric|max_length[3]');
+            $this->form_validation->set_rules('superficie_cubierta','superficie_cubierta', 'trim|is_numeric');
+            $this->form_validation->set_rules('superficie_descubierta','superficie descubierta', 'trim|is_numeric');
+            
+            if($_POST['contact_exist'] == "contacto_nuevo"){
+                $this->form_validation->set_rules('nombre', 'nombre', 'required|min_length[2]|max_length[50]|callback_existe_en_bbdd');
+                $this->form_validation->set_rules('telefono', 'telefono', 'required|min_length[7]|max_length[14]|is_numeric');
+                $this->form_validation->set_rules('id_tipo', 'tipo contacto', 'required');
+                $this->form_validation->set_rules('mail', 'e-mail', 'required|valid_email');
+            }else if($_POST['contact_exist'] == "contacto_existente"){
+                $this->form_validation->set_rules('id_contacto','contacto', 'required');
+            }
 
             if ($this->form_validation->run() == FALSE)
             {
                 $this->formAddInmueble();
             }else{
+                if($_POST['contact_exist'] == "contacto_nuevo"){
+                    $nombre = htmlentities($_POST['nombre']);
+                    $telefono = $_POST['telefono'];
+                    $id_tipo = $_POST['id_tipo'];
+                    $mail = $_POST['mail'];
+                    $id_contacto = $this->contactosCRUD->addContacto($nombre,$telefono,$id_tipo,$mail);
+                }else if($_POST['contact_exist'] == "contacto_existente"){
+                    $id_contacto = $_POST['id_contacto'];
+                }
+
+
                 $loc = $_POST['provincia_text']." ".$_POST['departamento_text']." ".$_POST['localidad_text']." ".$_POST['calle']." ".$_POST['altura'];
                 $coord = $this->get_geo_loc($loc);
 
@@ -217,15 +255,114 @@ class Inmuebles extends CI_Controller
                 $lat = $coord['lat'];
                 $lng = $coord['lng'];
                 $id_tinmueble = $_POST['id_tinmueble'];
-                $id_operacion = $_POST['id_operacion'];
-                $id_contacto = $_POST['id_contacto'];
+                $id_operacion = $_POST['id_operacion'];                
                 
-                $this->inmueblesCRUD->addInmueble($id_provincia,$id_departamento,$id_localidad,$direccion,$piso, $depto,$descripcion,$moneda,$precio,$lat, $lng, $id_tinmueble, $id_operacion, $id_contacto);
-                $this->index();
+                $id_inmueble = $this->inmueblesCRUD->addInmueble($id_provincia,$id_departamento,$id_localidad,$direccion,$piso, $depto,$descripcion,$moneda,$precio,$lat, $lng, $id_tinmueble, $id_operacion, $id_contacto);
+
+                $inmueble = $this->inmueblesCRUD->getInmueble($id_inmueble);
+                //$this->cargar_imagen($id_inmueble);
+                $fotos = $this->fotosCRUD->getFotosByInmo($_POST['id_inmueble']);
+                $this->load->view("main", array(
+                                            "modulo"=> "inmuebles", 
+                                            "pagina"=> "form_add_foto",
+                                            "inmueble" => $inmueble[0],
+                                            "fotos" => $fotos
+                                            )
+                                );
+
+                //$this->index();
             }
         }else{
             $this->load->view('login/login');
         }
+    }
+
+    function form_cargar_foto($id_inmueble = 0){
+        $inmueble = $this->inmueblesCRUD->getInmueble($id_inmueble);
+        $fotos = $this->fotosCRUD->getFotosByInmo($id_inmueble);
+                    //$this->cargar_imagen($id_inmueble);
+                    $this->load->view("main", array(
+                                                "modulo"=> "inmuebles", 
+                                                "pagina"=> "form_add_foto",
+                                                "inmueble" => $inmueble[0],
+                                                "fotos" => $fotos
+                                                )
+                                    );
+    }
+
+    function cargar_foto($id_inmueble = 0)
+    {
+        //echo base_url().'uploads/';
+        $id_inmueble = $_POST['id_inmueble'];
+
+        $date = date("dmY_His"); 
+        $config['file_name'] = $id_inmueble."_".$date;
+        $config['upload_path'] = './uploads/fotos_inmuebles/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = '100';
+        $config['max_width']  = '1024';
+        $config['max_height']  = '768';
+
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload())
+        {
+            $error = array('error' => $this->upload->display_errors());
+
+            $inmueble = $this->inmueblesCRUD->getInmueble($_POST['id_inmueble']);
+            $fotos = $this->fotosCRUD->getFotosByInmo($_POST['id_inmueble']);
+
+            $this->load->view("main", array(
+                                        "modulo"=> "inmuebles", 
+                                        "pagina"=> "form_add_foto",
+                                        "inmueble" => $inmueble[0],
+                                        "fotos" => $fotos,
+                                        "error" => $error
+                                        )
+                            );
+        }
+        else
+        {
+            $data = array('upload_data' => $this->upload->data());
+
+            $datos = $this->upload->data();
+
+            $config['image_library'] = 'gd2';
+            $config['source_image'] = $datos['full_path'];//base_url().'uploads/fotos_inmuebles/'.$datos['raw_name'].$datos['file_ext'];
+            $config['create_thumb'] = TRUE;
+            $config['maintain_ratio'] = TRUE;
+            $config['width']    = 100;
+            $config['height']   = 75;
+
+            $this->load->library('image_lib', $config); 
+
+            $this->image_lib->resize();
+
+
+            $path = '/uploads/fotos_inmuebles/'.$datos['raw_name'].$datos['file_ext'];
+            $path_thumb = '/uploads/fotos_inmuebles/'.$datos['raw_name']."_thumb".$datos['file_ext'];
+
+            $this->fotosCRUD->addFoto($path,$path_thumb,$id_inmueble);
+
+            $inmueble = $this->inmueblesCRUD->getInmueble($_POST['id_inmueble']);
+            $fotos = $this->fotosCRUD->getFotosByInmo($_POST['id_inmueble']);
+
+            $this->load->view("main", array(
+                                        "modulo"=> "inmuebles", 
+                                        "pagina"=> "form_add_foto",
+                                        "inmueble" => $inmueble[0],
+                                        "fotos" => $fotos
+                                        )
+                            );
+            
+        }
+    }
+
+    function eliminarFoto($id_inmueble, $id_foto){
+
+        $this->fotosCRUD->deleteFoto($id_foto);
+        $this->form_cargar_foto($id_inmueble);
+
     }
 
     function deleteInmueble(){
@@ -258,6 +395,11 @@ class Inmuebles extends CI_Controller
             $this->form_validation->set_rules('moneda','moneda', 'required');
             $this->form_validation->set_rules('precio','precio', 'required|max_length[8]|min_length[2]|trim|is_numeric');
             $this->form_validation->set_rules('id_contacto','contacto', 'required');
+            
+            $this->form_validation->set_rules('estado_inmueble','estado del inmueble', 'required');
+            $this->form_validation->set_rules('antiguedad','antiguedad', 'trim|is_numeric|max_length[3]');
+            $this->form_validation->set_rules('superficie_cubierta','superficie_cubierta', 'trim|is_numeric');
+            $this->form_validation->set_rules('superficie_descubierta','superficie descubierta', 'trim|is_numeric');
 
             if ($this->form_validation->run() == FALSE)
             {

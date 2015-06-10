@@ -104,8 +104,7 @@ function getXContactos($desde,$cuantos)
     									'".$telefono."',
     									".$id_tipo.",
     									'".$mail."')");
-		return 0;
-
+		return $this->db->insert_id();
     }
 
     function getContacto($id_contacto){

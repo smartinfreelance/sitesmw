@@ -3,7 +3,7 @@
 	<div class = "container">
 		<ul class="breadcrumb">
   			<li><?php echo anchor('tinmuebles' , 'Tipos de Inmueble');?><span class="divider">&raquo;</span></li>
-  			<li class="active">Editar Rol</li>
+  			<li class="active">Editar Tipo de Inmueble</li>
 		</ul>
 		<?php
 			if(validation_errors()!=""){

@@ -179,7 +179,7 @@ class InmueblesCRUD extends CI_Model {
 	        							".$id_operacion.",
 	        							".$id_contacto."
 	        							)");
-		return 0;
+		return $this->db->insert_id();
 
     }
 

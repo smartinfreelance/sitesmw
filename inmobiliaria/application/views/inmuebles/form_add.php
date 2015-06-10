@@ -17,7 +17,7 @@
 		<?php
 			}
 		?>
-		<?php echo form_open('inmuebles/addInmueble'); ?>
+		<?php echo form_open('inmuebles/addInmueble',array('id'=>"form_add")); ?>
 		<div class="widget-content">
 			<div class="nonboxy-widget">
 				<div class="widget-head">
@@ -50,6 +50,23 @@
 								foreach($operaciones as $o){
 							?>
 								<option value = "<?php echo $o->id?>" <?php echo populateSelect(set_value('id_operacion'),"",$o->id); ?> ><?php echo $o->nombre; ?></option>
+							<?php
+								}
+							?>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="typehead">Estado del Inmueble</label>
+					<div class="controls">
+						<div>
+							<select id = "estado_inmueble" name = "estado_inmueble" autocomplete = "off">
+								<option value = ""<?php if(set_value('estado_inmueble')==""){ echo "selected = 'selected'"; }?>>Seleccione</option>
+							<?php
+								foreach($estados_inmueble as $ei){
+							?>
+								<option value = "<?php echo $ei->id?>" <?php echo populateSelect(set_value('estado_inmueble'),"",$ei->id); ?> ><?php echo $ei->nombre; ?></option>
 							<?php
 								}
 							?>
@@ -92,8 +109,8 @@
 							<input type="text" class="span2" placeholder = "Calle" id="calle" name ="calle" value = "<?php echo populateText(set_value('calle'),''); ?>" maxlength= "50">
 							<input type="text" class="span1" placeholder = "Altura" id="altura" name ="altura" value = "<?php echo populateText(set_value('altura'),''); ?>" maxlength= "5">
 							<select id = "piso" name="piso" class="span1">
-								<option val = "">Piso</option>
-								<option val = "0">PB</option>
+								<option value = "">Piso</option>
+								<option value = "0">PB</option>
 						<?php
 							for($p=1; $p <= 30; $p++){
 						?>
@@ -108,10 +125,27 @@
 					</div>
 				</div>
 				<div class="control-group">
+					<label class="control-label" for="typehead">Superficie</label>
+					<div class="controls">
+						<div>
+							Cubierta: <input type="text" class="span1" placeholder = "0" id="superfice_cuebierta" name ="superfice_cuebierta" value = "<?php echo populateText(set_value('superfice_cuebierta'),''); ?>" maxlength= "4">m2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							Descubierta: <input type="text" class="span1" placeholder = "0" id="superfice_descuebierta" name ="superfice_descuebierta" value = "<?php echo populateText(set_value('superfice_descuebierta'),''); ?>" maxlength= "4"> m2
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="typehead">Antiguedad</label>
+					<div class="controls">
+						<div>
+							<input type="text" style="width:25px;" placeholder = "0" id="antiguedad" name ="antiguedad" value = "<?php echo populateText(set_value('antiguedad'),''); ?>" maxlength= "3"> años
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
 					<label class="control-label" for="typehead">Descripcion</label>
 					<div class="controls">
 						<div>
-							<textarea rows = "5" id="descripcion" name ="descripcion" maxlength="2000"><?php echo populateText(set_value('descripcion'),""); ?></textarea>
+							<textarea rows = "5" style="width:600px;" id="descripcion" name ="descripcion" maxlength="2000"><?php echo populateText(set_value('descripcion'),""); ?></textarea>
 						</div>
 					</div>
 				</div>
@@ -134,7 +168,7 @@
 							<input type = "radio" id = "contact_exist" name = "contact_exist" value = "contacto_existente"> Contacto existente
 						</label>
 						<label class="radio">
-							<input type = "radio" id = "contact_exist" name = "contact_exist" value = "contacto_nuevo"> Contacto Nuevo
+							<input type = "radio" id = "contact_exist" name = "contact_exist" value = "contacto_nuevo" checked> Contacto Nuevo
 						</label>
 					</div>
 				</div>
@@ -142,7 +176,7 @@
 					<div class="widget-content">
 						<div class="nonboxy-widget">
 							<div class="widget-head">
-								<h5> Agregar Contacto</h5>
+								<h5>Contacto</h5>
 							</div>
 							<div class="widget-content">
 								<div class="widget-box">
@@ -206,7 +240,6 @@
 							</div>
 						</div>
 					</div>
-					
 				</div>
 				<div class="form-actions">
 					<?php 
@@ -229,7 +262,7 @@
 	$(document).ready(function() { 
 		
 		$("#contacto_existente").css('display','none');
-		$("#contacto_nuevo").css('display','none');
+		$("#contacto_nuevo").css('display','block');
 
 		$("#id_provincia").change(function(){  
 			/*dropdown post *///  
@@ -258,11 +291,11 @@
 		});  
 
 		$("input[name$='contact_exist']").click(function() {
-	        var test = $(this).val();
-	        if($("#contact_exist").val() == "contacto_nuevo"){
+	        var test = $('input[name=contact_exist]:checked', '#form_add').val();	        
+	        if(test == "contacto_existente"){
 		        $("#contacto_nuevo").css('display','none');
 		        $("#contacto_existente").css('display','block');
-		    }else{
+		    }else if(test == "contacto_nuevo"){
 		    	$("#contacto_nuevo").css('display','block');
 		        $("#contacto_existente").css('display','none');
 		    }

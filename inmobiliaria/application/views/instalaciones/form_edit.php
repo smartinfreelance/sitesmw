@@ -2,8 +2,8 @@
 <div id = "main-content">
 	<div class = "container">
 		<ul class="breadcrumb">
-  			<li><?php echo anchor('tcontactos' , 'Tipos de Contacto');?><span class="divider">&raquo;</span></li>
-  			<li class="active">Editar Tipo de Contacto</li>
+  			<li><?php echo anchor('instalaciones' , 'Instalaciones');?><span class="divider">&raquo;</span></li>
+  			<li class="active">Editar Instalacion</li>
 		</ul>
 		<?php
 			if(validation_errors()!=""){
@@ -16,19 +16,19 @@
 		<?php
 			}
 		?>
-		<?php echo form_open('tcontactos/editTContacto'); ?>
-		<input type="hidden" name="id_tcontacto" value="<?php echo populateText(set_value('id_tcontacto'),$tcontacto->id); ?>">
+		<?php echo form_open('instalaciones/editInstalacion'); ?>
+		<input type="hidden" name="id_instalacion" value="<?php echo populateText(set_value('id_instalacion'),$instalacion->id); ?>">
 		<br/>
 		<div class="widget-content">
 			<div class="nonboxy-widget">
 				<div class="widget-head">
-					<h5>Editar Tipo de Contacto</h5>
+					<h5>Editar Instalacion</h5>
 				</div>
 				<div class="control-group">
 					<div class="controls">
 						<div>
-							<input type="text" placeholder="Nombre" name="nombre" value="<?php echo populateText(set_value('nombre'),$tcontacto->nombre); ?>">
-							<input type="hidden" placeholder="Nombre" name="nombre_check" value="<?php echo populateText(set_value('nombre_check'),$tcontacto->nombre); ?>">
+							<input type="text" placeholder="Nombre" name="nombre" value="<?php echo populateText(set_value('nombre'),$instalacion->nombre); ?>">
+							<input type="hidden" placeholder="Nombre" name="nombre_check" value="<?php echo populateText(set_value('nombre_check'),$instalacion->nombre); ?>">
 						</div>
 					</div>
 				</div>	
@@ -39,7 +39,7 @@
 		        			'class'=>'btn btn-info'
 		        		)); 
 		        		echo "&nbsp;";
-		        		echo anchor("tcontactos/index", 'Cancelar', array("class"=>'btn btn-warning')); 
+		        		echo anchor("instalaciones/index", 'Cancelar', array("class"=>'btn btn-warning')); 
 		        	?>
 				</div>
 				<!--<div class="remember-me">

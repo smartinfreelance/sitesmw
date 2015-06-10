@@ -124,6 +124,53 @@
 						</div>
 					</div>
 				</div>
+				<div class="span2">
+					<div class="dashboard-wid-wrap">
+						<div class="dashboard-wid-content"> 
+							<?php 
+								echo anchor('einmuebles', '<i class="color-icons brick_co"></i> Estados', array('style="strong"','class="btn btn-large"')); 
+							?>
+						</div>
+					</div>
+				</div>				
+				<div class="span2">
+					<div class="dashboard-wid-wrap">
+						<div class="dashboard-wid-content"> 
+							<?php 
+								echo anchor('ambientes', '<i class="color-icons brick_co"></i> Ambientes', array('style="strong"','class="btn btn-large"')); 
+							?>
+						</div>
+					</div>
+				</div>
+				<div class="span2">
+					<div class="dashboard-wid-wrap">
+						<div class="dashboard-wid-content"> 
+							<?php 
+								echo anchor('servicios', '<i class="color-icons brick_co"></i> Servicios', array('style="strong"','class="btn btn-large"')); 
+							?>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="dashboard-widget">
+				<div class="span2">
+					<div class="dashboard-wid-wrap">
+						<div class="dashboard-wid-content"> 
+							<?php 
+								echo anchor('instalaciones', '<i class="color-icons brick_co"></i> Instalaciones', array('style="strong"','class="btn btn-large"')); 
+							?>
+						</div>
+					</div>
+				</div>
+				<div class="span2">
+					<div class="dashboard-wid-wrap">
+						<div class="dashboard-wid-content"> 
+							<?php 
+								echo anchor('fotos', '<i class="color-icons brick_co"></i> Fotos', array('style="strong"','class="btn btn-large"')); 
+							?>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
