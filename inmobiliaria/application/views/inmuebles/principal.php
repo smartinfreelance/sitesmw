@@ -68,7 +68,11 @@
 					</td>
 					<td>
 			<?php
-					echo $i->piso;
+					if($i->piso == 0){
+						echo "PB";
+					}else{
+						echo $i->piso;
+					}
 			?>
 					</td>
 					<td>

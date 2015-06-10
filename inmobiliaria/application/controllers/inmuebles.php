@@ -17,6 +17,10 @@ class Inmuebles extends CI_Controller
 
         $this->load->model('tcontactosCRUD');
         $this->load->model('fotosCRUD');
+
+        $this->load->model('ambientesCRUD');
+        $this->load->model('instalacionesCRUD');
+        $this->load->model('serviciosCRUD');
         
     }
 
@@ -118,26 +122,45 @@ class Inmuebles extends CI_Controller
     }
 
 
-    function formAddInmueble(){
+    function formAddInmueble($fix = false,$id_provincia = 0 , $id_departamento = 0, $id_localidad = 0){
         if($this->session->userdata('idusuario_inmo')){ 
             //$tinmuebles = $this->tinmueblesCRUD->getTInmuebles();
             $contactos = $this->contactosCRUD->getContactos();
+
             $provincias = $this->provinciasCRUD->getProvincias();
+            $departamentos = $this->departamentosCRUD->getDeptosByProvincia($id_provincia);
+            $localidades = $this->localidadesCRUD->getLocalidadesByDepto($id_departamento);
+            
             $operaciones = $this->operacionesCRUD->getOperaciones();
             $tinmuebles = $this->tinmueblesCRUD->getTInmuebles();
 
             $estados_inmueble = $this->einmueblesCRUD->getEInmuebles();
 
             $tcontactos = $this->tcontactosCRUD->getTContactos(); 
+
+            $ambientes = $this->ambientesCRUD->getAmbientes();
+            $instalaciones = $this->instalacionesCRUD->getInstalaciones();
+            $servicios = $this->serviciosCRUD->getServicios();
+
+            if($fix){
+                $pagina = "fix_add";
+            }else{
+                $pagina = "form_add";
+            }
             $this->load->view("main", array(
                                             "modulo"=> "inmuebles", 
-                                            "pagina"=> "form_add",
+                                            "pagina"=> $pagina,
                                             "contactos" => $contactos,
-                                            "provincias" => $provincias, 
+                                            "provincias" => $provincias,
+                                            "departamentos" => $departamentos,
+                                            "localidades" => $localidades,
                                             "operaciones" => $operaciones,
                                             "tinmuebles" => $tinmuebles,
                                             "tcontactos" => $tcontactos,
-                                            "estados_inmueble" => $estados_inmueble
+                                            "estados_inmueble" => $estados_inmueble,
+                                            "ambientes" => $ambientes,
+                                            "instalaciones" => $instalaciones,
+                                            "servicios" => $servicios
                                             )
                                 );
         }else{
@@ -165,26 +188,57 @@ class Inmuebles extends CI_Controller
 
     }
 
-    function formEditInmueble($id_inmueble = 0){
+    function formEditInmueble($id_inmueble = 0,$fix = false, $id_provincia=0,$id_departamento=0,$id_localidad=0){
         
         if($this->session->userdata('idusuario_inmo')){ 
-            $inmueble = $this->inmueblesCRUD->getInmueble($id_inmueble);        
+
+            $inmueble = $this->inmueblesCRUD->getInmueble($id_inmueble);
+            if($fix){
+                $pagina = "fix_edit";
+            }else{
+                $id_provincia = $inmueble[0]->id_provincia;
+                $id_departamento = $inmueble[0]->id_departamento;
+                $id_localidad = $inmueble[0]->id_localidad;
+                $pagina = "form_edit";
+            }
+            
             $contactos = $this->contactosCRUD->getContactos();
             $provincias = $this->provinciasCRUD->getProvincias();
+            $departamentos = $this->departamentosCRUD->getDeptosByProvincia($id_provincia);
+            $localidades = $this->localidadesCRUD->getLocalidadesByDepto($id_departamento);
             $operaciones = $this->operacionesCRUD->getOperaciones();
             $tinmuebles = $this->tinmueblesCRUD->getTInmuebles();
 
+            $estados_inmueble = $this->einmueblesCRUD->getEInmuebles();
+
             $fotos = $this->fotosCRUD->getFotosByInmo($id_inmueble);
+
+            $ambientes = $this->ambientesCRUD->getAmbientes();
+            $ambientes_seleccionados = $this->ambientesCRUD->getAmbByInmo($id_inmueble);
+            $instalaciones = $this->instalacionesCRUD->getInstalaciones();
+            $instalaciones_seleccionadas = $this->instalacionesCRUD->getInsByInmo($id_inmueble);
+            $servicios = $this->serviciosCRUD->getServicios();
+            $servicios_seleccionados = $this->serviciosCRUD->getSerByInmo($id_inmueble);
+
             if(count($inmueble) > 0){
                 $this->load->view("main", array(
                                                 "modulo"=> "inmuebles", 
-                                                "pagina"=> "form_edit",
+                                                "pagina"=> $pagina,
                                                 "inmueble" => $inmueble[0],
                                                 "contactos" => $contactos,
                                                 "provincias" => $provincias, 
+                                                "departamentos" => $departamentos, 
+                                                "localidades" => $localidades, 
                                                 "operaciones" => $operaciones,
                                                 "tinmuebles" => $tinmuebles,
-                                                "fotos" => $fotos
+                                                "estados_inmueble" => $estados_inmueble,
+                                                "fotos" => $fotos,
+                                                "ambientes" => $ambientes,
+                                                "instalaciones" => $instalaciones,
+                                                "servicios" => $servicios,
+                                                "amb_sel" => $ambientes_seleccionados,
+                                                "ins_sel" => $instalaciones_seleccionadas,
+                                                "ser_sel" => $servicios_seleccionados
                                                 )
                                     );
             }else{
@@ -205,7 +259,8 @@ class Inmuebles extends CI_Controller
             $this->form_validation->set_rules('id_departamento','departamento','required');
             $this->form_validation->set_rules('id_localidad','localidad','required');
             $this->form_validation->set_rules('calle','calle','required|max_length[50]|trim|min_length[3]');
-            $this->form_validation->set_rules('altura','altura','required|max_length[6]|trim');
+            $this->form_validation->set_rules('altura','altura','required|max_length[6]|is_numeric|trim');
+            $this->form_validation->set_rules('piso','piso', 'required|max_length[2]|trim');
             $this->form_validation->set_rules('depto','departamento', 'max_length[2]|trim');
             $this->form_validation->set_rules('descripcion','descripcion','required|max_length[2000]|min_length[20]|trim');
             $this->form_validation->set_rules('moneda','moneda', 'required');
@@ -213,8 +268,14 @@ class Inmuebles extends CI_Controller
 
             $this->form_validation->set_rules('estado_inmueble','estado del inmueble', 'required');
             $this->form_validation->set_rules('antiguedad','antiguedad', 'trim|is_numeric|max_length[3]');
-            $this->form_validation->set_rules('superficie_cubierta','superficie_cubierta', 'trim|is_numeric');
+            $this->form_validation->set_rules('superficie_cubierta','superficie cubierta', 'trim|is_numeric');
             $this->form_validation->set_rules('superficie_descubierta','superficie descubierta', 'trim|is_numeric');
+
+            $this->form_validation->set_rules('contact_exist','radio button contacto', 'required');
+
+            $this->form_validation->set_rules('ambientes[]', 'Ambientes', '');
+            $this->form_validation->set_rules('instalaciones[]', 'Instalaciones', '');
+            $this->form_validation->set_rules('servicios[]', 'Servicios', '');
             
             if($_POST['contact_exist'] == "contacto_nuevo"){
                 $this->form_validation->set_rules('nombre', 'nombre', 'required|min_length[2]|max_length[50]|callback_existe_en_bbdd');
@@ -227,7 +288,10 @@ class Inmuebles extends CI_Controller
 
             if ($this->form_validation->run() == FALSE)
             {
-                $this->formAddInmueble();
+                if($_POST['id_provincia'] == ""){ $id_provincia = 0; }else{ $id_provincia = $_POST['id_provincia']; }
+                if($_POST['id_departamento'] == ""){ $id_departamento = 0; }else{ $id_departamento = $_POST['id_departamento']; }
+                if($_POST['id_localidad'] == ""){ $id_localidad = 0; }else{ $id_localidad = $_POST['id_localidad']; }
+                $this->formAddInmueble(true,$id_provincia,$id_departamento,$id_localidad);
             }else{
                 if($_POST['contact_exist'] == "contacto_nuevo"){
                     $nombre = htmlentities($_POST['nombre']);
@@ -259,9 +323,31 @@ class Inmuebles extends CI_Controller
                 
                 $id_inmueble = $this->inmueblesCRUD->addInmueble($id_provincia,$id_departamento,$id_localidad,$direccion,$piso, $depto,$descripcion,$moneda,$precio,$lat, $lng, $id_tinmueble, $id_operacion, $id_contacto);
 
+                $ambientes = $_POST['ambientes'];
+                if(isset($_POST['ambientes'])) {
+                    foreach ($ambientes as $id_ambiente){
+                        $this->ambientesCRUD->addInmoAmb($id_inmueble,$id_ambiente);
+                    }
+                }
+                
+                $instalaciones = $_POST['instalaciones'];
+                if(isset($_POST['instalaciones'])) {
+                    foreach ($instalaciones as $id_instalacion){
+                        $this->instalacionesCRUD->addInmoInst($id_inmueble,$id_instalacion);
+                    }
+                }
+                $servicios = $_POST['servicios'];
+                if(isset($_POST['servicios'])) {
+                    foreach ($servicios as $id_servicio){
+                        $this->serviciosCRUD->addInmoServ($id_inmueble,$id_servicio);
+                    }
+                }
+
+
+
                 $inmueble = $this->inmueblesCRUD->getInmueble($id_inmueble);
                 //$this->cargar_imagen($id_inmueble);
-                $fotos = $this->fotosCRUD->getFotosByInmo($_POST['id_inmueble']);
+                $fotos = $this->fotosCRUD->getFotosByInmo($id_inmueble);
                 $this->load->view("main", array(
                                             "modulo"=> "inmuebles", 
                                             "pagina"=> "form_add_foto",
@@ -339,8 +425,8 @@ class Inmuebles extends CI_Controller
             $this->image_lib->resize();
 
 
-            $path = '/uploads/fotos_inmuebles/'.$datos['raw_name'].$datos['file_ext'];
-            $path_thumb = '/uploads/fotos_inmuebles/'.$datos['raw_name']."_thumb".$datos['file_ext'];
+            $path = 'uploads/fotos_inmuebles/'.$datos['raw_name'].$datos['file_ext'];
+            $path_thumb = 'uploads/fotos_inmuebles/'.$datos['raw_name']."_thumb".$datos['file_ext'];
 
             $this->fotosCRUD->addFoto($path,$path_thumb,$id_inmueble);
 
@@ -383,6 +469,7 @@ class Inmuebles extends CI_Controller
     function editInmueble(){
 
         if($this->session->userdata('idusuario_inmo')){ 
+            $this->form_validation->set_rules('id_inmueble','id inmueble','required');
             $this->form_validation->set_rules('id_tinmueble','tipo','required');
             $this->form_validation->set_rules('id_operacion','operacion','required');
             $this->form_validation->set_rules('id_provincia','provincia','required');
@@ -401,9 +488,16 @@ class Inmuebles extends CI_Controller
             $this->form_validation->set_rules('superficie_cubierta','superficie_cubierta', 'trim|is_numeric');
             $this->form_validation->set_rules('superficie_descubierta','superficie descubierta', 'trim|is_numeric');
 
+            $this->form_validation->set_rules('ambientes[]', 'Ambientes', '');
+            $this->form_validation->set_rules('instalaciones[]', 'Instalaciones', '');
+            $this->form_validation->set_rules('servicios[]', 'Servicios', '');
+
             if ($this->form_validation->run() == FALSE)
             {
-                $this->formEditInmueble($_POST['id_inmueble']);
+                if($_POST['id_provincia'] == ""){ $id_provincia = 0; }else{ $id_provincia = $_POST['id_provincia']; }
+                if($_POST['id_departamento'] == ""){ $id_departamento = 0; }else{ $id_departamento = $_POST['id_departamento']; }
+                if($_POST['id_localidad'] == ""){ $id_localidad = 0; }else{ $id_localidad = $_POST['id_localidad']; }
+                $this->formEditInmueble($_POST['id_inmueble'],true,$id_provincia,$id_departamento,$id_localidad);
             }else{
                 $loc = $_POST['provincia_text']." ".$_POST['departamento_text']." ".$_POST['localidad_text']." ".$_POST['calle']." ".$_POST['altura'];
                 $coord = $this->get_geo_loc($loc);
@@ -436,7 +530,7 @@ class Inmuebles extends CI_Controller
     function buildDeptos(){
         echo $id_provincia = $this->input->post('id',TRUE);  
         //run the query for the cities we specified earlier  
-        $departamentos = $this->departamentosCRUD->getProdByProvincia($id_provincia);  
+        $departamentos = $this->departamentosCRUD->getDeptosByProvincia($id_provincia);  
         $output = "<option value=''>Departamento</option>";  
         foreach ($departamentos as $d)  
         {  
@@ -448,7 +542,7 @@ class Inmuebles extends CI_Controller
     function buildLocalidades(){
         echo $id_departamento = $this->input->post('id',TRUE);  
         //run the query for the cities we specified earlier  
-        $localidades = $this->localidadesCRUD->getProdByDepto($id_departamento);  
+        $localidades = $this->localidadesCRUD->getLocalidadesByDepto($id_departamento);  
         $output = "<option value=''>Localidad/Barrio</option>";
         foreach ($localidades as $l)  
         {  

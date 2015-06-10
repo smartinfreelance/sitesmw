@@ -68,6 +68,21 @@ class ServiciosCRUD extends CI_Model {
 		return $query->result();
 
     }
+
+    function getSerByInmo($id_inmueble){
+    	$query = $this->db->query("select 
+	        							inmuebles_servicios.id as id, 
+	        							inmuebles_servicios.id_servicio as id_servicio,
+	        							inmuebles_servicios.id_inmueble as id_inmueble
+        							from 
+        								inmuebles_servicios
+									where 
+										inmuebles_servicios.estado = 0
+									and
+										inmuebles_servicios.id_inmueble = ".$id_inmueble);
+		return $query->result();
+
+    }
 	function editServicio($id_servicio,$nombre){
 		$query= $this->db->query("update 
 										servicios
@@ -134,6 +149,17 @@ class ServiciosCRUD extends CI_Model {
         $row = $query->row();
         return $row->numrows;
     }	
+
+    function addInmoServ($id_inmueble,$id_servicio){
+    	$query= $this->db->query("insert into 
+    								inmuebles_servicios (
+    									id_inmueble,
+    									id_servicio) 
+    								values (
+    									".$id_inmueble.",
+    									".$id_servicio.")");
+		return 0;
+    }
 	
 }
 ?>

@@ -38,4 +38,19 @@
 		}
 		return "";	
 	}
+
+	function populateCheckbox($session,$fromController,$actual){
+
+		if($session == ""){
+			if($fromController==$actual){
+				return "checked";
+			}
+		}else{
+			if($session==$actual){
+				return "checked";
+			}
+
+		}
+		return "";	
+	}
 ?>

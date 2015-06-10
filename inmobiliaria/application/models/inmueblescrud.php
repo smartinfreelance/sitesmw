@@ -9,10 +9,7 @@ class InmueblesCRUD extends CI_Model {
     
 	function getInmuebles()
 	{
-		/*
-        $this->db->where("usuario = '".$usuario."'");
-        $this->db->where("password = md5('".$password."')");
-        return $this->db->get('usuarios')->result();  */
+
         $query = $this->db->query("select 
 	        							inmuebles.id as id, 	        							
 	        							inmuebles.id_provincia as id_provincia, 
@@ -20,7 +17,14 @@ class InmueblesCRUD extends CI_Model {
 	        							inmuebles.id_departamento as id_departamento, 
 	        							departamentos.nombre as nombre_departamento, 	        							
 	        							inmuebles.id_localidad as id_localidad, 
-	        							localidades.nombre as nombre_localidad, 
+	        							localidades.nombre as nombre_localidad,
+	        							
+	        							inmuebles.calificacion as estado_inmueble, 
+	        							calificaciones.nombre as nombre_einmueble,
+	        							inmuebles.superficie_cubierta as superficie_cubierta,
+	        							inmuebles.superficie_descubierta as superficie_descubierta,
+	        							inmuebles.antiguedad as antiguedad,
+	        							
 	        							inmuebles.direccion as direccion,
 	        							inmuebles.piso as piso,
 	        							inmuebles.depto as depto,
@@ -61,6 +65,10 @@ class InmueblesCRUD extends CI_Model {
         								operaciones
         							on
         								operaciones.id = inmuebles.id_operacion
+        							inner join
+        								calificaciones
+        							on
+        								calificaciones.id = inmuebles.calificacion
 									where 
 										inmuebles.estado = 0
 									and
@@ -69,6 +77,8 @@ class InmueblesCRUD extends CI_Model {
 										contactos.estado = 0
 									and
 										operaciones.estado = 0
+									and
+										califiaciones.estado = 0
 									order by 
 										inmuebles.id desc
 									order by
@@ -90,6 +100,13 @@ class InmueblesCRUD extends CI_Model {
 	        							departamentos.nombre as nombre_departamento, 	        							
 	        							inmuebles.id_localidad as id_localidad, 
 	        							localidades.nombre as nombre_localidad, 
+
+	        							inmuebles.calificacion as estado_inmueble, 
+	        							calificaciones.nombre as nombre_einmueble,
+	        							inmuebles.superficie_cubierta as superficie_cubierta,
+	        							inmuebles.superficie_descubierta as superficie_descubierta,
+	        							inmuebles.antiguedad as antiguedad,
+
 	        							inmuebles.direccion as direccion,
 	        							inmuebles.piso as piso,
 	        							inmuebles.depto as depto,
@@ -130,6 +147,10 @@ class InmueblesCRUD extends CI_Model {
         								operaciones
         							on
         								operaciones.id = inmuebles.id_operacion
+        							inner join
+        								calificaciones
+        							on
+        								calificaciones.id = inmuebles.calificacion
 									where 
 										inmuebles.estado = 0
 									and
@@ -138,6 +159,8 @@ class InmueblesCRUD extends CI_Model {
 										contactos.estado = 0
 									and
 										operaciones.estado = 0
+									and
+										calificaciones.estado = 0
 									order by 
 										inmuebles.id desc
 									limit
@@ -191,7 +214,14 @@ class InmueblesCRUD extends CI_Model {
 	        							inmuebles.id_departamento as id_departamento, 
 	        							departamentos.nombre as nombre_departamento, 	        							
 	        							inmuebles.id_localidad as id_localidad, 
-	        							localidades.nombre as nombre_localidad,  
+	        							localidades.nombre as nombre_localidad,
+
+	        							inmuebles.calificacion as estado_inmueble, 
+	        							calificaciones.nombre as nombre_einmueble,
+	        							inmuebles.superficie_cubierta as superficie_cubierta,
+	        							inmuebles.superficie_descubierta as superficie_descubierta,
+	        							inmuebles.antiguedad as antiguedad,
+
 	        							inmuebles.direccion as direccion,
 	        							inmuebles.piso as piso,
 	        							inmuebles.depto as depto,
@@ -232,6 +262,10 @@ class InmueblesCRUD extends CI_Model {
         								operaciones
         							on
         								operaciones.id = inmuebles.id_operacion
+        							inner join
+        								calificaciones
+        							on
+        								calificaciones.id = inmuebles.calificacion
 									where 
 										inmuebles.estado = 0
 									and
@@ -240,6 +274,8 @@ class InmueblesCRUD extends CI_Model {
 										contactos.estado = 0
 									and
 										operaciones.estado = 0
+									and
+										calificaciones.estado = 0
 									and
 										inmuebles.id = ".$id_inmueble);
 		return $query->result();

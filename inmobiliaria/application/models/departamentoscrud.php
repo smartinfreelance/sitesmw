@@ -23,7 +23,7 @@ class DepartamentosCRUD extends CI_Model {
 		return $query->result();
     }
 
-    function getProdByProvincia($id_provincia){
+    function getDeptosByProvincia($id_provincia){
     	$query = $this->db->query("select 
 	        							departamentos.id as id, 
 	        							departamentos.nombre as nombre

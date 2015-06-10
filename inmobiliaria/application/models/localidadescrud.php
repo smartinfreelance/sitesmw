@@ -23,7 +23,7 @@ class LocalidadesCRUD extends CI_Model {
 		return $query->result();
     }
 
-    function getProdByDepto($id_depto){
+    function getLocalidadesByDepto($id_depto){
     	$query = $this->db->query("select 
 	        							localidades.id as id, 
 	        							localidades.nombre as nombre

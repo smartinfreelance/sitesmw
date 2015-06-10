@@ -95,7 +95,7 @@
 							        			'class'=>'btn btn-info'
 							        		)); 
 							        		echo "&nbsp;";
-							        		echo anchor("inmuebles/index", 'Cancelar', array("class"=>'btn btn-warning'));
+							        		//echo anchor("inmuebles/index", 'Cancelar', array("class"=>'btn btn-warning'));
 							        	?>
 									</div>
 								</fieldset>
@@ -115,6 +115,7 @@
 				?>
 				<div class="form-actions">
 					<?php echo anchor("inmuebles/formEditInmueble/".$inmueble->id, 'Volver a Edicion de Inmueble', array("class"=>'btn btn-warning')); ?>
+					<?php echo anchor("inmuebles/index/", 'Ver Inmuebles', array("class"=>'btn btn-warning')); ?>
 				</div>
 
 			</div>

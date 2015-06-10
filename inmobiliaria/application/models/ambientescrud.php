@@ -68,6 +68,20 @@ class AmbientesCRUD extends CI_Model {
 		return $query->result();
 
     }
+    function getAmbByInmo($id_inmueble){
+    	$query = $this->db->query("select 
+	        							inmuebles_ambientes.id as id, 
+	        							inmuebles_ambientes.id_ambiente as id_ambiente,
+	        							inmuebles_ambientes.id_inmueble as id_inmueble
+        							from 
+        								inmuebles_ambientes
+									where 
+										inmuebles_ambientes.estado = 0
+									and
+										inmuebles_ambientes.id_inmueble = ".$id_inmueble);
+		return $query->result();
+
+    }
 	function editAmbiente($id_ambiente,$nombre){
 		$query= $this->db->query("update 
 										ambientes
@@ -134,6 +148,17 @@ class AmbientesCRUD extends CI_Model {
         $row = $query->row();
         return $row->numrows;
     }	
+
+    function addInmoAmb($id_inmueble,$id_ambiente){
+    	$query= $this->db->query("insert into 
+    								inmuebles_ambientes (
+    									id_inmueble,
+    									id_ambiente) 
+    								values (
+    									".$id_inmueble.",
+    									".$id_ambiente.")");
+		return 0;
+    }
 	
 }
 ?>

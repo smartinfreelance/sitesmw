@@ -68,6 +68,21 @@ class InstalacionesCRUD extends CI_Model {
 		return $query->result();
 
     }
+
+    function getInsByInmo($id_inmueble){
+    	$query = $this->db->query("select 
+	        							inmuebles_instalaciones.id as id, 
+	        							inmuebles_instalaciones.id_instalacion as id_instalacion,
+	        							inmuebles_instalaciones.id_inmueble as id_inmueble
+        							from 
+        								inmuebles_instalaciones
+									where 
+										inmuebles_instalaciones.estado = 0
+									and
+										inmuebles_instalaciones.id_inmueble = ".$id_inmueble);
+		return $query->result();
+
+    }
 	function editInstalacion($id_instalacion,$nombre){
 		$query= $this->db->query("update 
 										instalaciones
@@ -133,7 +148,18 @@ class InstalacionesCRUD extends CI_Model {
 
         $row = $query->row();
         return $row->numrows;
-    }	
+    }
+
+    function addInmoInst($id_inmueble,$id_instalacion){
+    	$query= $this->db->query("insert into 
+    								inmuebles_instalaciones (
+    									id_inmueble,
+    									id_instalacion) 
+    								values (
+    									".$id_inmueble.",
+    									".$id_instalacion.")");
+		return 0;
+    }
 	
 }
 ?>
