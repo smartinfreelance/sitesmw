@@ -517,6 +517,30 @@ class Inmuebles extends CI_Controller
                 $id_tinmueble = $_POST['id_tinmueble'];
                 $id_operacion = $_POST['id_operacion'];
                 $id_contacto = $_POST['id_contacto'];
+
+                $this->ambientesCRUD->removeAmbByInmo($id_inmueble);
+                if(isset($_POST['ambientes'])) {
+                    $ambientes = $_POST['ambientes'];
+                    foreach ($ambientes as $id_ambiente){
+                        $this->ambientesCRUD->addInmoAmb($id_inmueble,$id_ambiente);
+                    }
+                }
+                
+                $this->instalacionesCRUD->removeInsByInmo($id_inmueble);
+                if(isset($_POST['instalaciones'])) {
+                    $instalaciones = $_POST['instalaciones'];
+                    foreach ($instalaciones as $id_instalacion){
+                        $this->instalacionesCRUD->addInmoInst($id_inmueble,$id_instalacion);
+                    }
+                }
+                
+                $this->serviciosCRUD->removeSerByInmo($id_inmueble);
+                if(isset($_POST['servicios'])) {
+                    $servicios = $_POST['servicios'];
+                    foreach ($servicios as $id_servicio){
+                        $this->serviciosCRUD->addInmoServ($id_inmueble,$id_servicio);
+                    }
+                }
                 
                 $this->inmueblesCRUD->editInmueble($id_inmueble,$id_provincia,$id_departamento,$id_localidad,$direccion,$piso, $depto,$descripcion,$moneda,$precio,$lat, $lng, $id_tinmueble, $id_operacion, $id_contacto);
                 $this->index();

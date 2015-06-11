@@ -83,6 +83,16 @@ class InstalacionesCRUD extends CI_Model {
 		return $query->result();
 
     }
+    function removeInsByInmo($id_inmueble){
+    	$query = $this->db->query("update 
+										inmuebles_instalaciones
+									set 
+										estado = 1
+									where 
+										id_inmueble = ".$id_inmueble);
+		return 0;
+    }
+
 	function editInstalacion($id_instalacion,$nombre){
 		$query= $this->db->query("update 
 										instalaciones

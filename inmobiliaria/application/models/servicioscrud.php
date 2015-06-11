@@ -83,6 +83,18 @@ class ServiciosCRUD extends CI_Model {
 		return $query->result();
 
     }
+
+    function removeSerByInmo($id_inmueble){
+    	$query = $this->db->query("update 
+										inmuebles_servicios
+									set 
+										estado = 1
+									where 
+										id_inmueble = ".$id_inmueble);
+		return 0;
+    }
+
+
 	function editServicio($id_servicio,$nombre){
 		$query= $this->db->query("update 
 										servicios

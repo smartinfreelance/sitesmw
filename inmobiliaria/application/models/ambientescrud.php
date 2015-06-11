@@ -82,6 +82,15 @@ class AmbientesCRUD extends CI_Model {
 		return $query->result();
 
     }
+    function removeAmbByInmo($id_inmueble){
+    	$query = $this->db->query("update 
+										inmuebles_ambientes
+									set 
+										estado = 1
+									where 
+										id_inmueble = ".$id_inmueble);
+		return 0;
+    }    
 	function editAmbiente($id_ambiente,$nombre){
 		$query= $this->db->query("update 
 										ambientes
