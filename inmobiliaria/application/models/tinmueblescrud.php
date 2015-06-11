@@ -44,6 +44,23 @@ class TInmueblesCRUD extends CI_Model {
                                         ".$desde.",".$cuantos." ");
 		return $query->result();
     }
+
+    function getTInmueblesToSearch(){
+    	$query = $this->db->query("select
+										tipos_inmuebles.id as id,
+										tipos_inmuebles.nombre as nombre
+									from
+										tipos_inmuebles
+									inner join
+										inmuebles
+									on
+										inmuebles.id_tipo = tipos_inmuebles.id
+									where
+										inmuebles.estado = 0
+									group by
+										tipos_inmuebles.id");
+		return $query->result();
+    }
 //
     function addTInmueble($nombre){
     	$query= $this->db->query("insert into 

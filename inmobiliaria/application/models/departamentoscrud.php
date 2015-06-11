@@ -52,6 +52,26 @@ class DepartamentosCRUD extends CI_Model {
                                         ".$desde.",".$cuantos." ");
 		return $query->result();
     }
+
+    function getDeptosByProvinciaToSearch($id_provincia){
+    	$query = $this->db->query("select 
+	        							departamentos.id as id, 
+	        							departamentos.nombre as nombre
+        							from 
+        								departamentos 
+        							inner join
+        								inmuebles
+        							on
+        								inmuebles.id_departamento = departamentos.id
+        							where
+        								departamentos.provincia_id = ".$id_provincia."
+        							group by
+										departamentos.id
+									order by
+										departamentos.id");
+		return $query->result();
+
+    }
 //
     function addDepartamento($nombre){
     	$query= $this->db->query("insert into 

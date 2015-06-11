@@ -38,6 +38,24 @@ class ProvinciasCRUD extends CI_Model {
                                         ".$desde.",".$cuantos." ");
 		return $query->result();
     }
+
+    function getProvinciasToSearch(){
+    	$query = $this->db->query("select
+										provincias.id as id,
+										provincias.nombre as nombre_provincia
+									from
+										provincias
+									inner join
+										inmuebles
+									on
+										inmuebles.id_provincia = provincias.id
+									where
+										inmuebles.estado = 0
+									group by
+										provincias.id");
+		return $query->result();
+
+    }
 //
     function addProvincia($nombre){
     	$query= $this->db->query("insert into 

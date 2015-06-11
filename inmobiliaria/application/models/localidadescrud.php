@@ -52,6 +52,25 @@ class LocalidadesCRUD extends CI_Model {
                                         ".$desde.",".$cuantos." ");
 		return $query->result();
     }
+    function getLocalidadesByDeptoToSearch($id_depto){
+    	$query = $this->db->query("select 
+	        							localidades.id as id, 
+	        							localidades.nombre as nombre
+        							from 
+        								localidades 
+        							inner join
+        								inmuebles
+        							on
+        								inmuebles.id_localidad = localidades.id
+        							where
+        								localidades.departamento_id = ".$id_depto."
+        							group by
+										localidades.id
+									order by
+										localidades.id");
+		return $query->result();
+
+    }
 //
     function addLocalidad($nombre){
     	$query= $this->db->query("insert into 

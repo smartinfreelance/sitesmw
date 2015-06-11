@@ -44,6 +44,24 @@ class OperacionesCRUD extends CI_Model {
                                         ".$desde.",".$cuantos." ");
 		return $query->result();
     }
+
+    function getOperacionesToSearch(){
+    	$query = $this->db->query("select
+										operaciones.id as id,
+										operaciones.nombre as nombre
+									from
+										operaciones
+									inner join
+										inmuebles
+									on
+										inmuebles.id_operacion = operaciones.id
+									where
+										inmuebles.estado = 0
+									group by
+										operaciones.id");
+		return $query->result();
+
+    }
 //
     function addOperacion($nombre){
     	$query= $this->db->query("insert into 

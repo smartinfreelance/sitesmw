@@ -307,6 +307,7 @@ class Inmuebles extends CI_Controller
                 $loc = $_POST['provincia_text']." ".$_POST['departamento_text']." ".$_POST['localidad_text']." ".$_POST['calle']." ".$_POST['altura'];
                 $coord = $this->get_geo_loc($loc);
 
+                $calificacion = $_POST['estado_inmueble'];
                 $id_provincia = $_POST['id_provincia']; 
                 $id_departamento = $_POST['id_departamento'];
                 $id_localidad = $_POST['id_localidad'];
@@ -321,7 +322,7 @@ class Inmuebles extends CI_Controller
                 $id_tinmueble = $_POST['id_tinmueble'];
                 $id_operacion = $_POST['id_operacion'];                
                 
-                $id_inmueble = $this->inmueblesCRUD->addInmueble($id_provincia,$id_departamento,$id_localidad,$direccion,$piso, $depto,$descripcion,$moneda,$precio,$lat, $lng, $id_tinmueble, $id_operacion, $id_contacto);
+                $id_inmueble = $this->inmueblesCRUD->addInmueble($id_provincia,$id_departamento,$id_localidad,$direccion,$piso, $depto,$calificacion,$descripcion,$moneda,$precio,$lat, $lng, $id_tinmueble, $id_operacion, $id_contacto);
 
                 $ambientes = $_POST['ambientes'];
                 if(isset($_POST['ambientes'])) {

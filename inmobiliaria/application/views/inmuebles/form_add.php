@@ -190,7 +190,7 @@
 					<label class="control-label" for="typehead">Descripcion</label>
 					<div class="controls">
 						<div>
-							<textarea rows = "5" style="width:600px;" id="descripcion" name ="descripcion" maxlength="2000"></textarea>
+							<textarea rows = "5" style="width:100%;" id="descripcion" name ="descripcion" maxlength="2000"></textarea>
 						</div>
 					</div>
 				</div>

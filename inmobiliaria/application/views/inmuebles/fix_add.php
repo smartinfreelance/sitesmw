@@ -204,7 +204,7 @@
 					<label class="control-label" for="typehead">Descripcion</label>
 					<div class="controls">
 						<div>
-							<textarea rows = "5" style="width:600px;" id="descripcion" name ="descripcion" maxlength="2000"><?php echo set_value('descripcion'); ?></textarea>
+							<textarea rows = "5"  style="width:100%;" id="descripcion" name ="descripcion" maxlength="2000"><?php echo set_value('descripcion'); ?></textarea>
 						</div>
 					</div>
 				</div>

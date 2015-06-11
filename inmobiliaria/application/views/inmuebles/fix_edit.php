@@ -204,7 +204,7 @@
 					<label class="control-label" for="typehead">Descripcion</label>
 					<div class="controls">
 						<div>
-							<textarea rows = "5" id="descripcion" name ="descripcion" maxlength="2000"><?php echo set_value('descripcion'); ?></textarea>
+							<textarea rows = "5" style="width:100%;" id="descripcion" name ="descripcion" maxlength="2000"><?php echo set_value('descripcion'); ?></textarea>
 						</div>
 					</div>
 				</div>
@@ -259,16 +259,44 @@
 					<div class="controls">
 						<div>
 						<?php
+							$x=0;
 							foreach($fotos as $f){
+								$x++;
 						?>
-								<img src = "<?php echo base_url().$f->path_thumb; ?>" alt = "<?php echo $f->direccion_inmueble; ?>"/>
+								<a href = "#" id = "pop<?php echo $x; ?>">
+									<img src = "<?php echo base_url().$f->path_thumb; ?>" alt = "<?php echo $f->direccion_inmueble; ?>"/>
+								</a>
+								<div class="modal fade" id="imagemodal<?php echo $x; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+												<h4 class="modal-title" id="myModalLabel"><?php echo $inmueble->direccion; ?></h4>
+											</div>
+											<div class="modal-body">
+												<img src="<?php echo base_url().$f->path; ?>" id = "imagepreview<?php echo $x;?>" align="center">
+											</div>
+											<div class="modal-footer">
+												<div class="form-actions" id = "buttonPop<?php echo $x; ?>">
+													<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+												</div>
+												<div class="form-actions" id = "buttonDelete<?php echo $x; ?>">
+													<?php 
+										        		echo anchor("inmuebles/form_cargar_foto/".$inmueble->id, 'Editar Fotos', array("class"=>'btn btn-info')); 
+										        	?>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 						<?php
+								
 							}
 						?>
 						</div>
 					</div>
 				</div>
-				<div class="form-actions">
+				<div class="form-actions" id = "buttonDelete<?php echo $x; ?>">
 					<?php 
 		        		echo anchor("inmuebles/form_cargar_foto/".$inmueble->id, 'Editar Fotos', array("class"=>'btn btn-info')); 
 		        	?>
@@ -279,6 +307,43 @@
 </div>
 <script type="text/javascript">  
 	$(document).ready(function() { 
+		$("#pop1").on("click", function() {
+			$('#imagepreview1').attr('src', $('#imageresource').attr('src')); // here asign the image to the modal when the user click the enlarge link
+   			$('#imagemodal1').modal('show'); 
+   			$("#buttonDelete1").css('display','none');
+			$("#buttonPop1").css('display','block');
+   		});
+   		$("#pop2").on("click", function() {
+			$('#imagepreview2').attr('src', $('#imageresource').attr('src')); // here asign the image to the modal when the user click the enlarge link
+   			$('#imagemodal2').modal('show'); 
+   			$("#buttonDelete2").css('display','none');
+			$("#buttonPop2").css('display','block');
+
+   		});
+		$("#pop3").on("click", function() {
+			$('#imagepreview3').attr('src', $('#imageresource').attr('src')); // here asign the image to the modal when the user click the enlarge link
+   			$('#imagemodal3').modal('show'); 
+   			$("#buttonDelete3").css('display','none');
+			$("#buttonPop3").css('display','block');
+   		});
+   		$("#pop4").on("click", function() {
+			$('#imagepreview4').attr('src', $('#imageresource').attr('src')); // here asign the image to the modal when the user click the enlarge link
+   			$('#imagemodal4').modal('show');  
+   			$("#buttonDelete4").css('display','none');
+			$("#buttonPop4").css('display','block');
+   		});
+   		$("#pop5").on("click", function() {
+			$('#imagepreview5').attr('src', $('#imageresource').attr('src')); // here asign the image to the modal when the user click the enlarge link
+   			$('#imagemodal5').modal('show');  
+   			$("#buttonDelete5").css('display','none');
+			$("#buttonPop5").css('display','block');
+   		});
+   		$("#pop6").on("click", function() {
+			$('#imagepreview6').attr('src', $('#imageresource').attr('src')); // here asign the image to the modal when the user click the enlarge link
+   			$('#imagemodal6').modal('show');  
+   			$("#buttonDelete6").css('display','none');
+			$("#buttonPop6").css('display','block');
+   		});
 		$("#id_provincia").change(function(){  
 			/*dropdown post *///  
 			$("#id_localidad").html("<option value=''>Localidad/Barrio</option>");  
@@ -303,6 +368,18 @@
 					$("#id_localidad").html(data);  
 				}  
 			});  
-		});  
+		});
+		$("#buttonDelete1").css('display','none');
+		$("#buttonDelete2").css('display','none');
+		$("#buttonDelete3").css('display','none');
+		$("#buttonDelete4").css('display','none');
+		$("#buttonDelete5").css('display','none');
+		$("#buttonDelete6").css('display','none');
+		$("#buttonPop1").css('display','block');
+		$("#buttonPop2").css('display','block');
+		$("#buttonPop3").css('display','block');
+		$("#buttonPop4").css('display','block');
+		$("#buttonPop5").css('display','block');
+		$("#buttonPop6").css('display','block');  
 	});  
 </script> 
