@@ -180,6 +180,15 @@
 						</div>
 					</div>
 				</div>
+				<div class="span2">
+					<div class="dashboard-wid-wrap">
+						<div class="dashboard-wid-content"> 
+							<?php 
+								echo anchor('grilla', '<i class="color-icons brick_co"></i> Grilla de Inmuebles', array('style="strong"','class="btn btn-large"')); 
+							?>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 

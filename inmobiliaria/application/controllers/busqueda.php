@@ -28,33 +28,14 @@ class Busqueda extends CI_Controller
                                         "tinmuebles" => $tinmuebles
                                         )
                             );
-        /*
-        if($this->session->userdata('idusuario_inmo')){ 
-            $cant_rows = 10;
-            $controller = "ambientes";
-            $total_rows = $this->ambientesCRUD->getCantAmbientes();
-
-            $linksPaginacion = $this->smartin->getPaginacion($pagina_nro,$cant_rows,$total_rows,$controller); 
-
-            $desde_row = $pagina_nro * $cant_rows;
-            $ambientes = $this->ambientesCRUD->getXAmbientes($desde_row,$cant_rows);
-            $this->load->view("main", array(
-                                        "modulo"=> "ambientes", 
-                                        "pagina"=> "principal",
-                                        "ambientes" => $ambientes,
-                                        "links" => $linksPaginacion
-                                        )
-                            );
-        }else{
-            $this->load->view('login/login');
-        }*/
+        
     }
 
     function buildDeptosToSearch(){
         echo $id_provincia = $this->input->post('id',TRUE);  
         //run the query for the cities we specified earlier  
         $departamentos = $this->departamentosCRUD->getDeptosByProvinciaToSearch($id_provincia);  
-        $output = "<option value=''>Departamento</option>";  
+        $output = "<option value=''>Todos los Departamentos</option>";  
         foreach ($departamentos as $d)  
         {  
             $output .= "<option value='".$d->id."'>".$d->nombre."</option>";  
@@ -66,7 +47,7 @@ class Busqueda extends CI_Controller
         echo $id_departamento = $this->input->post('id',TRUE);  
         //run the query for the cities we specified earlier  
         $localidades = $this->localidadesCRUD->getLocalidadesByDeptoToSearch($id_departamento);  
-        $output = "<option value=''>Localidad/Barrio</option>";
+        $output = "<option value=''>Todos los Localidades/Barrios</option>";
         foreach ($localidades as $l)  
         {  
             $output .= "<option value='".$l->id."'>".$l->nombre."</option>";  
@@ -75,52 +56,225 @@ class Busqueda extends CI_Controller
         echo $output;  
     }
 
-    function buscar(){
+    function buscar($id_tinmueble = 0,$id_operacion=0,$id_provincia=0,$id_departamento=0,$id_localidad=0,$pagina_nro=0){
         $filtra = false;
         $search = "";
-        if($_POST['id_tinmueble']!=""){
+        $filtro_aplicado = "";
+
+        if($id_tinmueble!=0){
             $filtra = true;
-            $search = $search." and tipos_inmuebles.id = ".$_POST['id_tinmueble'];
+            $search = $search." and tipos_inmuebles.id = ".$id_tinmueble;
+        }else{
+            if(isset($_POST['id_tinmueble'])){
+                if($_POST['id_tinmueble']!=""){ 
+                    $filtra = true;
+                    $search = $search." and tipos_inmuebles.id = ".$_POST['id_tinmueble'];
+                    $id_tinmueble = $_POST['id_tinmueble'];
+                }
+            }
         }
-        if($_POST['id_operacion']!=""){
+
+        if($id_operacion!=0){
             $filtra = true;
-            $search = $search." and operaciones.id = ".$_POST['id_operacion'];
+            $search = $search." and tipos_inmuebles.id = ".$id_tinmueble;
+        }else{
+            if(isset($_POST['id_operacion'])){
+                if($_POST['id_operacion']!=""){
+                    $filtra = true;
+                    $search = $search." and operaciones.id = ".$_POST['id_operacion'];
+                    $id_operacion = $_POST['id_operacion'];
+                }
+            }
         }
-        if($_POST['id_provincia']!=""){
-            $filtra = true;
-            $search = $search." and provincias.id = ".$_POST['id_provincia'];
+
+        if($id_provincia!=0){
+            $filtra=true;
+            $search = $search." and provincias.id = ".$id_provincia;
+        }else{
+            if(isset($_POST['id_provincia'])){
+                if($_POST['id_provincia']!=""){ 
+                    $filtra = true;
+                    $search = $search." and provincias.id = ".$_POST['id_provincia'];
+                    $id_provincia = $_POST['id_provincia'];
+                }
+            }
         }
-        if($_POST['id_departamento']!=""){
-            $filtra = true;
-            $search = $search." and departamentos.id = ".$_POST['id_departamento'];
+
+        if($id_departamento!=0){
+            $filtra=true;
+            $search = $search." and departamentos.id = ".$id_departamento;
+        }else{
+            if(isset($_POST['id_departamento'])){
+                if($_POST['id_departamento']!=""){ 
+                    $filtra = true;
+                    $search = $search." and departamentos.id = ".$_POST['id_departamento'];
+                    $id_departamento = $_POST['id_departamento'];
+                }
+            }
         }
-        if($_POST['id_localidad']!=""){
-            $filtra = true;
-            $search = $search." and localidades.id = ".$_POST['id_localidad'];
+
+        if($id_localidad!=0){
+            $filtra=true;
+            $search = $search." and departamentos.id = ".$id_localidad;
+        }else{
+            if(isset($_POST['id_localidad'])){
+                if($_POST['id_localidad']!=""){ 
+                    $filtra = true;
+                    $search = $search." and localidades.id = ".$_POST['id_localidad'];
+                    $id_localidad = $_POST['id_localidad'];
+                }
+            }
         }
 
         if($filtra){
             $inmuebles = $this->inmueblesCRUD->getInmueblesFEFiltro($search);
+
+            $cant_rows = 10;
+            $controller = "busqueda";
+            $total_rows = $this->inmueblesCRUD->getCantInmueblesFEFiltro($search);
+            $linksPaginacion = $this->getPagBusqueda($pagina_nro,$cant_rows,$total_rows,$id_tinmueble,$id_operacion,$id_provincia,$id_departamento,$id_localidad); 
+
+            $desde_row = $pagina_nro * $cant_rows;
+            $inmuebles = $this->inmueblesCRUD->getXInmueblesBusqueda($desde_row,$cant_rows,$search);
+            $provincias = $this->provinciasCRUD->getProvinciasToSearch();
+                
+            if($id_provincia!=0){
+                $departamentos = $this->departamentosCRUD->getDeptosByProvinciaToSearch($id_provincia);
+            }else{
+                $departamentos = array();
+            }
+            if($id_departamento!=0){
+                $localidades = $this->localidadesCRUD->getLocalidadesByDeptoToSearch($id_departamento);
+            }else{
+                $localidades = array();
+            }
+
+            $operaciones = $this->operacionesCRUD->getOperacionesToSearch();
+            $tinmuebles = $this->tinmueblesCRUD->getTInmueblesToSearch();
+            $filtros = array(
+                            "id_tinmueble" => $id_tinmueble,
+                            "id_operacion" => $id_operacion,
+                            "id_provincia" => $id_provincia,
+                            "id_departamento" => $id_departamento,
+                            "id_localidad" => $id_localidad
+
+                            );
         }else{
-            $inmuebles = $this->inmueblesCRUD->getInmuebles();
+            
+            $cant_rows = 10;
+            $controller = "inmuebles";
+            $total_rows = $this->inmueblesCRUD->getCantInmuebles();
+
+            $linksPaginacion = $this->smartin->getPaginacion($pagina_nro,$cant_rows,$total_rows,$controller); 
+
+            $provincias = $this->provinciasCRUD->getProvinciasToSearch();
+            $departamentos = array();
+            $localidades = array();
+            $operaciones = $this->operacionesCRUD->getOperacionesToSearch();
+            $tinmuebles = $this->tinmueblesCRUD->getTInmueblesToSearch();
+
+            $desde_row = $pagina_nro * $cant_rows;
+            $inmuebles = $this->inmueblesCRUD->getXInmuebles($desde_row,$cant_rows);
+            $filtros = array(
+                "id_tinmueble" => "",
+                "id_operacion" => "",
+                "id_provincia" => "",
+                "id_departamento" => "",
+                "id_localidad" => ""
+
+                );
         }
 
-        /*$cant_rows = 10;
-        $controller = "inmuebles";
-        $total_rows = $this->inmueblesCRUD->getCantInmuebles();
-
-        $linksPaginacion = $this->smartin->getPaginacion($pagina_nro,$cant_rows,$total_rows,$controller); 
-
-        $desde_row = $pagina_nro * $cant_rows;
-        $inmuebles = $this->inmueblesCRUD->getXInmuebles($desde_row,$cant_rows);*/
         $this->load->view("main", array(
                                     "modulo"=> "busqueda", 
                                     "pagina"=> "resultado",
-                                    "inmuebles" => $inmuebles/*,
-                                    "links" => $linksPaginacion*/
+                                    "inmuebles" => $inmuebles,
+                                    "links" => $linksPaginacion,
+                                    "filtros" => $filtros,
+                                    "provincias" => $provincias,
+                                    "departamentos" => $departamentos,
+                                    "localidades" => $localidades,
+                                    "operaciones" => $operaciones,
+                                    "tinmuebles" => $tinmuebles
                                     ));
 
 
+    }
+
+    function getPagBusqueda($pagina_nro,$cant_rows,$total_rows,$id_tinmueble,$id_operacion,$id_provincia,$id_departamento,$id_localidad,$controller=0){
+        $links = "";
+        $cont = 0;
+        $cantPages = 0;
+        $aparece = 0;
+
+        if($total_rows > $cant_rows){
+            $cantPages = ceil($total_rows / $cant_rows);
+            if(($total_rows % $cant_rows) > 0 ){
+                $s = 1;
+            }else if(($total_rows % $cant_rows) == 0 ){
+                $s = 0;
+
+
+            }
+            $s = $s + $cantPages;
+            $links = $links."<div class='pagination'><ul>";
+
+
+
+            for($x = 0 ; $x < $cantPages ; $x++){
+                if($cantPages < 11){
+                    $cont++;
+                    $aparece = $x + 1;
+
+                    if($pagina_nro == $x){
+                        $str = " class ='active'";
+
+                    }else{
+                        $str ="";                
+                    }
+                    $links = $links."<li ".$str."><a href='".base_url()."index.php/busqueda/buscar/".$id_tinmueble."/".$id_operacion."/".$id_provincia."/".$id_departamento."/".$id_localidad."/".$x."' style= 'strong'>".$aparece."</a></li>&nbsp;&nbsp;&nbsp;&nbsp;";
+                    if($cont == 10){
+                        $links = $links."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ul></div>";
+                        $links = $links."<div class='pagination'><ul>";
+
+                    }
+                }else{
+                    $cont++;
+                    $aparece = $x + 1;
+
+                    if($pagina_nro == $x){
+                        $str = " class ='active'";
+
+                    }else{
+                        $str ="";                
+                    }
+                    
+                    if(($aparece==1)||($aparece==2)||($aparece==3)||//q aparezcan los primeros 3
+                        ($aparece==($pagina_nro-1))||($aparece==$pagina_nro)||
+                        ($aparece==($pagina_nro+1))||($aparece==($pagina_nro+2))||($aparece==($pagina_nro+3))||
+                        ($aparece==($cantPages-1))||($aparece==$cantPages)||($aparece==($cantPages-2))//q aparezcan los ultimos 3
+                        )
+                    {
+                        $links = $links."<li ".$str."><a href='".base_url()."index.php/busqueda/buscar/".$id_tinmueble."/".$id_operacion."/".$id_provincia."/".$id_departamento."/".$id_localidad."/".$x."' style= 'strong'>".$aparece."</a></li>&nbsp;&nbsp;&nbsp;&nbsp;";
+                        if(($aparece == 3)||($aparece == ($pagina_nro+3))||($aparece == ($pagina_nro-3))
+                            ){
+                            if(($aparece!=1)&&($aparece!=2)){
+                                $links = $links.". . .  ";
+                            }
+
+                        }
+
+                    }
+                    
+
+                }
+        
+            }
+            $links = $links."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ul></div>";
+        }else{
+            $links = "";
+        }
+        return $links;
     }
 
     function getAmbiente($id_ambiente = 0){
