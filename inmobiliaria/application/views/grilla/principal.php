@@ -22,33 +22,18 @@
 		<?php
 			}
 		?>
-		<table class="table table-striped">
+		<table class="table table-striped" width="100%">
 			<thead>
 				<tr>
-					<th>
-						#ID
+					<th width="10%">
+						Imagen
 					</th>
-					<th>
-						Direccion
+					<th width="80%">
+						Detalle
 					</th>
-					<th>
-						Piso
-					</th>
-					<th>
-						Depto
-					</th>							
-					<th>
-						Tipo
-					</th>							
-					<th>
-						Operacion
-					</th>							
-					<th>
-						Contacto
-					</th>			
-					<th>
+					<th width="10%">
 						Acciones
-					</th>				
+					</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -57,43 +42,47 @@
 			?>
 				<tr>
 					<td>
-			<?php				
-					echo $i->id;
+			<?php	
+					$cant = 0;
+					foreach ($fotos_thumb[$i->id] as $ft) {
+						$cant++;
+						if($ft->id_inmueble == $i->id){
 			?>
-					</td>
-					<td>
+							<img src="<?php echo base_url().$ft->path_thumb;?>" />
+			<?php			
+						}
+					}
+					if($cant==0){
+			?>				<img src="<?php echo base_url()."uploads/fotos_inmuebles/sinimagen_thumb.png";?>" />
 			<?php
-					echo html_entity_decode($i->direccion);
-			?>
-					</td>
-					<td>
-			<?php
-					if($i->piso == 0){
-						echo "PB";
-					}else{
-						echo $i->piso;
 					}
 			?>
+						<!-- ESTABLE -->
 					</td>
 					<td>
-			<?php
-					echo $i->depto;
-			?>
-					</td>
-					<td>
-			<?php
-					echo $i->tipo_inmueble;
-			?>
-					</td>
-					<td>
-			<?php
-					echo $i->operacion;
-			?>
-					</td>
-					<td>
-			<?php
-					echo $i->contacto;
-			?>
+						<table width="100%">
+							<tr>
+								<td>
+									<h4><?php echo html_entity_decode($i->direccion).", ".$i->nombre_localidad.", ".$i->nombre_departamento; ?></h4>
+								</td>
+							</tr>
+							<tr>
+								<td><?php echo $i->tipo_inmueble." en ".$i->operacion." en ".$i->nombre_localidad." - ".$i->nombre_departamento;?></td>
+							</tr>
+							<tr>
+								<td><?php echo html_entity_decode(substr($i->descripcion, 0, 50));?></td>
+							</tr>
+							<tr>
+								<td>
+									<h6>
+										<?php if($i->antiguedad == 0){ echo "A Estrenar";}else{ echo $i->antiguedad." años ";}?>|
+										<?php echo " ".$i->nombre_einmueble." ";?>|
+										<?php echo " ".$i->superficie_cubierta." m2";?>
+									</h6>
+								</td>
+							</tr>							
+						</table>
+			
 					</td>
 					<td>
 			<?php

@@ -6,12 +6,22 @@ class Busqueda extends CI_Controller
     {
         parent::__construct();
         $this->load->model('inmueblesCRUD');
-
-        $this->load->model('provinciasCRUD');
-        $this->load->model('operacionesCRUD');
         $this->load->model('tinmueblesCRUD');
+
+        $this->load->model('einmueblesCRUD');
+        $this->load->model('contactosCRUD');
+        $this->load->model('provinciasCRUD');
         $this->load->model('departamentosCRUD');
         $this->load->model('localidadesCRUD');
+        $this->load->model('operacionesCRUD');
+
+        $this->load->model('tcontactosCRUD');
+        $this->load->model('fotosCRUD');
+
+        $this->load->model('ambientesCRUD');
+        $this->load->model('instalacionesCRUD');
+        $this->load->model('serviciosCRUD');
+
     }
 
     function index($pagina_nro = 0)
@@ -60,6 +70,11 @@ class Busqueda extends CI_Controller
         $filtra = false;
         $search = "";
         $filtro_aplicado = "";
+
+        $fotos_thumb[] = array();
+        $instalaciones[] = array();
+        $ambientes[] = array();
+        $servicios[] = array();
 
         if($id_tinmueble!=0){
             $filtra = true;
@@ -129,6 +144,13 @@ class Busqueda extends CI_Controller
         if($filtra){
             $inmuebles = $this->inmueblesCRUD->getInmueblesFEFiltro($search);
 
+            foreach($inmuebles as $i){
+                $fotos_thumb[$i->id] = $this->fotosCRUD->getFotosByInmoGrilla($i->id);
+                $instalaciones[$i->id] = $this->instalacionesCRUD->getInsByInmo($i->id);
+                $ambientes[$i->id] = $this->ambientesCRUD->getAmbByInmo($i->id);
+                $servicios[$i->id] = $this->serviciosCRUD->getSerByInmo($i->id);
+            }
+
             $cant_rows = 10;
             $controller = "busqueda";
             $total_rows = $this->inmueblesCRUD->getCantInmueblesFEFiltro($search);
@@ -175,6 +197,13 @@ class Busqueda extends CI_Controller
 
             $desde_row = $pagina_nro * $cant_rows;
             $inmuebles = $this->inmueblesCRUD->getXInmuebles($desde_row,$cant_rows);
+
+            foreach($inmuebles as $i){
+                $fotos_thumb[$i->id] = $this->fotosCRUD->getFotosByInmoGrilla($i->id);
+                $instalaciones[$i->id] = $this->instalacionesCRUD->getInsByInmo($i->id);
+                $ambientes[$i->id] = $this->ambientesCRUD->getAmbByInmo($i->id);
+                $servicios[$i->id] = $this->serviciosCRUD->getSerByInmo($i->id);
+            }
             $filtros = array(
                 "id_tinmueble" => "",
                 "id_operacion" => "",
@@ -186,8 +215,8 @@ class Busqueda extends CI_Controller
         }
 
         $this->load->view("main", array(
-                                    "modulo"=> "busqueda", 
-                                    "pagina"=> "resultado",
+                                    "modulo"=> "grilla", 
+                                    "pagina"=> "principal",
                                     "inmuebles" => $inmuebles,
                                     "links" => $linksPaginacion,
                                     "filtros" => $filtros,
@@ -195,7 +224,12 @@ class Busqueda extends CI_Controller
                                     "departamentos" => $departamentos,
                                     "localidades" => $localidades,
                                     "operaciones" => $operaciones,
-                                    "tinmuebles" => $tinmuebles
+                                    "tinmuebles" => $tinmuebles,
+                                    "inmuebles" => $inmuebles,
+                                    "instalaciones" => $instalaciones,
+                                    "ambientes" => $ambientes,
+                                    "servicios" => $servicios,
+                                    "fotos_thumb" => $fotos_thumb
                                     ));
 
 

@@ -112,6 +112,29 @@ class FotosCRUD extends CI_Model {
 
     }
 
+    function getFotosByInmoGrilla($id_inmueble){
+    	$query = $this->db->query("select 
+	        							fotos.id as id, 
+	        							fotos.path as path,
+	        							fotos.path_thumb as path_thumb,
+	        							fotos.id_inmueble as id_inmueble,
+	        							inmuebles.direccion as direccion_inmueble
+        							from 
+        								fotos 
+									inner join
+										inmuebles 
+									on
+										inmuebles.id = fotos.id_inmueble
+									where 
+										fotos.estado = 0
+									and
+										fotos.id_inmueble = ".$id_inmueble."
+									limit 1");
+		return $query->result();
+
+
+    }
+
 	function editFoto($id_foto,$path){
 		$query= $this->db->query("update 
 										fotos

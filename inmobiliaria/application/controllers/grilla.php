@@ -1,8 +1,8 @@
 <?php
 
-class Inmuebles extends CI_Controller
+class Grilla extends CI_Controller
 {
-    function Inmuebles()
+    function Grilla()
     {
         parent::__construct();
         $this->load->model('inmueblesCRUD');
@@ -28,18 +28,34 @@ class Inmuebles extends CI_Controller
     {
 
         if($this->session->userdata('idusuario_inmo')){ 
+
+            $fotos_thumb[] = array();
+            $instalaciones[] = array();
+            $ambientes[] = array();
+            $servicios[] = array();
+
             $cant_rows = 10;
-            $controller = "inmuebles";
+            $controller = "grilla";
             $total_rows = $this->inmueblesCRUD->getCantInmuebles();
 
             $linksPaginacion = $this->smartin->getPaginacion($pagina_nro,$cant_rows,$total_rows,$controller); 
 
             $desde_row = $pagina_nro * $cant_rows;
             $inmuebles = $this->inmueblesCRUD->getXInmuebles($desde_row,$cant_rows);
+            foreach($inmuebles as $i){
+                $fotos_thumb[$i->id] = $this->fotosCRUD->getFotosByInmoGrilla($i->id);
+                $instalaciones[$i->id] = $this->instalacionesCRUD->getInsByInmo($i->id);
+                $ambientes[$i->id] = $this->ambientesCRUD->getAmbByInmo($i->id);
+                $servicios[$i->id] = $this->serviciosCRUD->getSerByInmo($i->id);
+            }
             $this->load->view("main", array(
-                                        "modulo"=> "inmuebles", 
+                                        "modulo"=> "grilla", 
                                         "pagina"=> "principal",
                                         "inmuebles" => $inmuebles,
+                                        "instalaciones" => $instalaciones,
+                                        "ambientes" => $ambientes,
+                                        "servicios" => $servicios,
+                                        "fotos_thumb" => $fotos_thumb,
                                         "links" => $linksPaginacion
                                         )
                             );
@@ -71,7 +87,7 @@ class Inmuebles extends CI_Controller
 
         if($this->session->userdata('idusuario_inmo')){ 
 
-            $inmuebles = $this->inmueblesCRUD->getInmueblesSearch($id_barrio, $cant_ambientes, $rango_precio);
+            $inmuebles = $this->inmueblesCRUD->getGrillaSearch($id_barrio, $cant_ambientes, $rango_precio);
 
             if(count($inmuebles) > 0){
                 $this->load->view("main", array(
@@ -124,7 +140,7 @@ class Inmuebles extends CI_Controller
 
     function formAddInmueble($fix = false,$id_provincia = 0 , $id_departamento = 0, $id_localidad = 0){
         if($this->session->userdata('idusuario_inmo')){ 
-            //$tinmuebles = $this->tinmueblesCRUD->getTInmuebles();
+            //$tinmuebles = $this->tinmueblesCRUD->getTGrilla();
             $contactos = $this->contactosCRUD->getContactos();
 
             $provincias = $this->provinciasCRUD->getProvincias();
@@ -132,9 +148,9 @@ class Inmuebles extends CI_Controller
             $localidades = $this->localidadesCRUD->getLocalidadesByDepto($id_departamento);
             
             $operaciones = $this->operacionesCRUD->getOperaciones();
-            $tinmuebles = $this->tinmueblesCRUD->getTInmuebles();
+            $tinmuebles = $this->tinmueblesCRUD->getTGrilla();
 
-            $estados_inmueble = $this->einmueblesCRUD->getEInmuebles();
+            $estados_inmueble = $this->einmueblesCRUD->getEGrilla();
 
             $tcontactos = $this->tcontactosCRUD->getTContactos(); 
 
@@ -207,9 +223,9 @@ class Inmuebles extends CI_Controller
             $departamentos = $this->departamentosCRUD->getDeptosByProvincia($id_provincia);
             $localidades = $this->localidadesCRUD->getLocalidadesByDepto($id_departamento);
             $operaciones = $this->operacionesCRUD->getOperaciones();
-            $tinmuebles = $this->tinmueblesCRUD->getTInmuebles();
+            $tinmuebles = $this->tinmueblesCRUD->getTGrilla();
 
-            $estados_inmueble = $this->einmueblesCRUD->getEInmuebles();
+            $estados_inmueble = $this->einmueblesCRUD->getEGrilla();
 
             $fotos = $this->fotosCRUD->getFotosByInmo($id_inmueble);
 
