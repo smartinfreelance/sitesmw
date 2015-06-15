@@ -215,8 +215,8 @@ class Busqueda extends CI_Controller
         }
 
         $this->load->view("main", array(
-                                    "modulo"=> "grilla", 
-                                    "pagina"=> "principal",
+                                    "modulo"=> "busqueda", 
+                                    "pagina"=> "resultado",
                                     "inmuebles" => $inmuebles,
                                     "links" => $linksPaginacion,
                                     "filtros" => $filtros,

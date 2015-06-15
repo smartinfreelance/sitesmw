@@ -70,13 +70,20 @@ class AmbientesCRUD extends CI_Model {
     }
     function getAmbByInmo($id_inmueble){
     	$query = $this->db->query("select 
-	        							inmuebles_ambientes.id as id, 
-	        							inmuebles_ambientes.id_ambiente as id_ambiente,
-	        							inmuebles_ambientes.id_inmueble as id_inmueble
-        							from 
-        								inmuebles_ambientes
+										inmuebles_ambientes.id as id, 
+										inmuebles_ambientes.id_ambiente as id_ambiente,
+										inmuebles_ambientes.id_inmueble as id_inmueble,
+										ambientes.nombre as nombre_ambiente
+									from 
+										inmuebles_ambientes
+									inner join
+										ambientes
+									on
+										ambientes.id = inmuebles_ambientes.id_ambiente
 									where 
 										inmuebles_ambientes.estado = 0
+									and
+										ambientes.estado = 0
 									and
 										inmuebles_ambientes.id_inmueble = ".$id_inmueble);
 		return $query->result();

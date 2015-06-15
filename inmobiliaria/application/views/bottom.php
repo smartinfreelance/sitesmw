@@ -33,6 +33,13 @@
 <script src="<?php echo base_url();?>../js/chart/jqplot.cursor.min.js"></script>
 <script src="<?php echo base_url();?>../js/chart/jqplot.dateAxisRenderer.min.js"></script>
 <script src="<?php echo base_url();?>../js/custom-script.js"></script>
+<script src="<?php echo base_url();?>js/slick.js"></script>
+	<?php 
+			//var_dump($data);
+		if(isset($data)){
+			echo $data['javascript']; 
+		}
+	?>
 <!-- html5.js for IE less than 9 -->
 <!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>

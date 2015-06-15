@@ -52,11 +52,36 @@ class Inmuebles extends CI_Controller
         
         if($this->session->userdata('idusuario_inmo')){ 
             $inmueble = $this->inmueblesCRUD->getInmueble($id_inmueble);
+            $fotos = $this->fotosCRUD->getFotosByInmo($id_inmueble);
+            $ambientes = $this->ambientesCRUD->getAmbByInmo($id_inmueble);
+            $instalaciones = $this->instalacionesCRUD->getInsByInmo($id_inmueble);
+            $servicios  = $this->serviciosCRUD->getSerByInmo($id_inmueble);
+
+            /*$this->load->library('googlemaps');
+
+            $config['apikey'] = 'AIzaSyDVzEeqAZuex3d6DYa4aRqNmWXD3zMKyy0';
+            $config['center'] = '37.429, -122.1419';
+            $config['zoom'] = 'auto';
+            $config['map_height'] = 600;
+            $config['map_width'] = 800;
+            $this->googlemaps->initialize($config);
+
+            $marker = array();
+            $marker['position'] = '37.429, -122.1419';
+            $this->googlemaps->add_marker($marker);
+            $data['map'] = $this->googlemaps->create_map();
+
+            //$this->load->view('view_file', $data);*/
+
             if(count($inmueble) > 0){
                 $this->load->view("main", array(
                                             "modulo"=> "inmuebles", 
                                             "pagina"=> "ver_inmueble",
-                                            "inmuebles" => $inmuebles
+                                            "inmueble" => $inmueble[0],
+                                            "fotos" => $fotos,
+                                            "ambientes" => $ambientes,
+                                            "servicios" => $servicios,
+                                            "instalaciones" => $instalaciones
                                             )
                                 );
             }else{

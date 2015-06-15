@@ -71,15 +71,22 @@ class ServiciosCRUD extends CI_Model {
 
     function getSerByInmo($id_inmueble){
     	$query = $this->db->query("select 
-	        							inmuebles_servicios.id as id, 
-	        							inmuebles_servicios.id_servicio as id_servicio,
-	        							inmuebles_servicios.id_inmueble as id_inmueble
-        							from 
-        								inmuebles_servicios
+										inmuebles_servicios.id as id, 
+										inmuebles_servicios.id_servicio as id_servicio,
+										inmuebles_servicios.id_inmueble as id_inmueble,
+										servicios.nombre as nombre_servicio
+									from 
+										inmuebles_servicios
+									inner join
+										servicios
+									on
+										inmuebles_servicios.id_servicio = servicios.id	
 									where 
 										inmuebles_servicios.estado = 0
 									and
-										inmuebles_servicios.id_inmueble = ".$id_inmueble);
+										servicios.estado = 0
+									and
+										inmuebles_servicios.id_inmueble =".$id_inmueble);
 		return $query->result();
 
     }

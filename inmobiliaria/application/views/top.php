@@ -8,6 +8,7 @@
 	<meta name = "format-detection" content = "telephone=no" />
 
 	<script src="<?php echo base_url();?>../js/jquery.js"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApeaXAQxAHETbF2cf4SmR_VRWZwfDFAL4"></script>
 
 	<link href="<?php echo base_url();?>../css/bootstrap.css" rel="stylesheet">
 	<link href="<?php echo base_url();?>../css/bootstrap-responsive.css" rel="stylesheet">
@@ -21,6 +22,7 @@
 	<link href="<?php echo base_url();?>../css/styles.css" rel="stylesheet">
 	<link href="<?php echo base_url();?>../css/icons-sprite.css" rel="stylesheet">
 	<link id="themes" href="<?php echo base_url();?>../css/themes.css" rel="stylesheet">
+	<link href="<?php echo base_url();?>/css/slick.css" rel="stylesheet">
 	<!--<![endif]-->
 	<!--[if lt IE 8]>
 	<div style=' clear: both; text-align:center; position: relative;'>
@@ -191,5 +193,4 @@
 				</div>
 			</div>
 		</div>
-
 	</div>

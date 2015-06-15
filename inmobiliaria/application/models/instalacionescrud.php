@@ -71,13 +71,20 @@ class InstalacionesCRUD extends CI_Model {
 
     function getInsByInmo($id_inmueble){
     	$query = $this->db->query("select 
-	        							inmuebles_instalaciones.id as id, 
-	        							inmuebles_instalaciones.id_instalacion as id_instalacion,
-	        							inmuebles_instalaciones.id_inmueble as id_inmueble
-        							from 
-        								inmuebles_instalaciones
+										inmuebles_instalaciones.id as id, 
+										inmuebles_instalaciones.id_instalacion as id_instalacion,
+										inmuebles_instalaciones.id_inmueble as id_inmueble,
+										instalaciones.nombre as nombre_instalacion
+									from 
+										inmuebles_instalaciones
+									inner join
+										instalaciones
+									on
+										inmuebles_instalaciones.id_instalacion = instalaciones.id
 									where 
 										inmuebles_instalaciones.estado = 0
+									and
+										instalaciones.estado = 0
 									and
 										inmuebles_instalaciones.id_inmueble = ".$id_inmueble);
 		return $query->result();

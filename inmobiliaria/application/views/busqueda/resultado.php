@@ -2,6 +2,9 @@
 <div id = "main-content">
 	<div class = "container">		
 		<div class="control-group">
+			<ul class="breadcrumb">
+	  			<li class="active">Busqueda</li>
+			</ul>
 			<label class="control-label" for="typehead">Filtros</label>
 			<div class="controls">
 				<div>
