@@ -1,5 +1,5 @@
 <style type="text/css">
-  #map-canvas { height: auto;width:100%; }
+  #map-canvas { height: 300px;width:300px; }
 </style>
 <script type="text/javascript">
   function initialize() {
@@ -23,20 +23,21 @@
 
 <div id = "main-content">
 	<div class = "container">
-		<table>
+		<table width="100%">
 			<tr>
-				<td>
+				<td width="50%" align="center">
 
 				<?php
 					$x = 0;
 					foreach ($fotos as $f) {
 						$x++;
 				?>
-					<div class="image" id = "image<?php echo $x; ?>" style="<?php if($x==1){ echo 'display:block;';}else{ echo 'display:none;';}?>width:600px;height:400px;" >
+          <a name="image"></a> 
+					<div class="image" id = "image<?php echo $x; ?>" style="<?php if($x==1){ echo 'display:block;';}else{ echo 'display:none;';}?>max-width:600px;max-height:400px;" align = "center" valign = "center">
 						<img src = "<?php echo base_url().$f->path;?>" width="auto" height="auto">
 					</div>
 
-					<div class="image">
+					<div class="imagesthumb" align="center" valign ="middle">
 					<?php
 							# code...
 						}
@@ -44,9 +45,9 @@
 						foreach ($fotos as $f) {
 							$x++;
 					?>
-					<div id = "imthumb<?php echo $x; ?>" style = "align:left;cursor:pointer;">
+					<a href="#image" id = "imthumb<?php echo $x; ?>">
 						<img src = "<?php echo base_url().$f->path_thumb;?>">
-					</div>
+					</a>
 					<?php
 						# code...
 					}
@@ -54,7 +55,7 @@
 					</div>
 					
 				</td>
-				<td valign="top">
+				<td  width="50%" align="center" valign="top">
 					<div id="map-canvas"></div>
 				</td>
 			</tr>

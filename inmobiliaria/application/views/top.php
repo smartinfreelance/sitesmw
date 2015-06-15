@@ -22,7 +22,6 @@
 	<link href="<?php echo base_url();?>../css/styles.css" rel="stylesheet">
 	<link href="<?php echo base_url();?>../css/icons-sprite.css" rel="stylesheet">
 	<link id="themes" href="<?php echo base_url();?>../css/themes.css" rel="stylesheet">
-	<link href="<?php echo base_url();?>/css/slick.css" rel="stylesheet">
 	<!--<![endif]-->
 	<!--[if lt IE 8]>
 	<div style=' clear: both; text-align:center; position: relative;'>
