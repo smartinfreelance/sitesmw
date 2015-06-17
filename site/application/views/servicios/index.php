@@ -55,27 +55,4 @@
 			</div>
 		</div>
 	</div>
-	<div class="full-width-container block-2">
-		<div class="container">
-			<div class="row">
-					<div class="grid_12">
-						<header>
-							<h2><span>Testimonials</span></h2>
-						</header>
-					</div>
-				<div class="grid_4">
-					<div class="text_content"><p>Gamus at magna non nunc tristique rhoncuseri tym. Aliquam nibh ante, egestas id dictum aterert commodo re luctus libero. Praesent faucibus malesuada cibuste. Donec laoreet metus id laoreet malesuada.</p> </div>
-					<h5>Sandra Kromstein</h5>
-				</div>
-				<div class="grid_4">
-					<div class="text_content"><p>Tamus at magna non nunc tristique rhoncuseri tym. Aliquam nibh ante, egestas id dictum aterert commodo re luctus libero. Praesent faucibus malesuada cibuste. Donec laoreet metus id laoreet malesuada.</p> </div>
-					<h5>Thomas Klimt</h5>
-				</div>
-				<div class="grid_4">
-					<div class="text_content"><p>Hamus at magna non nunc tristique rhoncuseri tym. Aliquam nibh ante, egestas id dictum aterert commodo re luctus libero. Praesent faucibus malesuada cibuste. Donec laoreet metus id laoreet malesuada.</p> </div>
-					<h5>Moyra Freeman</h5>
-				</div>
-			</div>
-		</div>
-	</div>
 </section>

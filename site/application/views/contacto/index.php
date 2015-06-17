@@ -9,46 +9,50 @@
 								<h2><span>Contacto</span></h2>
 							</header>
 							<fieldset>
-									<label class="name">
-										<span class="text">Nombre:</span>
-										<input type="text" name="name" placeholder="" value="" data-constraints="@Required" />
-											<span class="empty-message">*Este dato es requerido.</span>
-									</label>
-									<label class="email">
-										<span class="text">E-mail:</span>
-										<input type="text" name="email" placeholder="" value="" data-constraints="@Required @Email" />
+							<?php echo form_open('start/sendConsulta'); ?>
+								<?php
+									if(validation_errors()!=""){
+								?>
+									<div class="widget-box">
+										<div class="alert alert-error fade in">
+											<strong><?php echo validation_errors(); ?></strong>
+										</div>
+									</div>
+								<?php
+									}
+								?>
+								<label class="name">
+									<span class="text">Nombre:</span>
+									<input type="text" name="name" placeholder="" value="" data-constraints="@Required" />
 										<span class="empty-message">*Este dato es requerido.</span>
-										<span class="error-message">*Ingrese un mail valido.</span>
-									</label>
-									<label class="subject">
-										<span class="text">Asunto:</span>
-										<input type="text" name="phone" placeholder="" value="" data-constraints="@Required" />
-										<span class="empty-message">*Este dato es requerido.</span>
-									</label>
-									<label class="message">
-										<span class="text">Mensaje:</span>
-										<textarea name="message" placeholder="" data-constraints='@Required @Length(min=20,max=999999)'></textarea>
-										<span class="empty-message">*Este dato es requerido.</span>
-										<span class="error-message">*The message is too short.</span>
-									</label>
+								</label>
+								<label class="email">
+									<span class="text">E-mail:</span>
+									<input type="text" name="email" placeholder="" value="" data-constraints="@Required @Email" />
+									<span class="empty-message">*Este dato es requerido.</span>
+									<span class="error-message">*Ingrese un mail valido.</span>
+								</label>
+								<label class="subject">
+									<span class="text">Asunto:</span>
+									<input type="text" name="phone" placeholder="" value="" data-constraints="@Required" />
+									<span class="empty-message">*Este dato es requerido.</span>
+								</label>
+								<label class="message">
+									<span class="text">Mensaje:</span>
+									<textarea name="message" placeholder="" data-constraints='@Required @Length(min=20,max=999999)'></textarea>
+									<span class="empty-message">*Este dato es requerido.</span>
+									<span class="error-message">*The message is too short.</span>
+								</label>
 								<div class="cont_btn">
 									<a href="#" data-type="reset" class="btn">Reset</a>
-									<a href="#" data-type="submit" class="btn">Enviar</a>
+									<?php 
+						        		echo form_submit(array(
+						        			'value'=>'Enviar',
+						        			'class'=>'btn'
+						        		)); 
+						        	?>
 								</div>
 						</fieldset> 
-						<div class="modal fade response-message">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-										<h4 class="modal-title">Modal title</h4>
-									</div>
-									<div class="modal-body">
-										You message has been sent! We will be in touch soon.
-									</div>
-								</div>
-							</div>
-						</div>
 					</form>
 				</div>
 				<div class="grid_6 preffix_1">

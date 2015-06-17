@@ -121,7 +121,7 @@
 							<li<?php if($modulo=="home"){?> class="current" <?php } ?>><?php echo anchor('start/index', 'Home', ''); ?></li>
 							<li<?php if($modulo=="productos"){ ?> class="current" <?php }?>><?php echo anchor('start/verProductos', 'Productos', ''); ?></li>
 							<li<?php if($modulo=="servicios"){ ?> class="current" <?php } ?>><?php echo anchor('start/verServicios', 'Servicios', ''); ?></li>
-							<li<?php if($modulo=="webblog"){ ?> class="current" <?php } ?>><?php echo anchor('start/verWebBlog', 'WebBlog', ''); ?></li>
+							<!--<li<?php if($modulo=="webblog"){ ?> class="current" <?php } ?>><?php echo anchor('start/verWebBlog', 'WebBlog', ''); ?></li>-->
 							<li<?php if($modulo=="contacto"){ ?> class="current" <?php } ?>><?php echo anchor('start/verContacto', 'Contacto', ''); ?></li>
 						</ul>
 					</nav>

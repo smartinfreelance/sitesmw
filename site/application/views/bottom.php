@@ -4,11 +4,11 @@
 	<div class="container">
 		<div class="row">
 			<div class="grid_12 copyright">
-				<h2><span>Follow Us</span></h2>
+				<h2><span>Redes Sociales</span></h2>
 				<a href="#" class="btn bd-ra"><span class="fa fa-twitter"></span></a>
-				<a href="#" class="btn bd-ra"><span class="fa fa-facebook"></span></a>
-				<a href="#" class="btn bd-ra"><span class="fa fa-youtube"></span></a>
-				<a href="#" class="btn bd-ra"><span class="fa fa-linkedin"></span></a>
+				<!--<a href="#" class="btn bd-ra"><span class="fa fa-facebook"></span></a>-->
+				<!--<a href="#" class="btn bd-ra"><span class="fa fa-youtube"></span></a>-->
+				<a href="https://ar.linkedin.com/pub/sergio-martin-medina/22/b94/119" class="btn bd-ra"><span class="fa fa-linkedin"></span></a>
 			</div>
 		</div>
 	</div>

@@ -139,7 +139,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="full-width-container block-5">
+<!--	<div class="full-width-container block-5">
 		<div class="container">
 			<div class="row">
 				<div class="grid_12">
@@ -151,24 +151,24 @@
 					<article>
 						<h3><a href="#">November 2014</a></h3>
 						<p>Gamus at magna non nunc tristique rhoncuseri tym. Aliquam nibh ante, egestas id dictum aterert commodo re luctus libero. Praesent faucibus malesuada cibuste.</p>
-						<a href="#" class="btn">More</a>
+						<a href="#" class="btn">LEER MAS</a>
 					</article>
 				</div>
 				<div class="grid_4">
 					<article>
 						<h3><a href="#">March 2015</a></h3>
 						<p>Damus at magna non nunc tristique rhoncuseri tym. Aliquam nibh ante, egestas id dictum aterert commodo re luctus libero. Praesent faucibus malesuada cibust.</p>
-						<a href="#" class="btn">More</a>
+						<a href="#" class="btn">LEER MAS</a>
 					</article>
 				</div>
 				<div class="grid_4">
 					<article>
 						<h3><a href="#">June 2015</a></h3>
 						<p>Jamus at magna non nunc tristique rhoncuseri tym. Aliquam nibh ante, egestas id dictum aterert commodo re luctus libero. Praesent faucibus malesuadaonec. </p>
-						<a href="#" class="btn">More</a>
+						<a href="#" class="btn">LEER MAS</a>
 					</article>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>-->
 </section>
