@@ -329,7 +329,7 @@ class Inmuebles extends CI_Controller
                 }
 
 
-                $loc = $_POST['provincia_text']." ".$_POST['departamento_text']." ".$_POST['localidad_text']." ".$_POST['calle']." ".$_POST['altura'];
+                $loc = $_POST['calle']." ".$_POST['altura'].", ".$_POST['localidad_text'].", ".$_POST['departamento_text'].", ".$_POST['provincia_text'];
                 $coord = $this->get_geo_loc($loc);
 
                 $calificacion = $_POST['estado_inmueble'];

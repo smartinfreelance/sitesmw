@@ -327,7 +327,7 @@ class InmueblesCRUD extends CI_Model {
 		return $query->result();
     }
 //
-    function addInmueble($id_provincia,$id_departamento,$id_localidad,$direccion,$piso, $depto,$descripcion,$moneda,$precio,$pos_lat, $pos_lng,$id_tipo, $id_operacion, $id_contacto){
+    function addInmueble($id_provincia,$id_departamento,$id_localidad,$direccion,$piso, $depto,$calificacion,$descripcion,$moneda,$precio,$pos_lat, $pos_lng,$id_tipo, $id_operacion, $id_contacto){
     	$query= $this->db->query("insert into 
     								inmuebles (
     									id_provincia,

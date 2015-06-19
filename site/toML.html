@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<style type="text/css">
+ /* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: top;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.clearfix:after {
+  clear: both;
+}
+.container .alpha {
+  margin-left: 0px;
+}
+.container .omega {
+  margin-right: 0px;
+}
+.row {
+  margin-left: 0px;
+  *zoom: 1;
+}
+.row:before,
+.row:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.row:after {
+  clear: both;
+}
+[class*="grid_"] {
+  float: left;
+  min-height: 1px;
+  margin-left: 30px;
+}
+.container {
+  width: 1170px;
+}
+.grid_12 {
+  width: 1170px;
+}
+.grid_11 {
+  width: 1070px;
+}
+.grid_10 {
+  width: 970px;
+}
+.grid_9 {
+  width: 870px;
+}
+.grid_8 {
+  width: 770px;
+}
+.grid_7 {
+  width: 670px;
+}
+.grid_6 {
+  width: 570px;
+}
+.grid_5 {
+  width: 470px;
+}
+.grid_4 {
+  width: 370px;
+}
+.grid_3 {
+  width: 270px;
+}
+.grid_2 {
+  width: 170px;
+}
+.grid_1 {
+  width: 70px;
+}
+.preffix_12 {
+  margin-left: 0px;
+}
+.preffix_11 {
+  margin-left: 0px;
+}
+.preffix_10 {
+  margin-left: 0px;
+}
+.preffix_9 {
+  margin-left: 0px;
+}
+.preffix_8 {
+  margin-left: 0px;
+}
+.preffix_7 {
+  margin-left: 0px;
+}
+.preffix_6 {
+  margin-left: 0px;
+}
+.preffix_5 {
+  margin-left: 0px;
+}
+.preffix_4 {
+  margin-left: 0px;
+}
+.preffix_3 {
+  margin-left: 0px;
+}
+.preffix_2 {
+  margin-left: 0px;
+}
+.preffix_1 {
+  margin-left: 0px;
+}
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  *zoom: 1;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.container:before,
+.container:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.container:after {
+  clear: both;
+}
+.select-menu {
+  display: none !important;
+}
+body {
+  background: #fff;
+  font: 14px/24px Georgia, 'Times New Roman', Times, serif;
+}
+a {
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-transition: 0.3s all ease;
+  transition: 0.3s all ease;
+}
+a:hover {
+  -webkit-transition: 0.3s all ease;
+  transition: 0.3s all ease;
+}
+a[href^="tel:"] {
+  color: inherit;
+  text-decoration: none;
+}
+h2 a,
+h3 a,
+h4 a,
+h5 a {
+  color: inherit;
+  font: inherit;
+}
+h2 a:hover,
+h3 a:hover,
+h4 a:hover,
+h5 a:hover {
+  color: #0099FF;
+}
+* {
+  -webkit-text-size-adjust: none;
+}
+::-moz-selection {
+  /* Code for Firefox */
+  color: #ffffff;
+  background: #666666;
+}
+::selection {
+  color: #ffffff;
+  background: #666666;
+}
+/*========================================================
+										HEADER styles
+=========================================================*/
+#header {
+  padding: 20px 0;
+  background: #0099FF;
+}
+#header h1 {
+  float: left;
+  padding-left: 40px;
+  background: url(../images/logo.png) 0 15px no-repeat;
+  color: #ffffff;
+}
+#header h1 a {
+  font: 700 44px/44px 'Open Sans', sans-serif;
+  color: #ffffff;
+}
+#header h1 span {
+  display: block;
+  font: 24px/24px 'Marvel', sans-serif;
+}
+#header nav {
+  float: right;
+}
+/* Main menu styles
+========================================================*/
+.sf-menu {
+  width: 100%;
+  text-align: center;
+  line-height: 20px;
+  margin-top: auto;
+  margin-top: 32px;
+}
+.sf-menu > li {
+  display: inline-block;
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+.sf-menu > li > a {
+  color: #3333FF;
+  font-size: 27px;
+  margin-left: 0px;
+  font-family: 'Marvel', sans-serif;
+  margin-bottom: 30px;
+  position: relative;
+}
+.sf-menu > li > a:hover {
+  color: #ffffff;
+}
+.sf-menu > li > a:hover:after {
+  content: "";
+  height: 4px;
+  width: 100%;
+  background: #dbb3ae;
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+}
+.sf-menu > li:first-child {
+  padding-right: 0;
+}
+.sf-menu > li.current > a {
+  color: #ffffff;
+}
+.sf-menu > li.current > a:after {
+  content: "";
+  height: 4px;
+  width: 100%;
+  background: #dbb3ae;
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+}
+/* First level sub-menu styles
+========================================================*/
+.sf-menu ul {
+  position: absolute;
+  top: 66px;
+  left: 0px;
+  background: #0099FF;
+  color: #ffffff;
+  min-width: 157px;
+  z-index: 999;
+  display: none;
+  text-align: left;
+  padding-left: 33px;
+  padding-top: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.sf-menu ul:before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: calc(50% - 3px);
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 10px solid #0099FF;
+}
+.sf-menu ul li {
+  position: relative;
+  height: 48px;
+  line-height: 48px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.sf-menu ul li a {
+  line-height: 12px;
+  padding: 10px 0;
+  color: #ffffff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  display: block;
+}
+.sf-menu ul li:hover > a {
+  color: #3333FF;
+}
+/* Second level sub-menu styles
+========================================================*/
+.sf-menu ul ul {
+  position: absolute;
+  top: 0;
+  left: 126px;
+  z-index: 4;
+  min-width: 157px;
+  border: none;
+  background: #dbb3ae;
+}
+.sf-menu ul ul:before {
+  display: none;
+}
+.sf-menu ul ul a:hover {
+  color: #0099FF;
+}
+/* Stuck menu styles
+========================================================*/
+.isStuck {
+  background: #0099FF;
+  z-index: 9;
+  padding: 0;
+  border-bottom: 1px solid #0099FF;
+}
+.isStuck nav {
+  margin-top: 17px !important;
+}
+.isStuck .sf-menu {
+  margin-top: 3px;
+}
+.isStuck .sf-menu > li > a:hover:after {
+  bottom: 3px;
+}
+.isStuck .sf-menu > li.current > a:after {
+  bottom: 3px;
+}
+/*========================================================
+										CONTENT styles
+=========================================================*/
+h2,
+h3,
+h4 {
+  font-family: 'Marvel', sans-serif;
+  color: #000000;
+}
+h2 {
+  font: 300 72px/72px 'Open Sans', sans-serif;
+  text-align: center;
+  margin-bottom: 50px;
+}
+h2 span {
+  position: relative;
+}
+h2 span:before {
+  height: 2px;
+  position: absolute;
+  bottom: 7px;
+  background: #000;
+  width: 100%;
+  
+  display: block;
+  left: 0;
+}
+h3 {
+  font-size: 50px;
+  font-family: 'Marvel', sans-serif;
+  text-align: center;
+  line-height: 50px;
+}
+h4 {
+  font-size: 36px;
+  line-height: 36px;
+  font-family: 'Marvel', sans-serif;
+  text-align: left;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+h5 {
+  font-size: 27px;
+  line-height: 27px;
+  font-family: 'Marvel', sans-serif;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #000000;
+}
+.h5__mod {
+  color: #0099FF;
+}
+p {
+  font: 14px/24px 'Open Sans', sans-serif;
+  color: #727070;
+}
+.full-width-container {
+  width: 100%;
+}
+.img_container {
+  overflow: hidden;
+}
+.img_container img {
+  width: 100%;
+}
+.btn {
+  width: 153px;
+  border: 1px solid #000000;
+  background: #ffffff;
+  display: inline-block;
+  font: 24px/46px 'Open Sans', sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+  color: #000000;
+  margin-top: 20px;
+}
+.btn:hover {
+  background: #000000;
+  color: #ffffff;
+}
+.bd-ra {
+  border-radius: 50%;
+}
+.sub_head {
+  font-size: 24px;
+  font-style: italic;
+  line-height: 36px;
+  text-align: center;
+  margin: 0 auto;
+}
+.index .block-2 {
+  padding: 105px 0 130px;
+  text-align: left;
+}
+.index .block-2 h2 {
+  margin-bottom: 60px;
+}
+.index .block-2 h4 {
+  margin-bottom: 25px;
+}
+.index .block-2 p {
+  width: 100%;
+  margin: 0 auto;
+}
+.index .block-2 .btn {
+  margin-top: 33px;
+  width: 278px;
+}
+.index .block-3 {
+  padding: 123px 0 50px;
+  background: url(../images/index_img_par.jpg);
+  background-attachment: fixed;
+  background-position: center 0%;
+  position: relative;
+  background-repeat: no-repeat;
+  padding-bottom: 100px;
+  z-index: 8;
+  text-align: center;
+}
+.index .block-3 h2 {
+  color: #ffffff;
+  margin-bottom: 70px;
+}
+.index .block-3 h2 span:before {
+  background: #ffffff;
+}
+.index .block-3 h3 {
+  color: #ffffff;
+}
+.index .block-3 .element {
+  padding: 50px 0;
+}
+.index .block-4 {
+  padding: 120px 0 130px;
+  border-bottom: 1px solid #000;
+}
+.index .block-4 h2 {
+  margin-bottom: 65px;
+}
+.index .block-4 .owl-text {
+  font-size: 36px;
+  font-family: 'Marvel', sans-serif;
+  color: #312f2f;
+  text-align: center;
+  margin-top: 40px;
+}
+.index .block-5 {
+  padding: 120px 0 70px;
+  text-align: center;
+}
+.index .block-5 h2 {
+  margin-bottom: 60px;
+}
+.index .block-5 h3 {
+  margin-bottom: 22px;
+}
+.index .block-5 .btn {
+  margin-top: 30px;
+}
+.index .block-5 p {
+  text-align: left;
+}
+
+.index-1 .block-1 {
+  padding: 120px 0 125px;
+}
+.index-1 .block-1 h2 {
+  margin-bottom: 60px;
+}
+.index-1 .block-1 p {
+  padding-right: 10px;
+  line-height: 20px;
+}
+.index-1 .block-1 .btn {
+  margin-top: 55px;
+}
+.index-1 .block-2 {
+  padding: 120px 0 90px;
+  background: url(../images/index_img_par.jpg);
+  background-attachment: fixed;
+  background-position: center 0%;
+  position: relative;
+  background-repeat: no-repeat;
+  padding-bottom: 100px;
+  z-index: 8;
+}
+.index-1 .block-2 h2 {
+  color: #ffffff;
+  margin-bottom: 75px;
+}
+.index-1 .block-2 h2 span:before {
+  background: #ffffff;
+}
+.index-1 .block-2 h4 {
+  color: #ffffff;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+.index-1 .block-2 p {
+  color: #ffffff;
+  padding: 0 22px;
+}
+.index-1 .block-3 {
+  padding: 125px 0 115px;
+  border-top: 1px solid #4d4a4a;
+}
+.index-1 .block-3 h2 {
+  margin-bottom: 70px;
+}
+.index-1 .block-3 .bd-ra {
+  width: 68px;
+  height: 68px;
+  line-height: 68px;
+  font-size: 35px;
+  text-align: center;
+  color: #ffffff;
+  background: #0099FF;
+  display: block;
+  font-family: 'Open Sans', sans-serif;
+}
+.index-2 .block-1 {
+  padding: 120px 0 70px;
+}
+.index-2 .block-1 h2 {
+  margin-bottom: 64px;
+}
+.index-2 .block-1 article {
+  border: 1px solid #000;
+  border-top: none;
+  padding-top: 5px;
+  margin-bottom: 95px;
+}
+.index-2 .block-1 h4 {
+  background: #474747;
+  color: #ffffff;
+  line-height: 52px;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+.index-2 .block-1 p {
+  padding: 0 32px 25px;
+}
+.index-2 .block-1 .img_container {
+  margin-bottom: 0 !important;
+}
+.index-3 .block-1 {
+  padding: 120px 0 75px;
+}
+.index-3 .block-1 h2 {
+  text-align: left;
+  margin-bottom: 63px;
+}
+.index-3 .block-1 h5 {
+  text-align: left;
+  margin-bottom: 25px;
+}
+.index-3 .block-1 .h5__mod {
+  margin-bottom: 10px;
+}
+.index-3 .block-1 li {
+  padding: 11px 0;
+}
+.index-3 .block-1 li a {
+  color: #727070;
+  font: 14px/14px 'Open Sans', sans-serif;
+  text-decoration: underline;
+}
+.index-3 .block-1 li a:hover {
+  text-decoration: none;
+  color: #0099FF;
+}
+.index-3 .block-1 article {
+  margin-bottom: 45px;
+}
+.index-3 .block-1 p {
+  line-height: 20px;
+}
+.index-3 .block-2 {
+  padding: 110px 0 70px;
+  border-top: 1px solid #4d4a4a;
+}
+.index-3 .block-2 h2 {
+  margin-bottom: 74px;
+}
+.index-3 .block-2 h5 {
+  text-align: right;
+}
+.index-3 .block-2 .text_content {
+  border: 1px solid #8c8c8c;
+  position: relative;
+  background: #fff;
+  margin-bottom: 75px;
+}
+.index-3 .block-2 .text_content p {
+  padding: 20px 20px 15px;
+}
+.index-3 .block-2 .text_content:before {
+  content: "";
+  display: block;
+  width: 33px;
+  height: 28px;
+  background: url(../images/quotes.png) no-repeat;
+  position: absolute;
+  bottom: 8px;
+  right: 30px;
+}
+.index-4 p a {
+  color: #0099FF;
+}
+.index-4 p a:hover {
+  color: #3333FF;
+}
+.index-4 .block-1 {
+  padding: 120px 0 15px;
+}
+.index-4 .block-1 h2 {
+  margin-bottom: 65px;
+}
+.index-4 .block-1 #map-canvas {
+  height: 430px;
+}
+.index-4 .block-2 {
+  padding: 70px 0;
+}
+.index-4 .block-2 h2 {
+  font-size: 60px;
+  text-align: left;
+}
+.index-4 .block-2 .address {
+  margin-top: 40px;
+}
+.index-4 .block-2 .mail {
+  color: #727070;
+}
+.index-4 .block-2 .mail:hover {
+  color: #0099FF;
+}
+/*========================================================
+										FOOTER styles
+=========================================================*/
+#footer {
+  background: #0099FF;
+  padding: 100px 0 0;
+  color: #000000;
+}
+#footer a {
+  color: inherit;
+}
+#footer a:hover {
+  text-decoration: underline;
+}
+#footer .copyright {
+  text-align: center;
+}
+#footer .copyright .btn {
+  width: 94px;
+  height: 94px;
+  line-height: 94px;
+  font-size: 60px;
+  color: #423e3e;
+  background: #fff;
+  border: none;
+  margin: 30px 50px;
+}
+#footer .copyright .btn span {
+  line-height: 94px;
+}
+#footer .copyright .btn:hover {
+  background: #423e3e;
+  color: #fff;
+}
+#footer .copyright pre {
+  color: #ffffff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+#footer .footer_bottom {
+  height: 35px;
+  text-align: center;
+  background: #423e3e;
+}
+</style>
+<html lang="en">
+	<head>
+	<title>Home</title>
+	<meta charset="utf-8">
+	<meta name = "format-detection" content = "telephone=no" />
+
+	
+	</head>
+<body class="index">
+<!--==============================header=================================-->
+<header id="header">
+	<div id="stuck_container">
+		<div class="container">
+			<div class="row">
+				<div class="grid_12">
+					<img src = "https://imagizer.imageshack.us/v2/260x105q90/661/JuWnm7.jpg"/>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+<!--=======content================================-->
+
+<section id="content">
+	<div class="full-width-container block-2">
+		<div class="container">
+			<div class="row">
+				<div class="grid_12">
+					<header>
+						<h4>Bienvenido a SMartinWebs!</h4>
+					</header>					
+					<p>Ya diste el primer paso para darle forma a tu idea de mejorar los procesos de informacion en tu empresa.</p>
+					<h4>¿Como podemos ayudarte?.</h4>
+					<p>Mediante el servicio completo de creacion, desarrollo e implementacion de sistemas web podemos mejorar tu emprendimiento sea cual sea el rubro en el que esta definido.</p>
+					<p>Desde un formulario de contacto en tu pagina institucional, hasta un desarrollo a la medida de tus necesidades mas especificas.</p>
+					<h4>¿A que nos dedicamos?.</h4>
+					<p>Creamos la representacion online de nuestros clientes, creamos Webs y herramientas para mejorar la performance de los mismos.</p>
+					<p>Te brindamos  la solucion que necesitas para  perfeccionar tu forma de trabajo y el flujo de la informacion.</p>
+					<p>No dudes en dejar tu consulta sin compromiso.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<br />
+<hr />
+<br />
+<section id="content">
+	<div class="full-width-container block-1">
+		<div class="container">
+			<div class="row">
+				<div class="grid_12">
+					<header>
+						<h2><span>Productos</span></h2>
+					</header>
+				</div>
+				<div id="touch_gallery">
+					<div class="grid_3">
+						<div class="img_container"><img src="https://imagizer.imageshack.us/v2/371x234q90/661/J64SeK.jpg" alt="projects"></div>
+						<article>
+							<h4>Control de Stock</h4>
+							<p>Proyecto creado para pequeñas y medianas empresas con gran caudal de movimiento de productos en tiempo contante. Controlar la cantidad de articulos a venderse es vital para mantener el flujo de ventas es por esto que AlertStock es la solucion para ellas. Con la creacion del listado de los productos a controlar y la configuracion de los indices guia podrá controlar mediante cualquier dispositivo con control a internet el estado del Stock de su emprendimiento.</p>
+						</article>
+					</div>
+					<div class="grid_3">
+						<div class="img_container"><img src="https://imagizer.imageshack.us/v2/371x234q90/910/j23XBi.jpg" alt="projects"></div>
+						<article>
+							<h4>Facturacion</h4>
+							<p>Sistema desarrollado para poder centralizar la informacion de ventas en varios puntos de venta. Tener accesos contante al estado de las ventas dia a dia en el momento que crea necesario, con el simple hecho de acceder a Facturacion SMart para controlar el estado de los ingresos, planificacion de ventas a futuro. Y recaudacion por puntos de venta. Herramienta completa para su emprendimiento, necesario para estar al tanto todo el tiempo del estado de su negocio.</p>
+						</article>
+					</div>
+					<div class="grid_3">
+						<div class="img_container"><img src="https://imagizer.imageshack.us/v2/371x234q90/538/cwVtRx.jpg" alt="projects"></div>
+						<article>
+							<h4>Proyeccion de Gastos</h4>
+							<p>Realizada para todo emprendimiento con constante inversion. Preveer los gastos para optimizar las ganancias y asi hacer de su negocio una mejor fuente de ingresos. Con el sistema de Proyeccion de gastos deberá configurar los datos que le ocasionan variaciones negativas e inversiones constantes para asi preveer con solo algunos clicks cuales son los proximos egresos en su empresa. Teniendo la ventaja de generar un reporte de futuros gastos basados en la experiencia.</p>
+						</article>
+					</div>
+					<div class="grid_3">
+						<div class="img_container"><img src="https://imagizer.imageshack.us/v2/371x234q90/537/5FcmXx.jpg" alt="projects"></div>
+						<article>
+							<h4>Produccion</h4>
+							<p>Ideado para empresas manufactureras. Este sistema de produccion le permitira maquetar cada producto a fabricar y asi calcular el costo de produccion de cada producto. De esta forma podrá administrar costos de grandes pedidos, calcular las proximas producciones y los ingresos de las mismas. De esta forma visibilizar el poder de recaudacion de cada producto y asi ajustarlo para su beneficio. Ideal para potenciar las ventas de sus productos con mayor margen de ganancia.</p>
+						</article>
+					</div>
+					<div class="grid_3">
+						<div class="img_container"><img src="https://imagizer.imageshack.us/v2/371x234q50/909/nfSr29.jpg" alt="projects"></div>
+						<article>
+							<h4>Inmobiliario</h4>
+							<p>Desarrollado para empresas inmobiliarias que quieran potenciar su alcance. Con el objetivo de complementar su presentacion online se diseña en conjunto con una pagina web la misma que contendra su vision como empresa e informará a sus visitantes acerca de la empresa. Administre sus propiedades a alquilar o vender con imagenes, mapas y detalles para que quienes visiten su web no duden en confiar en sus servicios. Ideal para fortalecer su emprendimiento inmobiliario.</p>
+						</article>
+					</div>
+					<div class="grid_3">
+						<div class="img_container"><img src="http://imageshack.com/a/img537/6707/QFvxos.jpg" alt="projects"></div>
+						<article>
+							<h4>Reservas</h4>
+							<p>Sistema de reserva para toda clases de emprendimientos que requieran el uso de un tiempo en un espacio determinado y/o de especialistas destinados a una tarea en particular. Turnos medicos, Sesiones, Hoteles, Estacionamientos, Salas de Reuniones, Canchas de Futbol, etc. Este sistema le permitira contar con la planilla de disponibilidad de su horarios de forma online, con lo que solo bastará con revisar su web. Esto falicitará la informacion a sus posibles clientes.</p>
+						</article>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<br />
+<hr />
+<br />
+<section id="content">
+	<div class="full-width-container block-1">
+		<div class="container">
+			<div class="row">
+				<div class="grid_12">
+					<header>
+						<h2><span> Servicios</span></h2>
+					</header>
+				</div>
+			</div>
+			<div class="row">
+				<div class="grid_8">
+					<article class="clearfix">
+						<div class="grid_4 alpha">
+							<div class="img_container"><img src="https://imagizer.imageshack.us/v2/371x245q90/661/AyxbDH.jpg" alt="img"></div>
+						</div>
+						<div class="grid_4">
+							<h5><a href="#">Desarrollo Web a Medida</a></h5>
+							<p>Soluciones personalizadas a sus necesidades web, trabajando en conjunto y con objetivos relacionados a tiempos de entrega que podrá ir comprobando diariamente. <br /> <br />La mejor opcion para hacer crecer su idea de optimizacion, mejora o innovacion a los hechos para fortalecerse como emprendimiento y de esta forma crecer. Me interiorizo directamente con las necesidades por lo que el desarrollo de los proyectos tienen solo como objetivo la mejora y el alcance de los objetivos establecidos desde un principio. </p>
+						</div>
+					</article>
+					<br />
+					<br />
+					<article class="clearfix">
+						<div class="grid_4 alpha">
+							<div class="img_container"><img src="https://imagizer.imageshack.us/v2/370x245q50/540/o5WhQE.jpg" alt="img"></div>
+						</div>
+						<div class="grid_4">
+							<h5><a href="#">Diseño Web</a></h5>
+							<p>Lleve su emprendimiento a la web porque hoy por hoy toda empresa que se precie de tal tiene su espacion online para mostrarse ante el mundo. Sin importar su tamaño o alcance, si es nacional o internacional. Su pagina web hablará por usted ante el mundo. Un sitio autoaministrable tambien puede ser la opcion. En conjunto podemos idear la mejor opcion para que su compania tenga la mejor vision en la web. Deja tu consulta de inmediato. </p>
+						</div>
+					</article>
+					<br />
+					<br />
+					<article class="clearfix">
+						<div class="grid_4 alpha">
+							<div class="img_container"><img src="https://imagizer.imageshack.us/v2/371x245q90/911/TmW37T.jpg" alt="img"></div>
+						</div>
+						<div class="grid_4">
+							<h5><a href="#">Hosting</a></h5>
+							<p>Servicio de hosting se ofrece de la mano de los del de Desarrollo a medida y el de Diseño Web. Pero tambien puede ser ofrecido de forma individual en la medida de sus necesidades. No dude en ponerse en dejar su pregunta y consulte la lista de precios actualizada.</p>
+						</div>
+					</article>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<br />
+<br />
+<!--=======footer=================================-->
+<footer id="footer">
+	<div class="container">
+		<div class="row">
+			<div class="grid_12 copyright">
+				<h2><span>Gracias por tu visita.</span></h2>
+				<h3><span>Dejanos tu consulta!</span></h3>
+				<br />
+				<br />
+				
+			</div>
+		</div>
+	</div>
+	<div class="footer_bottom"></div>
+</footer>
+</body>
+</html>
