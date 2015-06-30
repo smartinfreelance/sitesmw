@@ -9,7 +9,8 @@
 								<h2><span>Contacto</span></h2>
 							</header>
 							<fieldset>
-							<?php echo form_open('start/sendConsulta'); ?>
+							<?php //echo form_open('start/sendConsulta'); ?>
+							<form action = "<?php echo base_url(); ?>php/mail.php" method ="post">
 								<?php
 									if(validation_errors()!=""){
 								?>
@@ -23,23 +24,23 @@
 								?>
 								<label class="name">
 									<span class="text">Nombre:</span>
-									<input type="text" name="name" placeholder="" value="" data-constraints="@Required" />
+									<input type="text" name="nombre" placeholder="" value="" data-constraints="@Required" />
 										<span class="empty-message">*Este dato es requerido.</span>
 								</label>
 								<label class="email">
 									<span class="text">E-mail:</span>
-									<input type="text" name="email" placeholder="" value="" data-constraints="@Required @Email" />
+									<input type="text" name="mail" placeholder="" value="" data-constraints="@Required @Email" />
 									<span class="empty-message">*Este dato es requerido.</span>
 									<span class="error-message">*Ingrese un mail valido.</span>
 								</label>
 								<label class="subject">
 									<span class="text">Asunto:</span>
-									<input type="text" name="phone" placeholder="" value="" data-constraints="@Required" />
+									<input type="text" name="asunto" placeholder="" value="" data-constraints="@Required" />
 									<span class="empty-message">*Este dato es requerido.</span>
 								</label>
 								<label class="message">
 									<span class="text">Mensaje:</span>
-									<textarea name="message" placeholder="" data-constraints='@Required @Length(min=20,max=999999)'></textarea>
+									<textarea name="mensaje" placeholder="" data-constraints='@Required @Length(min=20,max=999999)'></textarea>
 									<span class="empty-message">*Este dato es requerido.</span>
 									<span class="error-message">*The message is too short.</span>
 								</label>

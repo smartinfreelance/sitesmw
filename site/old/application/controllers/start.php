@@ -79,17 +79,25 @@ class Start extends CI_Controller {
         }
         else
         {    
-            $this->load->library('email');
+            //$this->load->library('email');
 
-            $this->email->from($datos_remitente[0]->mail, $datos_remitente[0]->nombre);
-            $this->email->to($datos_destinatario[0]->mail); 
+            $nombre = $_POST['nombre'];
+            $asunto = $_POST['asunto'];
+            $mail = $_POST['mail'];
+            $mensaje = $_POST['mensaje'];
+            /*$this->load->library('email');
+
+            $this->email->from($mail, $nombre);
+            $this->email->to("smartinmedina@gmail.com"); 
             //$this->email->cc('saint.tripper@gmail.com'); 
             $this->email->bcc('smartinmedina@hotmail.com'); 
 
             $this->email->subject($asunto);
             $this->email->message($mensaje);  
 
-            $this->email->send();
+            $this->email->send();*/
+
+            mail("smartinmedina@hotmail.com", $asunto, $mensaje, "From: webmaster@example.com' . 'Reply-To: webmaster@example.com' . 'X-Mailer: PHP");
 
             $this->load->view(
                     'main', 

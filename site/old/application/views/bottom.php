@@ -12,7 +12,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="footer_bottom"><a href="http://www.templatemonster.com/" rel="nofollow"><img src="<?php echo base_url();?>images/footer-logo.png" alt="logo"></a></div>
+	<div class="footer_bottom"><a href="http://www.templatemonster.com/" rel="nofollow"><img src="images/footer-logo.png" alt="logo"></a></div>
 </footer>
 <?php
 	if(($modulo=="home")||($modulo=="webblog")){

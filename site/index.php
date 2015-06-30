@@ -1,205 +1,190 @@
-<?php
-
-/*
- *---------------------------------------------------------------
- * APPLICATION ENVIRONMENT
- *---------------------------------------------------------------
- *
- * You can load different configurations depending on your
- * current environment. Setting the environment also influences
- * things like logging and error reporting.
- *
- * This can be set to anything, but default usage is:
- *
- *     development
- *     testing
- *     production
- *
- * NOTE: If you change these, also change the error_reporting() code below
- *
- */
-	define('ENVIRONMENT', 'development');
-/*
- *---------------------------------------------------------------
- * ERROR REPORTING
- *---------------------------------------------------------------
- *
- * Different environments will require different levels of error reporting.
- * By default development will show errors but testing and live will hide them.
- */
-
-if (defined('ENVIRONMENT'))
-{
-	switch (ENVIRONMENT)
-	{
-		case 'development':
-			error_reporting(E_ALL);
-		break;
-	
-		case 'testing':
-		case 'production':
-			error_reporting(0);
-		break;
-
-		default:
-			exit('The application environment is not set correctly.');
-	}
-}
-
-/*
- *---------------------------------------------------------------
- * SYSTEM FOLDER NAME
- *---------------------------------------------------------------
- *
- * This variable must contain the name of your "system" folder.
- * Include the path if the folder is not in the same  directory
- * as this file.
- *
- */
-	$system_path = 'system';
-
-/*
- *---------------------------------------------------------------
- * APPLICATION FOLDER NAME
- *---------------------------------------------------------------
- *
- * If you want this front controller to use a different "application"
- * folder then the default one you can set its name here. The folder
- * can also be renamed or relocated anywhere on your server.  If
- * you do, use a full server path. For more info please see the user guide:
- * http://codeigniter.com/user_guide/general/managing_apps.html
- *
- * NO TRAILING SLASH!
- *
- */
-	$application_folder = 'application';
-
-/*
- * --------------------------------------------------------------------
- * DEFAULT CONTROLLER
- * --------------------------------------------------------------------
- *
- * Normally you will set your default controller in the routes.php file.
- * You can, however, force a custom routing by hard-coding a
- * specific controller class/function here.  For most applications, you
- * WILL NOT set your routing here, but it's an option for those
- * special instances where you might want to override the standard
- * routing in a specific front controller that shares a common CI installation.
- *
- * IMPORTANT:  If you set the routing here, NO OTHER controller will be
- * callable. In essence, this preference limits your application to ONE
- * specific controller.  Leave the function name blank if you need
- * to call functions dynamically via the URI.
- *
- * Un-comment the $routing array below to use this feature
- *
- */
-	// The directory name, relative to the "controllers" folder.  Leave blank
-	// if your controller is not in a sub-folder within the "controllers" folder
-	// $routing['directory'] = '';
-
-	// The controller class file name.  Example:  Mycontroller
-	// $routing['controller'] = '';
-
-	// The controller function you wish to be called.
-	// $routing['function']	= '';
-
-
-/*
- * -------------------------------------------------------------------
- *  CUSTOM CONFIG VALUES
- * -------------------------------------------------------------------
- *
- * The $assign_to_config array below will be passed dynamically to the
- * config class when initialized. This allows you to set custom config
- * items or override any default config values found in the config.php file.
- * This can be handy as it permits you to share one application between
- * multiple front controller files, with each file containing different
- * config values.
- *
- * Un-comment the $assign_to_config array below to use this feature
- *
- */
-	// $assign_to_config['name_of_config_item'] = 'value of config item';
-
-
-
-// --------------------------------------------------------------------
-// END OF USER CONFIGURABLE SETTINGS.  DO NOT EDIT BELOW THIS LINE
-// --------------------------------------------------------------------
-
-/*
- * ---------------------------------------------------------------
- *  Resolve the system path for increased reliability
- * ---------------------------------------------------------------
- */
-
-	// Set the current directory correctly for CLI requests
-	if (defined('STDIN'))
-	{
-		chdir(dirname(__FILE__));
-	}
-
-	if (realpath($system_path) !== FALSE)
-	{
-		$system_path = realpath($system_path).'/';
-	}
-
-	// ensure there's a trailing slash
-	$system_path = rtrim($system_path, '/').'/';
-
-	// Is the system path correct?
-	if ( ! is_dir($system_path))
-	{
-		exit("Your system folder path does not appear to be set correctly. Please open the following file and correct this: ".pathinfo(__FILE__, PATHINFO_BASENAME));
-	}
-
-/*
- * -------------------------------------------------------------------
- *  Now that we know the path, set the main path constants
- * -------------------------------------------------------------------
- */
-	// The name of THIS file
-	define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
-
-	// The PHP file extension
-	// this global constant is deprecated.
-	define('EXT', '.php');
-
-	// Path to the system folder
-	define('BASEPATH', str_replace("\\", "/", $system_path));
-
-	// Path to the front controller (this file)
-	define('FCPATH', str_replace(SELF, '', __FILE__));
-
-	// Name of the "system folder"
-	define('SYSDIR', trim(strrchr(trim(BASEPATH, '/'), '/'), '/'));
-
-
-	// The path to the "application" folder
-	if (is_dir($application_folder))
-	{
-		define('APPPATH', $application_folder.'/');
-	}
-	else
-	{
-		if ( ! is_dir(BASEPATH.$application_folder.'/'))
-		{
-			exit("Your application folder path does not appear to be set correctly. Please open the following file and correct this: ".SELF);
-		}
-
-		define('APPPATH', BASEPATH.$application_folder.'/');
-	}
-
-/*
- * --------------------------------------------------------------------
- * LOAD THE BOOTSTRAP FILE
- * --------------------------------------------------------------------
- *
- * And away we go...
- *
- */
-require_once BASEPATH.'core/CodeIgniter.php';
-
-/* End of file index.php */
-/* Location: ./index.php */
+<?php 
+  $modulo = "";
+  $path = __FILE__;
+  $file = basename($path, ".php");
+  if($file == "index"){
+    $modulo = "home";
+  }else if($file == "contacto"){
+    $modulo = "contacto";
+  }else if($file == "productos"){
+    $modulo = "productos";
+  }else if($file == "servicios"){
+    $modulo = "servicios";
+  }
+  include('top.php'); 
+?>
+<section id="content">
+  <div class="full-width-container block-1">
+    <div class="camera_container">
+      <div id="camera_wrap">
+        <div class="item" data-src="images/carousel-1.jpg";?>>
+          <div class="camera_caption fadeIn">
+            <h3>Bienvenido.</h3>
+            <p>Diseño y desarrollo herramientas web. Conoceme.</p>
+            <a href="#conoceme" class="btn bd-ra"><span class="fa fa-smile-o"></span></a>
+          </div>
+        </div>
+        <div class="item" data-src="images/carousel-2.jpg";?>>
+          <div class="camera_caption fadeIn">
+            <h3>La pieza que necesitas</h3>
+            <p>Genero herramientas para conseguir soluciones</p>
+            <a href="#productos" class="btn bd-ra"><span class="fa fa-puzzle-piece"></span></a>
+          </div>
+        </div>
+        <div class="item" data-src="images/carousel-3.jpg";?>>
+          <div class="camera_caption fadeIn">
+            <h3>Diseños a tu Medida</h3>
+            <p>Atencion personalizada</p>
+            <a href="#amedida" class="btn bd-ra"><span class="fa fa-code"></span></a>
+          </div>
+        </div>
+        <div class="item" data-src="images/carousel-4.jpg";?>>
+          <div class="camera_caption fadeIn">
+            <h3>No te quedes con dudas</h3>
+            <p>Enviame tu consulta.</p>
+            <a href = "contacto.php" class="btn bd-ra"><span class="fa fa-at"></span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="conoceme"> 
+    <div class="full-width-container block-2">
+      <div class="container">
+        <div class="row">
+          <div class="grid_12">
+            <header>
+              <h2><span>Me presento</span></h2>
+            </header>
+          </div>
+          <div class="grid_4">
+            <div class="img_container"><img src="images/index-1_img-1.jpg" alt="img"></div>
+          </div>
+          <div class="grid_7 preffix_1">
+            <p>Bienvenido, gracias por pasar por mi web. Mi nombre es Sergio Martín Medina, desarrollo sistemas de sistemas hace mas de 6 años. Siempre me desempeñé laboralmente en el ambito informatico y de sistemas. Desarrolle sistemas relacionados con  diferentes rubros: Servicios, Marketing, Publicidad y Finanzas, entre otros. Recorriendo diversos lenguajes de programacion y por proyectos de multiples tamaños, desde PyMES hasta multinacionales.</p>
+            <p>Algunas de las tecnologias que domino son: JAVA, Javascript, PHP, MySQL, CSS Y HTML5. </p>
+            <p>Al trabajar de forma independiente me interiorizo con las necesidades de mis clientes por lo que es prioridad su satisfaccion. </p>
+            <a href = "contacto.php" class="btn">Contacto</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="productos">
+    <div class="full-width-container block-3 parallax-block" data-stellar-background-ratio="0.5">
+      <div class="container">
+        <div class="row">
+          <div class="grid_12">
+            <header>
+              <h2><span>Productos</span></h2>
+            </header>
+          </div>
+          <div class="grid_4">
+            <div class="element"><h3><a href="#">Stock</a></h3></div>
+          </div>
+          <div class="grid_4">
+            <div class="element"><h3><a href="#">Facturacion</a></h3></div>
+          </div>
+          <div class="grid_4">
+            <div class="element"><h3><a href="#">Administracion</a></h3></div>
+          </div>
+          <div class="grid_4">
+            <div class="element"><h3><a href="#">Inmobiliario</a></h3></div>
+          </div>
+          <div class="grid_4">
+            <div class="element"><h3><a href="#">Diseño Web</a></h3></div>
+          </div>
+          <div class="grid_4">
+            <div class="element"><h3><a href="#">Desarrollo a Medida</a></h3></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="amedida">
+    <div class="full-width-container block-4">
+      <div class="container">
+        <div class="row">
+          <div class="grid_12">
+            <header>
+              <h2><span>Algunos trabajos</span></h2>
+            </header>
+          </div>
+        </div>
+        <div class="row">
+          <div id="owl-carousel" class="owl-carousel">
+            <div class="grid_4">
+              <div class="">
+                <div class="img_container"><img src="images/index_img-1.jpg";?> alt="img"></div>
+                <div class="owl-text">Alerta Stock</div>
+              </div>
+            </div>
+            <div class="grid_4">
+              <div class="">
+                <div class="img_container"><img src="images/index_img-2.jpg";?> alt="img"></div>
+                <div class="owl-text">Facturacion</div>
+              </div>
+            </div>
+            <div class="grid_4">
+              <div class="">
+                <div class="img_container"><img src="images/index_img-3.jpg";?> alt="img"></div>
+                <div class="owl-text">Administración</div>
+              </div>
+            </div>
+            <div class="grid_4">
+              <div class="">
+                <div class="img_container"><img src="images/index_img-4.jpg";?> alt=""></div>
+                <div class="owl-text">Diseño Web</div>
+              </div>
+            </div>
+            <div class="grid_4">
+              <div class="">
+                <div class="img_container"><img src="images/index_img-5.jpg";?> alt=""></div>
+                <div class="owl-text">Reportes Graficos</div>
+              </div>
+            </div>
+            <div class="grid_4">
+              <div class="">
+                <div class="img_container"><img src="images/index_img-6.jpg";?> alt=""></div>
+                <div class="owl-text">A medida</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--  <div class="full-width-container block-5">
+    <div class="container">
+      <div class="row">
+        <div class="grid_12">
+          <header>
+            <h2><span>Novedades</span></h2>
+          </header>
+        </div>
+        <div class="grid_4">
+          <article>
+            <h3><a href="#">November 2014</a></h3>
+            <p>Gamus at magna non nunc tristique rhoncuseri tym. Aliquam nibh ante, egestas id dictum aterert commodo re luctus libero. Praesent faucibus malesuada cibuste.</p>
+            <a href="#" class="btn">LEER MAS</a>
+          </article>
+        </div>
+        <div class="grid_4">
+          <article>
+            <h3><a href="#">March 2015</a></h3>
+            <p>Damus at magna non nunc tristique rhoncuseri tym. Aliquam nibh ante, egestas id dictum aterert commodo re luctus libero. Praesent faucibus malesuada cibust.</p>
+            <a href="#" class="btn">LEER MAS</a>
+          </article>
+        </div>
+        <div class="grid_4">
+          <article>
+            <h3><a href="#">June 2015</a></h3>
+            <p>Jamus at magna non nunc tristique rhoncuseri tym. Aliquam nibh ante, egestas id dictum aterert commodo re luctus libero. Praesent faucibus malesuadaonec. </p>
+            <a href="#" class="btn">LEER MAS</a>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>-->
+</section>
+<?php include('bottom.php'); ?>
