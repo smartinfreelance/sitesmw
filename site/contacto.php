@@ -18,14 +18,13 @@
 		<div class="container">
 			<div class="row">
 				<div class="grid_5">
-					<form id="contact-form">
+					<form id="contact-form" action = "php/mail.php" method ="post">
 						<div class="contact-form-loader"></div>
 							<header>
 								<h2><span>Contacto</span></h2>
 							</header>
 							<fieldset>
 							<?php //echo form_open('start/sendConsulta'); ?>
-							<form action = "php/mail.php" method ="post">
 								<label class="name">
 									<span class="text">Nombre:</span>
 									<input type="text" name="nombre" placeholder="" value="" data-constraints="@Required" />

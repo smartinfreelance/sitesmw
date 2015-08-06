@@ -27,7 +27,7 @@ $(window).load(function(){
 					,capchaTheme:'clean'
 				},opt)
 				
-			init()
+			/*init()
 			
 			function init(){				
 				form
@@ -94,7 +94,7 @@ $(window).load(function(){
 				if($('label.recaptcha',form).length!==0&&window.Recaptcha)
 					showRecaptcha()
 
-			}
+			}*/
 			
 			function fieldValidate(el){
 				var el=$(this)
