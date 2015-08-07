@@ -1,4 +1,27 @@
 <?php
+
+// if the url field is empty
+if(isset($_POST['url']) && $_POST['url'] == ''){
+
+	$to = "smartinmedina@hotmail.com";
+	$subject = "Different Try";
+	$txt = "Hello world!";
+	$headers = "From: ".$_POST['mail']. "\r\n" ."CC: somebodyelse@example.com";
+
+	mail("smartinmedina@hotmail.com", 
+		$_POST['asunto'], 
+		"Contacto desde la pagina web. \r\n" ."Mail: ".$_POST['mail']. "\r\n \r\n" .$_POST['mensaje'], 
+		"From: ".$_POST['mail']);
+
+	// mail($to,$subject,$txt,$headers);
+	//mail( 'smartinmedina@gmail.com', 'Contact Form', print_r($_POST,true) );
+	//mail( 'smartinmedina@hotmail.com', 'Contact Form 2', print_r($_POST,true) );
+}
+
+// otherwise, let the spammer think that they got their message through
+
+?>
+<?php
   $modulo = "";
   $path = __FILE__;
   $file = basename($path, ".php");
@@ -10,6 +33,8 @@
     $modulo = "productos";
   }else if($file == "servicios"){
     $modulo = "servicios";
+  }else if($file == "submit"){
+    $modulo = "gracias ".$_POST['nombre'];
   }
   include('top.php'); 
 ?>
@@ -27,51 +52,16 @@
 		<div class="container">
 			<div class="row">
 				<div class="grid_5">
-					<form id="contact-form" action = "submit.php" method ="post">
+					<form id="contact-form">
 						<div class="contact-form-loader"></div>
 							<header>
 								<h2><span>Contacto</span></h2>
 							</header>
 							<fieldset>
-							<?php //echo form_open('start/sendConsulta'); ?>
-								<label class="name">
-									<span class="text">Nombre:</span>
-									<input type="text" name="nombre" placeholder="" value="" data-constraints="@Required" />
-										<span class="empty-message">*Este dato es requerido.</span>
-								</label>
-								<label class="email">
-									<span class="text">E-mail:</span>
-									<input type="text" name="mail" placeholder="" value="" data-constraints="@Required @Email" />
-									<span class="empty-message">*Este dato es requerido.</span>
-									<span class="error-message">*Ingrese un mail valido.</span>
-								</label>
-								<label class="subject">
-									<span class="text">Asunto:</span>
-									<input type="text" name="asunto" placeholder="" value="" data-constraints="@Required" />
-									<span class="empty-message">*Este dato es requerido.</span>
-								</label>
-								<label class="message">
-									<span class="text">Mensaje:</span>
-									<textarea name="mensaje" placeholder="" data-constraints='@Required @Length(min=20,max=999999)'></textarea>
-									<span class="empty-message">*Este dato es requerido.</span>
-									<span class="error-message">*The message is too short.</span>
-								</label>
-								<p class="antispam">Leave this empty:
-								<br /><input name="url" /></p>
-								<div class="cont_btn">
-									<a href="#" data-type="reset" class="btn">Reset</a>
-									<input type = "submit" class = "btn" value = "Enviar" />
-								</div>
+								<h3>Tu mensaje fue recibido exitosamente, a la brevedad nos estaremos comunicando para responder su consulta.</h3>
+								<h3>Gracias</h3>
 						</fieldset> 
 					</form>
-					<p>My e-mail address:
-					<script type="text/javascript">
-						document.write('<a href="mailto:'+first + '@' + last+'">'+first + '@' + last+'<\/a>');
-					</script>
-					<noscript>
-					Please enable javascript or use the contact form.
-					</noscript>
-					</p>
 				</div>
 				<div class="grid_6 preffix_1">
 					<div>
