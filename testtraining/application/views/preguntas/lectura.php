@@ -28,7 +28,7 @@
 					$aux = $p->id;
 		?>
 					<p>
-						<h4><?php echo $p->pregunta; ?></h4>
+						<h4><?php echo $p->id.") ".$p->pregunta; ?></h4>
 					</p>
 		<?php
 				}
