@@ -1,4 +1,6 @@
 <script type="text/javascript">
+
+
 	$(document).ready(function() {
 
 		$("div[id^='resp']").css( "cursor", "pointer" );
@@ -10,7 +12,10 @@
 			$("div[id^='respCorrect']").css( "color", "black" );
 			$("div[id^='respWrong']").css( "color", "black" );	
 		});
-
+		var id_respuesta_f = $("#id_respuesta_f").val();
+		if( id_respuesta_f != ""){
+			window.location.href = "<?php echo base_url();?>index.php/preguntas/index";
+		}
 	});
 
 	function setRespuesta(value,correcta){

@@ -6,6 +6,8 @@ class Login extends CI_Controller
     {
         parent::__construct();
         $this->load->model('loginCRUD');
+        $this->load->model('tasksCRUD');
+
     }
 
     function index()
@@ -21,14 +23,14 @@ class Login extends CI_Controller
         if(count($usuario) > 0){
             $datos=array("idusuario_inmo"=> $usuario[0]->id,"nombre"=> $usuario[0]->nombre,"usuario"=> $usuario[0]->usuario,"rol"=> $usuario[0]->id_rol);
             $this->session->set_userdata($datos);
-            $productos = $this->productosCRUD->getDiezProductos();
+            $tasks = $this->tasksCRUD->getXTasks(0,10);
             $linksPaginacion = $this->getLinksPaginacion(0,10); 
             $this->load->view(
                 'main', 
                 array(
-                    "modulo" => 'productos',
+                    "modulo" => 'tasks',
                     "pagina" => 'panel',
-                    "productos" => $productos,
+                    "tasks" => $tasks,
                     "links" => $linksPaginacion
                 )
             );
@@ -52,7 +54,7 @@ class Login extends CI_Controller
         $cantPages = 0;
         $aparece = 0;
 
-        $cantRows = $this->productosCRUD->getCantProductos();
+        $cantRows = $this->tasksCRUD->getCantTasks();
         if($cantRows > $cantResPP){
             $cantPages = round($cantRows / $cantResPP);
             if(($cantRows % $cantResPP) > 0 ){

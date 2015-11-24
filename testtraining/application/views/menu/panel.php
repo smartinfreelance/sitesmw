@@ -7,7 +7,13 @@
 			<div class="widget-head">
 				<h5>Tests</h5>
 				<div class="widget-control pull-right">
-					<a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-cog"></i><b class="caret"></b></a>
+				<?php
+					if($this->session->userdata('rol') <= 3){
+				?>
+						<a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-cog"></i>Opciones <b class="caret"></b></a>
+				<?php
+					}
+				?>	
 					<ul class="dropdown-menu">
 						<li><?php echo anchor('topics/setNewCourse/',"<i class='icon-plus'></i> Agregar Nuevo</a>"); ?></li>
 					</ul>

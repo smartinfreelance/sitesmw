@@ -14,9 +14,22 @@ class Preguntas extends CI_Controller {
 	{
 		date_default_timezone_set('America/Argentina/Buenos_Aires');
 		if($this->session->userdata('idusuario_tt')){
+
 			$all_topics = $this->topicscrud->getAllTopics();
 
 			$li_content = array();
+
+			$cant_vidas_default = 0;
+
+            if($this->session->userdata('rol') == 1){
+                $cant_vidas_default = 100;
+            }if($this->session->userdata('rol') == 2){
+                $cant_vidas_default = 100;
+            }if($this->session->userdata('rol') == 3){
+                $cant_vidas_default = 3;
+            }else{
+                $cant_vidas_default = 100;
+            }
 
 			foreach($all_topics as $at){
 				$vidas_mp = 0;				
@@ -24,8 +37,8 @@ class Preguntas extends CI_Controller {
 				$cant_jug_mp = $this->topicscrud->getCantTries($at->id, $this->session->userdata('idusuario_tt'), 1 ,date("Y-m-d"));
 				$cant_jug_ms = $this->topicscrud->getCantTries($at->id, $this->session->userdata('idusuario_tt'), 2 ,date("Y-m-d"));
 
-				$vidas_mp = 3 - $cant_jug_mp;
-				$vidas_ms = 3 - $cant_jug_ms;
+				$vidas_mp = $cant_vidas_default - $cant_jug_mp;
+				$vidas_ms = $cant_vidas_default - $cant_jug_ms;
 				$ml = $vidas_ms + $vidas_mp;
 
 				if($ml>0){
@@ -71,7 +84,19 @@ class Preguntas extends CI_Controller {
 			
 			$cant_tries = $this->topicscrud->getCantTries($id,$this->session->userdata('idusuario_tt'),2,date("Y-m-d"));
 
-			if($cant_tries < 3){
+			$cant_vidas_default = 0;
+
+            if($this->session->userdata('rol') == 1){
+                $cant_vidas_default = 100;
+            }if($this->session->userdata('rol') == 2){
+                $cant_vidas_default = 100;
+            }if($this->session->userdata('rol') == 3){
+                $cant_vidas_default = 3;
+            }else{
+                $cant_vidas_default = 100;
+            }
+
+			if($cant_tries < $cant_vidas_default){
 				$id_try = $this->topicscrud->addTry($id,$this->session->userdata('idusuario_tt'),2);
 				$preguntas = $this->preguntascrud->getPreguntasByTopic($id);
 				$filtro = "";
@@ -102,8 +127,8 @@ class Preguntas extends CI_Controller {
 				$cant_jug_mp = $this->topicscrud->getCantTries($id, $this->session->userdata('idusuario_tt'), 1 ,date("Y-m-d"));
 				$cant_jug_ms = $this->topicscrud->getCantTries($id, $this->session->userdata('idusuario_tt'), 2 ,date("Y-m-d"));
 
-				$vidas_mp = 3 - $cant_jug_mp;
-				$vidas_ms = 3 - $cant_jug_ms;
+				$vidas_mp = $cant_vidas_default - $cant_jug_mp;
+				$vidas_ms = $cant_vidas_default - $cant_jug_ms;
 				$ml = $vidas_ms + $vidas_mp;
 
 				$attributos = $this->topicscrud->get_attributos($id);
@@ -167,6 +192,18 @@ class Preguntas extends CI_Controller {
 	{
 		if($this->session->userdata('idusuario_tt')){
 
+			$cant_vidas_default = 0;
+
+            if($this->session->userdata('rol') == 1){
+                $cant_vidas_default = 100;
+            }if($this->session->userdata('rol') == 2){
+                $cant_vidas_default = 100;
+            }if($this->session->userdata('rol') == 3){
+                $cant_vidas_default = 3;
+            }else{
+                $cant_vidas_default = 100;
+            }
+
 			if(isset($_POST["id_topic"])){
 				$id_topic = $_POST["id_topic"];
 			}else{
@@ -174,7 +211,7 @@ class Preguntas extends CI_Controller {
 			}
 
 			$cant_tries = $this->topicscrud->getCantTries($id_topic,$this->session->userdata('idusuario_tt'),1,date("Y-m-d"));
-			if(($cant_tries < 3) || ((isset($_POST["id_topic"])) && ($cant_tries == 3))){
+			if(($cant_tries < $cant_vidas_default) || ((isset($_POST["id_topic"])) && ($cant_tries == $cant_vidas_default))){
 
 				if(isset($_POST["id_try"])){
 					$id_try = $_POST["id_try"];
@@ -261,8 +298,8 @@ class Preguntas extends CI_Controller {
 				$cant_jug_mp = $this->topicscrud->getCantTries($id_topic, $this->session->userdata('idusuario_tt'), 1 ,date("Y-m-d"));
 				$cant_jug_ms = $this->topicscrud->getCantTries($id_topic, $this->session->userdata('idusuario_tt'), 2 ,date("Y-m-d"));
 
-				$vidas_mp = 3 - $cant_jug_mp;
-				$vidas_ms = 3 - $cant_jug_ms;
+				$vidas_mp = $cant_vidas_default - $cant_jug_mp;
+				$vidas_ms = $cant_vidas_default - $cant_jug_ms;
 				$ml = $vidas_ms + $vidas_mp;
 
 				$attributos = $this->topicscrud->get_attributos($id_topic);
@@ -333,6 +370,19 @@ class Preguntas extends CI_Controller {
 
 	function imprimirResultado($total,$correctas,$id_topic,$modo,$pts_parcial,$pregResCorr = array(), $pregResIncorr = array()){
 		if($this->session->userdata('idusuario_tt')){
+
+			$cant_vidas_default = 0;
+
+            if($this->session->userdata('rol') == 1){
+                $cant_vidas_default = 100;
+            }if($this->session->userdata('rol') == 2){
+                $cant_vidas_default = 100;
+            }if($this->session->userdata('rol') == 3){
+                $cant_vidas_default = 3;
+            }else{
+                $cant_vidas_default = 100;
+            }
+
 			if($total != 0){
 				$porcentaje = round(($correctas * 100)/$total ,2);
 			}else{
@@ -348,7 +398,7 @@ class Preguntas extends CI_Controller {
 			}else if($modo == "modoSimulador"){
 				$cant_jug = $this->topicscrud->getCantTries($id_topic, $this->session->userdata('idusuario_tt'), 2 ,date("Y-m-d"));
 			}
-			$vidas = 3 - $cant_jug;
+			$vidas = $cant_vidas_default - $cant_jug;
 
 			$attributos = $this->topicscrud->get_attributos($id_topic);
 			$calificacion = $this->topicscrud->getCalificacionXTopic($id_topic,$this->session->userdata('idusuario_tt'));

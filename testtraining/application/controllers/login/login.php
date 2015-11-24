@@ -16,6 +16,17 @@ class Login extends CI_Controller
             $all_topics = $this->topicscrud->getAllTopics();
 
             $li_content = array();
+            $cant_vidas_default = 0;
+
+            if($usuario[0]->id_rol == 1){
+                $cant_vidas_default = 100;
+            }if($usuario[0]->id_rol == 2){
+                $cant_vidas_default = 100;
+            }if($usuario[0]->id_rol == 3){
+                $cant_vidas_default = 3;
+            }else{
+                $cant_vidas_default = 100;
+            }
 
             foreach($all_topics as $at){
                 $vidas_mp = 0;              
@@ -23,8 +34,8 @@ class Login extends CI_Controller
                 $cant_jug_mp = $this->topicscrud->getCantTries($at->id, $this->session->userdata('idusuario_tt'), 1 ,date("Y-m-d"));
                 $cant_jug_ms = $this->topicscrud->getCantTries($at->id, $this->session->userdata('idusuario_tt'), 2 ,date("Y-m-d"));
 
-                $vidas_mp = 3 - $cant_jug_mp;
-                $vidas_ms = 3 - $cant_jug_ms;
+                $vidas_mp = $cant_vidas_default - $cant_jug_mp;
+                $vidas_ms = $cant_vidas_default - $cant_jug_ms;
                 $ml = $vidas_ms + $vidas_mp;
 
                 if($ml>0){
@@ -58,19 +69,31 @@ class Login extends CI_Controller
         if(count($usuario) > 0){
             $fecha_nac = $this->pasarFechaADDMMAAAA($usuario[0]->fecha_nac); // Proviene de AAAA-MM-DD
             $datos = array(
-                        "idusuario_tt"=> $usuario[0]->id,
-                        "nombre"=> $usuario[0]->nombre,
-                        "apellido"=> $usuario[0]->apellido,
-                        "mail"=> $usuario[0]->mail,
-                        "fecha_nac"=> $fecha_nac,
-                        "usuario"=> $usuario[0]->usuario,
-                        "rol"=> $usuario[0]->id_rol
+                        "idusuario_tt" => $usuario[0]->id,
+                        "nombre" => $usuario[0]->nombre,
+                        "apellido" => $usuario[0]->apellido,
+                        "mail" => $usuario[0]->mail,
+                        "fecha_nac" => $fecha_nac,
+                        "usuario" => $usuario[0]->usuario,
+                        "rol" => $usuario[0]->id_rol
                     );
             $this->session->set_userdata($datos);
             
             $all_topics = $this->topicscrud->getAllTopics();
 
             $li_content = array();
+
+            $cant_vidas_default = 0;
+
+            if($usuario[0]->id_rol == 1){
+                $cant_vidas_default = 100;
+            }if($usuario[0]->id_rol == 2){
+                $cant_vidas_default = 100;
+            }if($usuario[0]->id_rol == 3){
+                $cant_vidas_default = 3;
+            }else{
+                $cant_vidas_default = 100;
+            }
 
             foreach($all_topics as $at){
                 $vidas_mp = 0;              
@@ -79,8 +102,8 @@ class Login extends CI_Controller
                 $cant_jug_mp = $this->topicscrud->getCantTries($at->id, $this->session->userdata('idusuario_tt'), 1 ,date("Y-m-d"));
                 $cant_jug_ms = $this->topicscrud->getCantTries($at->id, $this->session->userdata('idusuario_tt'), 2 ,date("Y-m-d"));
 
-                $vidas_mp = 3 - $cant_jug_mp;
-                $vidas_ms = 3 - $cant_jug_ms;
+                $vidas_mp = $cant_vidas_default - $cant_jug_mp;
+                $vidas_ms = $cant_vidas_default - $cant_jug_ms;
                 $ml = $vidas_ms + $vidas_mp;
 
                 if($ml>0){
