@@ -10,10 +10,16 @@ class Preguntas extends CI_Controller {
         $this->load->model('logincrud');
     }
 
-	public function index()
+	public function index($mensaje_error="")
 	{
 		date_default_timezone_set('America/Argentina/Buenos_Aires');
 		if($this->session->userdata('idusuario_tt')){
+			$mensaje_e =  "";
+			$mensaje_i =  "";
+			if($mensaje_error=="1"){
+				$mensaje_e =  "<strong>Error</strong>, saliste del juego de forma indebida.";
+				$mensaje_i =  "<strong>Info</strong>, no utilices la funcion 'Volver' durante el modo Preguntados.";
+			}
 
 			$all_topics = $this->topicscrud->getAllTopics();
 
@@ -56,7 +62,10 @@ class Preguntas extends CI_Controller {
 									"modulo" => 'menu',
 									"pagina" => 'panel',
 									"topics" => $all_topics,
-									"li_content" => $li_content
+									"li_content" => $li_content,
+                                    "mensaje_success" => "",
+                                    "mensaje_error" => $mensaje_e,
+                                    "mensaje_info" => $mensaje_i
 									));
 		}else{
 			$this->load->view('login');

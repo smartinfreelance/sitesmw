@@ -14,7 +14,7 @@
 		});
 		var id_respuesta_f = $("#id_respuesta_f").val();
 		if( id_respuesta_f != ""){
-			window.location.href = "<?php echo base_url();?>index.php/preguntas/index";
+			window.location.href = "<?php echo base_url();?>index.php/preguntas/index/1";
 		}
 	});
 

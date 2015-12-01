@@ -3,6 +3,43 @@
 		<div class="page-header">
 			<h1>Test Training <small>porque el saber no ocupa lugar</small></h1>
 		</div>
+		<?php
+			if(isset($mensaje_error)){
+				if($mensaje_error!=""){
+		?>
+			<div class="alert alert-error fade in">
+				<button data-dismiss="alert" class="close" type="button">×</button>
+				<?php echo $mensaje_error; ?>
+			</div>
+		<?php
+				}
+			}
+
+			if(isset($mensaje_success)){
+				if($mensaje_success!=""){
+		?>
+			<div class="alert alert-success fade in">
+				<button data-dismiss="alert" class="close" type="button">×</button>
+				<?php echo $mensaje_success; ?>
+			</div>
+		<?php
+				}
+			}
+
+			if(isset($mensaje_info)){
+				if($mensaje_info != ""){
+		?>
+			<div class="alert alert-info fade in">
+				<button data-dismiss="alert" class="close" type="button">×</button>
+				<?php echo $mensaje_info; ?>
+			</div>
+		<?php
+				}
+			}
+
+		?>
+
+
 		<div class="widget-block">
 			<div class="widget-head">
 				<h5>Tests</h5>
@@ -10,13 +47,14 @@
 				<?php
 					if($this->session->userdata('rol') <= 3){
 				?>
-						<a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-cog"></i>Opciones <b class="caret"></b></a>
+					<a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-cog"></i>Opciones <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><?php if($this->session->userdata('rol') == 1) echo anchor('usuario/addUsuario/',"<i class='icon-plus'></i> Agregar Usuario</a>"); ?></li>
+						<li><?php echo anchor('topics/setNewCourse/',"<i class='icon-plus'></i> Agregar Test</a>"); ?></li>
+					</ul>
 				<?php
 					}
-				?>	
-					<ul class="dropdown-menu">
-						<li><?php echo anchor('topics/setNewCourse/',"<i class='icon-plus'></i> Agregar Nuevo</a>"); ?></li>
-					</ul>
+				?>						
 				</div>
 			</div>
 			<div class="widget-content">

@@ -45,5 +45,41 @@ class UsuarioCRUD extends CI_Model {
 		return $query->result();
 
 	}
+
+	function getRoles()
+	{
+        $query = $this->db->query("select
+										*
+									from
+										roles
+									where 
+										roles.estado = 0");
+		return $query->result();
+    }
+
+    function addUser($usuario,$nombre,$apellido,$id_rol,$pass,$fecha_nac){
+    	$query= $this->db->query("insert into 
+									usuarios(
+										usuario,
+										nombre,
+										apellido,
+										id_rol,
+										password,
+										fecha_nac
+										
+									)
+									values (
+										'".$usuario."',
+										'".$nombre."',
+										'".$apellido."',
+										".$id_rol.",
+										md5('".$pass."'),
+										'".$fecha_nac."'
+
+										)
+									");
+		return 0;
+
+    }
 }
 ?>

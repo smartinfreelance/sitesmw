@@ -17,6 +17,17 @@ class Topics extends CI_Controller {
 			$all_topics = $this->topicscrud->getAllTopics();
 
 			$li_content = array();
+			$cant_vidas_default = 0;
+
+            if($this->session->userdata('rol') == 1){
+                $cant_vidas_default = 100;
+            }if($this->session->userdata('rol') == 2){
+                $cant_vidas_default = 100;
+            }if($this->session->userdata('rol') == 3){
+                $cant_vidas_default = 3;
+            }else{
+                $cant_vidas_default = 100;
+            }
 
 			$cant_vidas_default = 0;
 
@@ -55,7 +66,10 @@ class Topics extends CI_Controller {
 									"modulo" => 'menu',
 									"pagina" => 'panel',
 									"topics" => $all_topics,
-									"li_content" => $li_content
+									"li_content" => $li_content,
+                                    "mensaje_success" => "",
+                                    "mensaje_error" => "",
+                                    "mensaje_info" => ""
 									));
 		}else{
 			$this->load->view('login');

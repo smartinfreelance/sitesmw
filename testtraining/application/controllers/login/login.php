@@ -18,11 +18,11 @@ class Login extends CI_Controller
             $li_content = array();
             $cant_vidas_default = 0;
 
-            if($usuario[0]->id_rol == 1){
+            if($this->session->userdata('rol') == 1){
                 $cant_vidas_default = 100;
-            }if($usuario[0]->id_rol == 2){
+            }if($this->session->userdata('rol') == 2){
                 $cant_vidas_default = 100;
-            }if($usuario[0]->id_rol == 3){
+            }if($this->session->userdata('rol') == 3){
                 $cant_vidas_default = 3;
             }else{
                 $cant_vidas_default = 100;
@@ -53,7 +53,10 @@ class Login extends CI_Controller
                                     "modulo" => 'menu',
                                     "pagina" => 'panel',
                                     "topics" => $all_topics,
-                                    "li_content" => $li_content
+                                    "li_content" => $li_content,
+                                    "mensaje_success" => "",
+                                    "mensaje_error" => "",
+                                    "mensaje_info" => ""
                                     ));
         }else{
             $this->load->view('login');
@@ -121,7 +124,10 @@ class Login extends CI_Controller
                                     "modulo" => 'menu',
                                     "pagina" => 'panel',
                                     "topics" => $all_topics,
-                                    "li_content" => $li_content
+                                    "li_content" => $li_content,
+                                    "mensaje_success" => "<strong>Bienvenido</strong>, ".$this->session->userdata('nombre')."!",
+                                    "mensaje_error" => "",
+                                    "mensaje_info" => ""
                                     ));
         }else{
            $this->load->view('login');
