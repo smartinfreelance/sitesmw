@@ -29,6 +29,8 @@
 				$("#respondeMal").css( "display", "none" );	
 				$("#noResponde").css( "display", "none" );				
 			}else{
+				$("div[id^='respCorrect']").css( "color", "green" );
+				$("div[id^='respWrong']").css( "color", "red" );			
 				$("#respondeBien").css( "display", "none" );	
 				$("#respondeMal").css( "display", "block" );	
 				$("#noResponde").css( "display", "none" );	

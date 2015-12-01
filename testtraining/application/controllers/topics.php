@@ -18,14 +18,26 @@ class Topics extends CI_Controller {
 
 			$li_content = array();
 
+			$cant_vidas_default = 0;
+
+            if($this->session->userdata('rol') == 1){
+                $cant_vidas_default = 100;
+            }if($this->session->userdata('rol') == 2){
+                $cant_vidas_default = 100;
+            }if($this->session->userdata('rol') == 3){
+                $cant_vidas_default = 3;
+            }else{
+                $cant_vidas_default = 100;
+            }
+
 			foreach($all_topics as $at){
 				$vidas_mp = 0;				
 				$vidas_ms = 0;
 				$cant_jug_mp = $this->topicscrud->getCantTries($at->id, $this->session->userdata('idusuario_tt'), 1 ,date("Y-m-d"));
 				$cant_jug_ms = $this->topicscrud->getCantTries($at->id, $this->session->userdata('idusuario_tt'), 2 ,date("Y-m-d"));
 
-				$vidas_mp = 3 - $cant_jug_mp;
-				$vidas_ms = 3 - $cant_jug_ms;
+				$vidas_mp = $cant_vidas_default - $cant_jug_mp;
+				$vidas_ms = $cant_vidas_default - $cant_jug_ms;
 				$ml = $vidas_ms + $vidas_mp;
 
 				if($ml>0){
@@ -54,11 +66,15 @@ class Topics extends CI_Controller {
 	public function setNewCourse()
 	{
 		if($this->session->userdata('idusuario_tt')){
-			$this->load->view('main', 
-								array(
-									"modulo" => 'topics',
-									"pagina" => 'add'
-									));
+			if($this->session->userdata('rol') < 4){
+				$this->load->view('main', 
+									array(
+										"modulo" => 'topics',
+										"pagina" => 'add'
+										));
+			}else{
+				$this->index();
+			}
 		}else{
 			$this->load->view('login');
 		}
