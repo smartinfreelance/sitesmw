@@ -81,14 +81,38 @@
         }
 
         function es_fecha($str){
-            
+
             $fecha = $this->traducirFecha($str);
 
         }
 
-        function traducirFechaToIng($fechaIng){
+        function traducirFechaToEsp($fechaIng){
+            $fechaEsp = "";
+            $arr = explode("-", $fechaIng);
+            $i = 0;
+            if(is_array($arr)){
+                foreach($arr as $a){
+                    if($i==0){
+                        $dia = $a[$i];
+                    }
+                    if($i==1){
+                        $mes = $a[$i];
+                    }
+                    if($i==2){
+                        $anio = $a[$i];
+                    }
+                    $i++;
+                }
 
-            $fechaEsp 
+                if($i != 3){
+                    $fechaEsp = "";
+
+                }else{
+                    $fechaEsp = $dia."/".$mes."/".$anio;
+                }
+            }else{
+                $fechaEsp = "";
+            }
             return $fechaEsp;
         }
 
