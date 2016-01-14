@@ -115,37 +115,37 @@
           <div id="owl-carousel" class="owl-carousel">
             <div class="grid_4">
               <div class="">
-                <div class="img_container"><img src="images/index_img-1.jpg";?> alt="img"></div>
+                <div class="img_container"><img src="images/index_img-1.jpg" alt="img"></div>
                 <div class="owl-text">Alerta Stock</div>
               </div>
             </div>
             <div class="grid_4">
               <div class="">
-                <div class="img_container"><img src="images/index_img-2.jpg";?> alt="img"></div>
+                <div class="img_container"><img src="images/index_img-2.jpg" alt="img"></div>
                 <div class="owl-text">Facturacion</div>
               </div>
             </div>
             <div class="grid_4">
               <div class="">
-                <div class="img_container"><img src="images/index_img-3.jpg";?> alt="img"></div>
+                <div class="img_container"><img src="images/index_img-3.jpg" alt="img"></div>
                 <div class="owl-text">Administración</div>
               </div>
             </div>
             <div class="grid_4">
               <div class="">
-                <div class="img_container"><img src="images/index_img-4.jpg";?> alt=""></div>
+                <div class="img_container"><img src="images/index_img-4.jpg" alt=""></div>
                 <div class="owl-text">Diseño Web</div>
               </div>
             </div>
             <div class="grid_4">
               <div class="">
-                <div class="img_container"><img src="images/index_img-5.jpg";?> alt=""></div>
+                <div class="img_container"><img src="images/index_img-5.jpg" alt=""></div>
                 <div class="owl-text">Reportes Graficos</div>
               </div>
             </div>
             <div class="grid_4">
               <div class="">
-                <div class="img_container"><img src="images/index_img-6.jpg";?> alt=""></div>
+                <div class="img_container"><img src="images/index_img-6.jpg" alt=""></div>
                 <div class="owl-text">A medida</div>
               </div>
             </div>

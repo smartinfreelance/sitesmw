@@ -1,5 +1,11 @@
 <style type="text/css">
-  #map-canvas { height: 350px;width:350px; }
+  #map-canvas { height: 450px;width:100%; }
+  #imagecontainer {
+    width: 100%;
+    height: 375px;
+    vertical-align:middle;
+    background-size:contain;
+}
 </style>
 <script type="text/javascript">
   function initialize() {
@@ -28,14 +34,15 @@
     </div>
     <div class = "row">
       <div class = "span6">
+        <div id = "imagecontainer">
           <?php
             $x = 0;
             foreach ($fotos as $f) {
               $x++;
           ?>
             <a name="image"></a> 
-            <div class="image" id = "image<?php echo $x; ?>" style="<?php if($x==1){ echo 'display:block;';}else{ echo 'display:none;';}?>max-width:600px;max-height:400px;" align = "center" valign = "center">
-              <img src = "<?php echo base_url().$f->path;?>" width="auto" height="auto">
+            <div class="image" id = "image<?php echo $x; ?>" style="<?php if($x==1){ echo 'display:block;';}else{ echo 'display:none;';}?>" align = "center" valign = "center">
+              <img src = "<?php echo base_url().$f->path;?>" style = "max-height:375px;">
             </div>
             <?php
               }
@@ -48,83 +55,83 @@
               }
               $x = 0;
             ?>
-            <div class="imagesthumb" align="center" valign ="middle">
-            <?php
-              foreach ($fotos as $f) {
-                $x++;
-            ?>
-            <a href="#image" id = "imthumb<?php echo $x; ?>">
-              <img src = "<?php echo base_url().$f->path_thumb;?>">
-            </a>
-            <?php
+        </div>
+        <div class="imagesthumb" align="center" valign ="middle">
+          <?php
+            foreach ($fotos as $f) {
+              $x++;
+          ?>
+          <a id = "imthumb<?php echo $x; ?>">
+            <img src = "<?php echo base_url().$f->path_thumb;?>">
+          </a>
+          <?php
+          }
+          if($x==0){
+          ?>
+          <a id = "imthumb1">
+            <img src = "<?php echo base_url()."uploads/fotos_inmuebles/sinimagen_thumb.png";?>">
+          </a>
+          <?php
             }
-            if($x==0){
-            ?>
-            <a href="#image" id = "imthumb1">
-              <img src = "<?php echo base_url()."uploads/fotos_inmuebles/sinimagen_thumb.png";?>">
-            </a>
-            <?php
-              }
-            ?>
-            </div>
-            
-        
+          ?>
+        </div>
       </div>
 
       <div class = "span6">
-        <div id="map-canvas"></div>
+        <div id="map-canvas" style="width:100%"></div>
       </div>
     </div>
+    <hr />
     <div class="span12">
-        <div class="widget-block">
-          <div class="widget-head">
-            <h5><i class="icon-list"></i>Caracteristicas</h5>
-          </div>
-          <div class="widget-content">
-            <div class="widget-box">
-              <div class="white-box well">
-                <h3>Breve descripcion:</h3>
-                <p>
-                  <?php echo $inmueble->tipo_inmueble." en ".$inmueble->operacion." en ".$inmueble->nombre_localidad.".";?>
-                </p>
-                <p>
-                  <?php echo "Estado: ".$inmueble->nombre_einmueble;?>
-                </p>
-                <p>
-                  <?php echo "Antiguedad: ".$inmueble->antiguedad;?>
-                </p>
-                <h3>Lead body copy</h3>
-                <p>
-                  Make a paragraph stand out by adding <code>.lead</code>.
-                </p>
-                <p class="lead">
-                  Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus.
-                </p>
-                <blockquote>
-                  <p>
-                     Cras erat diam, consequat quis tincidunt nec, eleifend a turpis. Aliquam ultrices feugiat metus, ut imperdiet erat mollis at. Curabitur mattis risus sagittis nibh lobortis vel.
-                  </p>
-                </blockquote>
-                <blockquote class="quote_blue">
-                  <p>
-                     Cras erat diam, consequat quis tincidunt nec, eleifend a turpis. Aliquam ultrices feugiat metus, ut imperdiet erat mollis at. Curabitur mattis risus sagittis nibh lobortis vel.
-                  </p>
-                </blockquote>
-                <blockquote class="quote_orange">
-                  <p>
-                     Cras erat diam, consequat quis tincidunt nec, eleifend a turpis. Aliquam ultrices feugiat metus, ut imperdiet erat mollis at. Curabitur mattis risus sagittis nibh lobortis vel.
-                  </p>
-                </blockquote>
-                <blockquote class="quote_pink">
-                  <p class=" quote">
-                     Cras erat diam, consequat quis tincidunt nec, eleifend a turpis. Aliquam ultrices feugiat metus, ut imperdiet erat mollis at. Curabitur mattis risus sagittis nibh lobortis vel.
-                  </p>
-                </blockquote>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <h2>Caracteristicas</h2>
+      <h3>Datos Básicos</h3>
+      <?php echo "<strong>Ubicacion</strong>: ".$inmueble->nombre_provincia; ?>, 
+      <?php echo $inmueble->nombre_departamento; ?>,
+      <?php echo $inmueble->nombre_localidad; ?><br />
+      <?php echo "<strong>Direccion</strong>: ".$inmueble->direccion; ?><br />
+      <?php echo "<strong>Antiguedad</strong>: ".$inmueble->antiguedad." años."; ?><br />
+      <?php echo "<strong>Operacion</strong>: ".$inmueble->operacion; ?><br />
+      <?php echo "<strong>Moneda</strong>: ".$inmueble->moneda; ?><br />
+      <?php echo "<strong>Precio</strong>: ".$inmueble->precio; ?><br />
+      <?php echo "<strong>Descripcion</strong>: ".$inmueble->descripcion; ?><br />
+      <?php echo "<strong>Estado</strong>: ".$inmueble->estado_inmueble; ?><br />      
+
+      <?php echo "<strong>Tipo Inmueble</strong>: ".$inmueble->tipo_inmueble; ?><br />      
+      <?php echo "<strong>Contacto</strong>: ".$inmueble->contacto; ?><br />      
+      <br />      
+      <h3>Superficie</h3>      
+      <?php echo "<strong>Superficie Cubierta</strong>: ".$inmueble->superficie_cubierta."m<sup>2</sup>"; ?><br />      
+      <?php echo "<strong>Superficie Descubierta</strong>: ".$inmueble->superficie_descubierta."m<sup>2</sup>"; ?><br />      
+      <br />      
+      <h3>Ambientes</h3>
+        <ul>
+      <?php
+        foreach($ambientes as $a){
+      ?>
+          <li>
+            <?php echo $a->nombre_ambiente;?>
+          </li>
+
+      <?php
+        }
+      ?>
+        </ul>
+      <br />      
+      <h3>Instalaciones</h3>
+        <ul>
+      <?php
+        foreach($instalaciones as $i){
+      ?>
+          <li>
+            <?php echo $i->nombre_instalacion;?>
+          </li>
+
+      <?php
+        }
+      ?>
+        </ul>
+
+    </div>
 	</div>
 </div>
 <script type="text/javascript">
