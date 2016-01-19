@@ -120,11 +120,11 @@
 										<?php
 											foreach($li_content as $lc){
 												if($lc['id_topic'] == $c->id){
-													if($lc['ver_ml']){
+
 										?>			                            	
 							                            <li><?php echo anchor('preguntas/modoLectura/'.$c->id, "<span class = 'color-icons book_open_co'></span>Modo Lectura"); ?></li>
 							            <?php
-							            			}
+
 								            		if($this->session->userdata('idusuario_tt') == $c->id_usuario){
 									            ?>
 						                                <li><?php echo anchor('topics/addPreguntaToTopic/'.$c->id, "<span class='color-icons page_white_edit_co'></span> Agregar Pregunta"); ?></li>

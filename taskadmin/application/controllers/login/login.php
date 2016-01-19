@@ -29,7 +29,7 @@ class Login extends CI_Controller
                 'main', 
                 array(
                     "modulo" => 'tasks',
-                    "pagina" => 'panel',
+                    "pagina" => 'principal',
                     "tasks" => $tasks,
                     "links" => $linksPaginacion
                 )

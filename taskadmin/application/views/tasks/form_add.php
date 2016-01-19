@@ -42,7 +42,9 @@
 					<label class="control-label" for="typehead">Demora</label>
 					<div class="control">
 						<div>
-							<input type="text" class="input-xlarge" id="demora" name ="demora" value = "<?php echo set_value('demora'); ?>" maxlength="50">
+							Dias <input type="text" placeholder = "0" style = "width:25px" id="demora" name ="demora" value = "<?php echo set_value('demora'); ?>" maxlength="10" >
+							Horas<input type="text" placeholder = "0" style = "width:25px" id="demora" name ="demora" value = "<?php echo set_value('demora'); ?>" maxlength="10">
+							Minutos<input type="text" placeholder = "0" style = "width:25px" id="demora" name ="demora" value = "<?php echo set_value('demora'); ?>" maxlength="50">
 							<p class="help-block">(Ejemplo: 2h 20m)</p>
 						</div>
 					</div>
