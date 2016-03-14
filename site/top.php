@@ -111,7 +111,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="grid_12">
-					<h1><a href = "index.php">SMartin</a>
+					<h1><a href = "index.php">SmartinWeb</a>
 					<span>diseño y desarrollo web</span></h1>
 					<?php 
 						if($modulo != 'login'){

@@ -12,7 +12,11 @@
 			</div>
 		</div>
 	</div>
-	<div class="footer_bottom"><a href="http://www.templatemonster.com/" rel="nofollow"><img src="images/footer-logo.png" alt="logo"></a></div>
+	<div class="footer_bottom">
+		<div id = "copyrightPart" name = "copyrightPart">
+			SmartinWeb 2010 - 2016
+		</div>
+	</div>
 </footer>
 <?php
 	if(($modulo=="home")||($modulo=="webblog")){
