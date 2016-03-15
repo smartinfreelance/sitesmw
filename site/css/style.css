@@ -827,6 +827,7 @@ p {
 /*Core variables and mixins*/
 /*Start Footer Copyright part*/
 #copyrightPart {
+  width: 100%;
   font-size: 16px;
   font-family: 'Open Sans', sans-serif;
   color: #ffffff;
