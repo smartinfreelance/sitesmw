@@ -29,7 +29,7 @@
 				<div id="touch_gallery">
 					<div class="grid_4">
 						<div class="img_container">
-							<a href="images/index-2_img-1-big.jpg">
+							<a href="images/index-2_img-1.jpg">
 								<img src="images/index-2_img-1.jpg" alt="projects">
 							</a>
 						</div>
@@ -44,7 +44,7 @@
 					</div>
 					<div class="grid_4">
 						<div class="img_container">
-							<a href="images/index-2_img-2-big.jpg">
+							<a href="images/index-2_img-2.jpg">
 								<img src="images/index-2_img-2.jpg" alt="projects">
 							</a>
 						</div>
@@ -59,7 +59,7 @@
 					</div>
 					<div class="grid_4">
 						<div class="img_container">
-							<a href="images/index-2_img-3-big.jpg">
+							<a href="images/index-2_img-3.jpg">
 								<img src="images/index-2_img-3.jpg" alt="projects">
 							</a>
 						</div>
@@ -74,7 +74,7 @@
 					</div>
 					<div class="grid_4">
 						<div class="img_container">
-							<a href="images/index-2_img-4-big.jpg">
+							<a href="images/index-2_img-4.jpg">
 								<img src="images/index-2_img-4.jpg" alt="projects">
 							</a>
 						</div>
@@ -89,7 +89,7 @@
 					</div>
 					<div class="grid_4">
 						<div class="img_container">
-							<a href="images/index-2_img-5-big.jpg">
+							<a href="images/index-2_img-5.jpg">
 								<img src="images/index-2_img-5.jpg" alt="projects"></a>
 							</div>
 						<article>
@@ -103,7 +103,7 @@
 					</div>
 					<div class="grid_4">
 						<div class="img_container">
-							<a href="images/index-2_img-8-big.jpg">
+							<a href="images/index-2_img-8.jpg">
 								<img src="images/index-2_img-8.jpg" alt="projects"></a>
 							</div>
 						<article>
