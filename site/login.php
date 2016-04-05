@@ -98,21 +98,37 @@
     <div class="full-width-container block-2">
       <div class ="row">
         <div class ="col12" align="center">
-          <table border = "">
+          <table border = "1" width="250px">
+            <th>
+              <td colspan="2" align="left">
+                <h4>
+                  <span>
+                    Login
+                  </span>
+                </h4>
+              </td>
+            </th>
             <tr>
               <td>
-                a
+                User
               </td>
               <td>
-                a
+                <input type = "text" name = "user" id = "user" />
               </td>
             </tr>
             <tr>
               <td>
-                b
+                Password
               </td>
               <td>
-                b
+                <input type = "text" name = "password" id = "password" />
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <a href = "contacto.php" class="btn">
+                  Contacto
+                </a>
               </td>
             </tr>
           </table>
@@ -120,39 +136,6 @@
       </div>
     </div>
   </div>
-
-  <!--  <div class="full-width-container block-5">
-  <div class="container">
-  <div class="row">
-  <div class="grid_12">
-  <header>
-  <h2><span>Novedades</span></h2>
-  </header>
-  </div>
-  <div class="grid_4">
-  <article>
-  <h3><a href="#">November 2014</a></h3>
-  <p>Gamus at magna non nunc tristique rhoncuseri tym. Aliquam nibh ante, egestas id dictum aterert commodo re luctus libero. Praesent faucibus malesuada cibuste.</p>
-  <a href="#" class="btn">LEER MAS</a>
-  </article>
-  </div>
-  <div class="grid_4">
-  <article>
-  <h3><a href="#">March 2015</a></h3>
-  <p>Damus at magna non nunc tristique rhoncuseri tym. Aliquam nibh ante, egestas id dictum aterert commodo re luctus libero. Praesent faucibus malesuada cibust.</p>
-  <a href="#" class="btn">LEER MAS</a>
-  </article>
-  </div>
-  <div class="grid_4">
-  <article>
-  <h3><a href="#">June 2015</a></h3>
-  <p>Jamus at magna non nunc tristique rhoncuseri tym. Aliquam nibh ante, egestas id dictum aterert commodo re luctus libero. Praesent faucibus malesuadaonec. </p>
-  <a href="#" class="btn">LEER MAS</a>
-  </article>
-  </div>
-  </div>
-  </div>
-  </div>-->
 </section>
 
 <!--=======footer=================================-->
